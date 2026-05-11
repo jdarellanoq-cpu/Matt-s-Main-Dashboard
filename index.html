@@ -1,0 +1,3881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matt Sanders — Operating System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bark: #F8F4EC;
+    --bark-deep: #EFE9DA;
+    --bark-edge: #E1D9C5;
+    --charcoal: #1F1B16;
+    --charcoal-soft: #4A4339;
+    --charcoal-mute: #8A8377;
+    --moss: #3D5A38;
+    --moss-light: #E5EBDA;
+    --gold: #B8842A;
+    --gold-light: #F5E8C8;
+    --gold-faint: #FAF1DC;
+    --rust: #A04A2A;
+    --rust-light: #F2DDD0;
+    --rust-faint: #F9EDE5;
+    --root: #5A4128;
+    --line: rgba(31, 27, 22, 0.12);
+    --line-soft: rgba(31, 27, 22, 0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html, body {
+    background: var(--bark);
+    color: var(--charcoal);
+    font-family: 'Manrope', -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ASPEN ANIMATION — floating leaves */
+  .floating-leaf {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    animation: leafFloat 25s linear infinite;
+  }
+  .floating-leaf:nth-of-type(1) { animation-delay: 0s;   animation-duration: 28s; top: 10%; }
+  .floating-leaf:nth-of-type(2) { animation-delay: -5s;  animation-duration: 22s; top: 28%; }
+  .floating-leaf:nth-of-type(3) { animation-delay: -13s; animation-duration: 32s; top: 50%; }
+  .floating-leaf:nth-of-type(4) { animation-delay: -19s; animation-duration: 20s; top: 20%; }
+  .floating-leaf:nth-of-type(5) { animation-delay: -26s; animation-duration: 26s; top: 66%; }
+  .floating-leaf:nth-of-type(6) { animation-delay: -9s;  animation-duration: 24s; top: 42%; }
+
+  @keyframes leafFloat {
+    0%  { left: -60px; opacity: 0; transform: rotate(0deg) translateY(0); }
+    8%  { opacity: 0.45; }
+    50% { transform: rotate(200deg) translateY(-32px); }
+    92% { opacity: 0.45; }
+    100% { left: calc(100vw + 60px); opacity: 0; transform: rotate(380deg) translateY(16px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .floating-leaf { animation: none; }
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 36px 32px 60px;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 32px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .brand-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--charcoal);
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wordmark {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--charcoal);
+    line-height: 1.1;
+  }
+
+  .wordmark em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .tagline {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--charcoal-mute);
+    margin-top: 3px;
+    letter-spacing: 0.01em;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    text-align: right;
+  }
+
+  .live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--moss);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--moss);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  .sync {
+    font-size: 12px;
+    color: var(--charcoal-mute);
+  }
+
+  /* GOALS */
+  .section-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--charcoal-mute);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 16px;
+    height: 1px;
+    background: var(--charcoal-mute);
+  }
+
+  .goals {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+
+  .goal {
+    background: var(--bark-deep);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .goal-tag {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--charcoal-mute);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .goal-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1.3;
+    margin-bottom: 16px;
+    letter-spacing: -0.005em;
+  }
+
+  .progress {
+    height: 3px;
+    background: var(--bark-edge);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .fill-gold { background: var(--gold); }
+  .fill-moss { background: var(--moss); }
+  .fill-rust { background: var(--rust); }
+
+  .goal-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .goal-stat {
+    font-size: 13px;
+    color: var(--charcoal);
+    font-weight: 500;
+  }
+
+  .goal-stat.urgent { color: var(--rust); }
+
+  .goal-deadline {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    font-style: italic;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    padding: 12px 18px;
+    border: none;
+    background: none;
+    color: var(--charcoal-mute);
+    cursor: grab;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    white-space: nowrap;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: color 0.15s, opacity 0.2s;
+    user-select: none;
+    position: relative;
+  }
+  .tab:active { cursor: grabbing; }
+  .tab.tab-dragging {
+    opacity: 0.4;
+    cursor: grabbing;
+  }
+  .tab.tab-drop-target::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 25%;
+    height: 50%;
+    width: 2px;
+    background: var(--gold);
+    border-radius: 1px;
+    animation: dropTargetPulse 1s ease-in-out infinite;
+  }
+  @keyframes dropTargetPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .tab:hover { color: var(--charcoal-soft); }
+
+  .tab.active {
+    color: var(--charcoal);
+    border-bottom-color: var(--gold);
+  }
+
+  .tab-count {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-left: 6px;
+    font-weight: 600;
+    background: var(--rust-light);
+    color: var(--rust);
+  }
+
+  .tab-count.amber { background: var(--gold-light); color: var(--gold); }
+  .tab-count.moss { background: var(--moss-light); color: var(--moss); }
+  .tab-count.neutral { background: var(--bark-edge); color: var(--charcoal-soft); }
+
+  /* PANELS */
+  .panel { display: none; }
+  .panel.active { display: block; animation: fade 0.3s ease; }
+
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* STAT ROW */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: var(--bark-deep);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid var(--line-soft);
+  }
+
+  .stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--charcoal-mute);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .stat-value {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1;
+  }
+
+  .stat-value.rust { color: var(--rust); }
+  .stat-value.gold { color: var(--gold); }
+  .stat-value.moss { color: var(--moss); }
+
+  .stat-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+
+  /* SUB-LABELS */
+  .sub-label {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--charcoal-soft);
+    margin: 24px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sub-label:first-child { margin-top: 0; }
+
+  .sub-label-bullet {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .bullet-rust { background: var(--rust); }
+  .bullet-gold { background: var(--gold); }
+  .bullet-moss { background: var(--moss); }
+
+  /* ALERT CARDS */
+  .alert {
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .alert:hover {
+    border-color: var(--charcoal-mute);
+    transform: translateY(-1px);
+  }
+
+  .alert-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .alert-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .dot-rust { background: var(--rust); }
+  .dot-gold { background: var(--gold); }
+  .dot-moss { background: var(--moss); }
+
+  .alert-body { flex: 1; }
+
+  .alert-title {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+    letter-spacing: -0.005em;
+  }
+
+  .alert-desc {
+    font-size: 13px;
+    color: var(--charcoal-soft);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  .chip {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 12px;
+    background: var(--bark-deep);
+    color: var(--charcoal-soft);
+    border: 1px solid var(--line-soft);
+    font-weight: 500;
+  }
+
+  .chip.rust { background: var(--rust-faint); color: var(--rust); border-color: rgba(160, 74, 42, 0.2); }
+  .chip.gold { background: var(--gold-faint); color: var(--gold); border-color: rgba(184, 132, 42, 0.2); }
+  .chip.moss { background: var(--moss-light); color: var(--moss); border-color: rgba(61, 90, 56, 0.2); }
+
+  .src-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .src {
+    font-size: 11px;
+    padding: 4px 11px;
+    border-radius: 6px;
+    background: var(--bark);
+    color: var(--charcoal-soft);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+
+  .src:hover {
+    background: var(--bark-deep);
+    color: var(--charcoal);
+    border-color: var(--charcoal-mute);
+  }
+
+  .reply-box {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: var(--gold-faint);
+    border-radius: 8px;
+    border: 1px solid rgba(184, 132, 42, 0.15);
+    display: none;
+  }
+
+  .reply-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .reply-draft {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    color: var(--charcoal);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .reply-btns {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .rbtn {
+    font-size: 11px;
+    padding: 5px 13px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--bark);
+    color: var(--charcoal-soft);
+    cursor: pointer;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+  }
+
+  .rbtn.primary {
+    background: var(--charcoal);
+    color: var(--bark);
+    border-color: var(--charcoal);
+  }
+
+  .rbtn:hover { transform: translateY(-1px); }
+
+  /* ON TRACK */
+  .ontrack {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 6px;
+  }
+
+  .ontrack-text {
+    font-size: 13px;
+    color: var(--charcoal);
+    flex: 1;
+  }
+
+  .ontrack-badge {
+    font-size: 10px;
+    color: var(--moss);
+    background: var(--moss-light);
+    padding: 3px 9px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* NACMA BANNER */
+  .nacma-banner {
+    background: linear-gradient(135deg, var(--gold-faint) 0%, var(--bark-deep) 100%);
+    border: 1px solid rgba(184, 132, 42, 0.25);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nacma-eyebrow {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .nacma-headline {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .nacma-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .nacma-stat {
+    background: var(--bark);
+    border-radius: 8px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+  }
+
+  .nacma-stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--charcoal-mute);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .nacma-stat-val {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1;
+  }
+
+  .nacma-stat-val.urgent { color: var(--rust); }
+  .nacma-stat-val.warn { color: var(--gold); }
+  .nacma-stat-val.small { font-size: 14px; padding-top: 4px; display: inline-block; color: var(--rust); }
+
+  /* COMPANY HEADER */
+  .company-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .company-name {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--charcoal);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+
+  .company-desc {
+    font-size: 13px;
+    color: var(--charcoal-mute);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+
+  .company-goals {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    max-width: 60%;
+    justify-content: flex-end;
+  }
+
+  .company-goal {
+    background: var(--bark-deep);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 12px;
+    min-width: 130px;
+  }
+
+  .company-goal-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--charcoal-mute);
+    margin-bottom: 3px;
+    font-weight: 600;
+  }
+
+  .company-goal-val {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1.2;
+  }
+
+  /* EMAIL TAB */
+  .email-row {
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: center;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .email-row:hover {
+    border-color: var(--charcoal-mute);
+    transform: translateX(2px);
+  }
+
+  .email-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--bark-deep);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--charcoal-soft);
+    flex-shrink: 0;
+  }
+
+  .email-info { min-width: 0; }
+
+  .email-from {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 2px;
+  }
+
+  .email-subject {
+    font-size: 12px;
+    color: var(--charcoal-soft);
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .email-snippet {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .email-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .email-age {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+
+  .email-age.urgent { color: var(--rust); font-weight: 600; }
+  .email-age.warn { color: var(--gold); font-weight: 600; }
+
+  .email-status {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* EMAIL TAB — INTELLIGENCE LAYOUT */
+  .email-intro {
+    margin-bottom: 20px;
+  }
+  .email-eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    margin-bottom: 4px;
+  }
+  .email-headline {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--charcoal);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .email-meta-line {
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .email-tally {
+    color: var(--charcoal);
+    font-weight: 500;
+  }
+  .email-divider {
+    opacity: 0.5;
+  }
+  .email-filtered {
+    font-style: italic;
+  }
+
+  /* Filter controls */
+  .email-filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .email-filter-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .email-filter-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    padding: 6px 13px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--bark);
+    color: var(--charcoal-soft);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .email-filter-btn:hover {
+    border-color: var(--charcoal-mute);
+    color: var(--charcoal);
+  }
+  .email-filter-btn.active {
+    background: var(--charcoal);
+    color: var(--bark);
+    border-color: var(--charcoal);
+  }
+  .email-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bark-deep);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 6px 12px;
+    flex: 1;
+    min-width: 200px;
+    max-width: 320px;
+    color: var(--charcoal-mute);
+    transition: border-color 0.15s;
+  }
+  .email-search:focus-within {
+    border-color: var(--charcoal-mute);
+  }
+  .email-search input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    color: var(--charcoal);
+    outline: none;
+    min-width: 0;
+  }
+  .email-search input::placeholder {
+    color: var(--charcoal-mute);
+  }
+
+  /* Sections */
+  .email-section {
+    margin-bottom: 28px;
+  }
+  .email-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .email-section-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--charcoal);
+    font-weight: 500;
+  }
+  .email-section-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-blue { background: #5A7898; }
+  .dot-mute { background: var(--charcoal-mute); }
+  .email-section-sub {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    font-style: italic;
+  }
+
+  /* Enhanced row */
+  .email-row-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+    flex-wrap: wrap;
+  }
+  .email-tag-mini {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    background: var(--bark-deep);
+    color: var(--charcoal-mute);
+    border: 1px solid var(--line-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    font-family: 'Manrope', sans-serif;
+  }
+  .email-ai-note {
+    font-size: 10.5px;
+    color: var(--gold);
+    margin-top: 6px;
+    font-style: italic;
+    line-height: 1.4;
+    font-family: 'Manrope', sans-serif;
+  }
+
+  /* Email action buttons */
+  .email-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .email-action-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--bark-deep);
+    color: var(--charcoal-soft);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .email-action-btn:hover {
+    border-color: var(--charcoal-mute);
+    color: var(--charcoal);
+    transform: translateY(-1px);
+  }
+  .email-action-btn.primary {
+    background: var(--charcoal);
+    color: var(--bark);
+    border-color: var(--charcoal);
+  }
+  .email-action-btn.primary:hover {
+    background: #2C2620;
+    border-color: #2C2620;
+  }
+  .email-action-btn-mini {
+    font-family: 'Manrope', sans-serif;
+    font-size: 10.5px;
+    padding: 3px 9px;
+    border-radius: 5px;
+    border: 1px solid var(--line);
+    background: var(--bark-deep);
+    color: var(--charcoal-soft);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .email-action-btn-mini:hover {
+    background: var(--charcoal);
+    color: var(--bark);
+    border-color: var(--charcoal);
+  }
+
+  /* Compact rows for scheduling section */
+  .email-row-compact {
+    padding: 10px 14px;
+  }
+  .email-row-compact .email-info {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .email-row-compact .email-from {
+    font-size: 12.5px;
+    margin-bottom: 0;
+  }
+  .email-row-compact .email-subject {
+    font-size: 12px;
+    color: var(--charcoal-soft);
+    margin-bottom: 0;
+  }
+
+  /* Status variants */
+  .status-critical {
+    background: var(--rust-faint);
+    color: var(--rust);
+  }
+  .status-week {
+    background: var(--gold-faint);
+    color: var(--gold);
+  }
+  .status-sent {
+    background: rgba(90, 120, 152, 0.15);
+    color: #4A6580;
+  }
+  .status-schedule {
+    background: var(--bark-deep);
+    color: var(--charcoal-soft);
+  }
+
+  /* Footer note for email tab */
+  .email-footer-note {
+    margin-top: 20px;
+    padding: 14px 18px;
+    background: var(--bark-deep);
+    border-radius: 8px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    text-align: center;
+    border: 1px solid var(--line-soft);
+  }
+
+  /* FOOTER ROOTS */
+  .footer-roots {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+
+  .footer-quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--charcoal-mute);
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .footer-meta {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    margin-top: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  /* CORE VALUES — THE ROOTS */
+  .values-section {
+    margin-top: 56px;
+    padding-top: 38px;
+    border-top: 1px solid var(--line);
+  }
+  .values-head {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .values-eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .values-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--charcoal);
+    letter-spacing: -0.01em;
+  }
+  .values-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--charcoal-mute);
+    margin-top: 6px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 36px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .value {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .value-leaf {
+    flex-shrink: 0;
+    color: var(--moss);
+    margin-top: 4px;
+  }
+  .value-text {
+    flex: 1;
+  }
+  .value-title {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+  }
+  .value-meaning {
+    font-size: 12.5px;
+    color: var(--charcoal-soft);
+    line-height: 1.55;
+  }
+
+  /* PROJECTS PANEL — health view */
+  .projects-intro {
+    margin-bottom: 24px;
+  }
+  .projects-eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    margin-bottom: 4px;
+  }
+  .projects-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--charcoal);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .projects-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--charcoal-mute);
+    line-height: 1.5;
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    background: var(--bark);
+    color: var(--charcoal-soft);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .filter-btn:hover {
+    border-color: var(--charcoal-mute);
+    color: var(--charcoal);
+  }
+  .filter-btn.active {
+    background: var(--charcoal);
+    color: var(--bark);
+    border-color: var(--charcoal);
+  }
+  .filter-count {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    background: var(--bark-deep);
+    color: var(--charcoal-mute);
+    font-weight: 600;
+  }
+  .filter-btn.active .filter-count {
+    background: rgba(248, 244, 236, 0.2);
+    color: var(--bark);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .project-card {
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: all 0.2s;
+  }
+  .project-card:hover {
+    border-color: var(--charcoal-mute);
+    transform: translateY(-1px);
+  }
+  .project-card.hidden {
+    display: none;
+  }
+
+  .project-head {
+    margin-bottom: 14px;
+  }
+  .project-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .project-company {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--charcoal-mute);
+  }
+  .health-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .health-good { background: var(--moss); }
+  .health-warn { background: var(--gold); }
+  .health-bad { background: var(--rust); }
+
+  .project-name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--charcoal);
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+  }
+
+  .shared-tag {
+    font-size: 10px;
+    color: var(--charcoal-mute);
+    margin-top: 5px;
+    font-family: 'Manrope', sans-serif;
+    letter-spacing: 0.02em;
+    font-style: normal;
+  }
+
+  .placeholder-card {
+    opacity: 0.85;
+  }
+  .placeholder-body {
+    background: var(--bark-deep);
+    border-radius: 8px;
+    padding: 18px 14px;
+    text-align: center;
+    margin: 14px 0;
+    border: 1px dashed var(--line);
+  }
+  .placeholder-icon {
+    font-size: 18px;
+    color: var(--charcoal-mute);
+    margin-bottom: 6px;
+  }
+  .placeholder-text {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    line-height: 1.45;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+  .placeholder-text-sm {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+  }
+
+  .project-progress {
+    margin-bottom: 14px;
+  }
+  .progress-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .progress-label {
+    font-size: 12px;
+    color: var(--charcoal-soft);
+  }
+  .progress-pct {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--charcoal);
+  }
+
+  .task-breakdown {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    margin-bottom: 14px;
+    padding: 10px;
+    background: var(--bark-deep);
+    border-radius: 8px;
+  }
+  .tb-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .tb-num {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1;
+  }
+  .tb-stat.amber .tb-num { color: var(--gold); }
+  .tb-stat.moss .tb-num { color: var(--moss); }
+  .tb-stat.rust .tb-num { color: var(--rust); }
+  .tb-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--charcoal-mute);
+    font-weight: 500;
+  }
+
+  .project-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .next-key {
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    flex: 1;
+    min-width: 0;
+  }
+  .next-key span {
+    color: var(--charcoal);
+    font-weight: 500;
+  }
+  .next-key .rust-text {
+    color: var(--rust);
+  }
+  .motion-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    padding: 5px 11px;
+    border-radius: 6px;
+    background: var(--bark-deep);
+    color: var(--charcoal);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    font-weight: 500;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .motion-btn:hover {
+    background: var(--charcoal);
+    color: var(--bark);
+    border-color: var(--charcoal);
+  }
+
+  /* URGENT MESSAGES — flagged by leadership */
+  .urgent-section {
+    margin-bottom: 32px;
+    background: linear-gradient(135deg, rgba(160, 74, 42, 0.05) 0%, rgba(184, 132, 42, 0.07) 100%);
+    border: 1px solid rgba(160, 74, 42, 0.2);
+    border-radius: 12px;
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+  }
+  .urgent-section.empty {
+    background: rgba(61, 90, 56, 0.04);
+    border-color: rgba(61, 90, 56, 0.15);
+  }
+  .urgent-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .urgent-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--rust);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .urgent-title.calm { color: var(--moss); }
+  .urgent-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rust);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .urgent-pulse::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--rust);
+    animation: urgentRipple 1.8s ease-out infinite;
+  }
+  .urgent-pulse.calm { background: var(--moss); }
+  .urgent-pulse.calm::after { background: var(--moss); }
+  @keyframes urgentRipple {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(2.8); opacity: 0; }
+  }
+  .urgent-count {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    font-weight: 500;
+  }
+  .urgent-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .urgent-card {
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.5s ease, padding 0.4s ease, margin 0.4s ease, border-width 0.4s ease;
+    max-height: 400px;
+    overflow: hidden;
+  }
+  .urgent-card.attended {
+    opacity: 0;
+    transform: translateY(-8px);
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-width: 0;
+    margin-top: -8px;
+  }
+  .urgent-card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .urgent-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--bark-deep);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--charcoal-soft);
+    flex-shrink: 0;
+  }
+  .urgent-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .urgent-sender {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .urgent-role {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+  .urgent-time {
+    font-size: 10px;
+    color: var(--rust);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .urgent-message {
+    font-family: 'Fraunces', serif;
+    font-size: 14.5px;
+    color: var(--charcoal);
+    line-height: 1.5;
+    margin-bottom: 10px;
+    font-style: italic;
+    padding-left: 12px;
+    border-left: 2px solid rgba(160, 74, 42, 0.3);
+  }
+  .urgent-source {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .urgent-source-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--bark-deep);
+    border-radius: 12px;
+    margin-right: 6px;
+    border: 1px solid var(--line-soft);
+    color: var(--charcoal-soft);
+  }
+  .urgent-actions {
+    display: flex;
+    gap: 6px;
+  }
+  .urgent-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    padding: 6px 13px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--bark-deep);
+    color: var(--charcoal);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .urgent-btn:hover {
+    border-color: var(--charcoal-mute);
+    background: var(--bark);
+    transform: translateY(-1px);
+  }
+  .urgent-btn.primary {
+    background: var(--rust);
+    color: var(--bark);
+    border-color: var(--rust);
+  }
+  .urgent-btn.primary:hover {
+    background: #823d20;
+    border-color: #823d20;
+  }
+  .urgent-empty {
+    text-align: center;
+    padding: 8px 0 4px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--charcoal-mute);
+  }
+
+  /* INTRO SCREEN */
+  .intro {
+    position: fixed;
+    inset: 0;
+    background: var(--bark);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.9s ease, visibility 0.9s ease;
+  }
+  .intro::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 30% 20%, rgba(184, 132, 42, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(61, 90, 56, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .intro.fading {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .intro-content {
+    text-align: center;
+    max-width: 580px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .intro-leaf {
+    margin: 0 auto 28px;
+    color: var(--gold);
+    opacity: 0.85;
+    animation: introFade 1.2s ease 0.1s backwards;
+  }
+  .intro-date {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--charcoal-mute);
+    margin-bottom: 22px;
+    font-weight: 500;
+    animation: introFade 0.9s ease 0.4s backwards;
+  }
+  .intro-greeting {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-weight: 400;
+    color: var(--charcoal);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin-bottom: 32px;
+    animation: introFade 1s ease 0.7s backwards;
+  }
+  .intro-greeting em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .intro-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--charcoal-mute);
+    opacity: 0.3;
+    margin: 0 auto 32px;
+    animation: introExpand 0.8s ease 1s backwards;
+  }
+  .intro-quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--charcoal-soft);
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+    margin-bottom: 14px;
+    animation: introFade 1.2s ease 1.2s backwards;
+  }
+  .intro-quote-attr {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    animation: introFade 1s ease 1.5s backwards;
+  }
+  .intro-cta {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    margin-top: 56px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    animation: introFadeBlink 2s ease 2s backwards infinite;
+  }
+  .intro-cta::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--charcoal-mute);
+  }
+  @keyframes introFade {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes introExpand {
+    from { opacity: 0; width: 0; }
+    to { opacity: 0.3; width: 40px; }
+  }
+  @keyframes introFadeBlink {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+  @media (max-width: 640px) {
+    .intro-greeting { font-size: 30px; }
+    .intro-quote { font-size: 18px; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 880px) {
+    .wrap { padding: 24px 18px 40px; }
+    .goals { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .nacma-stats { grid-template-columns: 1fr; }
+    .company-head { flex-direction: column; gap: 16px; }
+    .company-goals { max-width: 100%; justify-content: flex-start; }
+    .header { flex-direction: column; gap: 18px; align-items: flex-start; }
+    .header-meta { align-items: flex-start; text-align: left; }
+    .values-grid { grid-template-columns: 1fr; gap: 18px; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  /* FOCUS MODE */
+  .focus-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 9px 12px 9px 14px;
+    background: var(--bark-deep);
+    border: 1px solid var(--line-soft);
+    border-radius: 8px;
+  }
+  .focus-bar-note {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--charcoal-mute);
+  }
+  .focus-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    padding: 5px 13px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--bark);
+    color: var(--charcoal-soft);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .focus-btn:hover { border-color: var(--charcoal-mute); color: var(--charcoal); }
+  .focus-btn.active { background: var(--charcoal); color: var(--bark); border-color: var(--charcoal); }
+
+  /* SNOOZE */
+  .src.snooze-btn:hover { color: var(--gold); border-color: rgba(184,132,42,0.4); background: var(--gold-faint); }
+  .alert.snoozed { display: none; }
+  .snooze-footer {
+    display: none;
+    text-align: center;
+    padding: 12px 0 4px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .snooze-footer:hover { color: var(--gold); }
+
+  /* WEEKLY BRIEF PANEL */
+  .brief-intro {
+    margin-bottom: 22px;
+  }
+  .brief-week-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--charcoal-mute);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .brief-headline {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--charcoal);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .brief-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--charcoal-mute);
+    line-height: 1.5;
+  }
+  .brief-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .brief-section {
+    margin-bottom: 28px;
+  }
+  .brief-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 12px;
+  }
+  .brief-section-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--charcoal-soft);
+    font-weight: 500;
+  }
+  .brief-section-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .brief-section-meta {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    font-style: italic;
+  }
+  .brief-top5-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    padding: 5px 13px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--bark);
+    color: var(--charcoal-soft);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .brief-top5-btn:hover {
+    border-color: var(--charcoal-mute);
+    color: var(--charcoal);
+  }
+  .brief-top5-btn.active {
+    background: var(--charcoal);
+    color: var(--bark);
+    border-color: var(--charcoal);
+  }
+  @media (max-width: 880px) {
+    .brief-stats { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* EMAIL SHOW MORE */
+  .email-show-more {
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    text-align: center;
+    padding: 10px 0 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: color 0.15s;
+    font-weight: 500;
+  }
+  .email-show-more:hover { color: var(--charcoal); }
+  .email-show-more::before,
+  .email-show-more::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+</style>
+</head>
+<body>
+<!-- INTRO SCREEN -->
+<div class="intro" id="intro" onclick="dismissIntro()">
+  <div class="intro-content">
+    <svg class="intro-leaf" width="32" height="38" viewBox="0 0 32 38" fill="none">
+      <path d="M16 2 C9 6, 3 11, 3 19 C3 27, 10 34, 16 36 C22 34, 29 27, 29 19 C29 11, 23 6, 16 2 Z" fill="currentColor" opacity="0.65"/>
+      <line x1="16" y1="2" x2="16" y2="36" stroke="currentColor" stroke-width="1" opacity="0.55"/>
+      <path d="M16 12 L11 16" stroke="currentColor" stroke-width="0.7" opacity="0.45"/>
+      <path d="M16 12 L21 16" stroke="currentColor" stroke-width="0.7" opacity="0.45"/>
+      <path d="M16 20 L9 22" stroke="currentColor" stroke-width="0.7" opacity="0.45"/>
+      <path d="M16 20 L23 22" stroke="currentColor" stroke-width="0.7" opacity="0.45"/>
+      <path d="M16 28 L11 28" stroke="currentColor" stroke-width="0.7" opacity="0.45"/>
+      <path d="M16 28 L21 28" stroke="currentColor" stroke-width="0.7" opacity="0.45"/>
+    </svg>
+    <div class="intro-date" id="introDate">Tuesday · May 5</div>
+    <div class="intro-greeting">Good morning, <em>Matt.</em></div>
+    <div class="intro-divider"></div>
+    <div class="intro-quote" id="introQuote">"The forest grows because the trees share roots."</div>
+    <div class="intro-quote-attr" id="introAttr">— Today's note</div>
+    <div class="intro-cta">Tap anywhere to begin</div>
+  </div>
+</div>
+
+<!-- Floating leaves -->
+<svg class="floating-leaf" width="14" height="16" viewBox="0 0 14 16" aria-hidden="true">
+  <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="#B8842A" opacity="0.6"/>
+</svg>
+<svg class="floating-leaf" width="11" height="13" viewBox="0 0 14 16" aria-hidden="true">
+  <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="#3D5A38" opacity="0.5"/>
+</svg>
+<svg class="floating-leaf" width="13" height="15" viewBox="0 0 14 16" aria-hidden="true">
+  <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="#A04A2A" opacity="0.55"/>
+</svg>
+<svg class="floating-leaf" width="10" height="12" viewBox="0 0 14 16" aria-hidden="true">
+  <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="#B8842A" opacity="0.5"/>
+</svg>
+<svg class="floating-leaf" width="16" height="18" viewBox="0 0 14 16" aria-hidden="true">
+  <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="#3D5A38" opacity="0.45"/>
+</svg>
+<svg class="floating-leaf" width="12" height="14" viewBox="0 0 14 16" aria-hidden="true">
+  <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="#A04A2A" opacity="0.5"/>
+</svg>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4 L20 36" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M20 8 Q14 12 12 18 Q14 16 20 14" fill="currentColor" opacity="0.85"/>
+          <path d="M20 8 Q26 12 28 18 Q26 16 20 14" fill="currentColor" opacity="0.85"/>
+          <path d="M20 16 Q12 20 9 26 Q13 22 20 22" fill="currentColor" opacity="0.7"/>
+          <path d="M20 16 Q28 20 31 26 Q27 22 20 22" fill="currentColor" opacity="0.7"/>
+          <path d="M20 22 Q14 26 12 32 Q15 28 20 28" fill="currentColor" opacity="0.55"/>
+          <path d="M20 22 Q26 26 28 32 Q25 28 20 28" fill="currentColor" opacity="0.55"/>
+          <circle cx="14" cy="22" r="0.8" fill="currentColor"/>
+          <circle cx="26" cy="20" r="0.8" fill="currentColor"/>
+          <circle cx="20" cy="26" r="0.8" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="wordmark">Operating <em>System</em></div>
+        <div class="tagline">One root. Many trees. — Matt Sanders</div>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div class="live"><span class="pulse"></span>Live</div>
+      <div class="sync" id="syncTime"></div>
+    </div>
+  </header>
+
+  <!-- GOALS -->
+  <div class="section-label">North star — what we're growing toward</div>
+  <section class="goals">
+    <div class="goal">
+      <div class="goal-tag">Year goal</div>
+      <div class="goal-title">30 schools on Waypoint by EOY</div>
+      <div class="progress"><div class="progress-fill fill-gold" style="width: 7%"></div></div>
+      <div class="goal-foot">
+        <span class="goal-stat">2 / 30 schools</span>
+        <span class="goal-deadline">Dec 2026</span>
+      </div>
+    </div>
+    <div class="goal">
+      <div class="goal-tag">NACMA · June 8</div>
+      <div class="goal-title">3–5 schools closed before convention</div>
+      <div class="progress"><div class="progress-fill fill-gold" style="width: 40%"></div></div>
+      <div class="goal-foot">
+        <span class="goal-stat">2 / 5 — BYU · WV (FSU pending)</span>
+        <span class="goal-deadline">35 days left</span>
+      </div>
+    </div>
+    <div class="goal">
+      <div class="goal-tag">Investment</div>
+      <div class="goal-title">Close Waypoint funding round</div>
+      <div class="progress"><div class="progress-fill fill-gold" style="width: 55%"></div></div>
+      <div class="goal-foot">
+        <span class="goal-stat">SPV in progress</span>
+        <span class="goal-deadline">Ongoing</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- URGENT — flagged by leadership -->
+  <section class="urgent-section" id="urgentSection">
+    <div class="urgent-header">
+      <div class="urgent-title">
+        <span class="urgent-pulse"></span>
+        Urgent — flagged by leadership
+      </div>
+      <div class="urgent-count" id="urgentCount">2 active</div>
+    </div>
+    <div class="urgent-cards" id="urgentCards">
+      <div class="urgent-card">
+        <div class="urgent-card-top">
+          <div class="urgent-avatar">SS</div>
+          <div class="urgent-info">
+            <div class="urgent-sender">Scott Stevens</div>
+            <div class="urgent-role">Co-founder · Waypoint</div>
+          </div>
+          <div class="urgent-time">2 hrs ago</div>
+        </div>
+        <div class="urgent-message">"Priceline pricing window closes Thursday. We need a final decision by EOD Wednesday or we lose the startup rate. This affects FSU launch timing too."</div>
+        <div class="urgent-source">
+          <span class="urgent-source-tag">💬 Slack</span>
+          <span>#waypoint-product-technology · flagged with URGENT ADD TO DASHBOARD</span>
+        </div>
+        <div class="urgent-actions">
+          <button class="urgent-btn">View source ↗</button>
+          <button class="urgent-btn primary" onclick="markAttended(this)">Mark as attended</button>
+        </div>
+      </div>
+
+      <div class="urgent-card">
+        <div class="urgent-card-top">
+          <div class="urgent-avatar">SL</div>
+          <div class="urgent-info">
+            <div class="urgent-sender">Spencer Lee</div>
+            <div class="urgent-role">Co-founder · Waypoint</div>
+          </div>
+          <div class="urgent-time">5 hrs ago</div>
+        </div>
+        <div class="urgent-message">"FSU contract has a 48-hour response clause embedded in section 4.2. Need legal review before Friday or we default. Forwarded to Paul but copying you."</div>
+        <div class="urgent-source">
+          <span class="urgent-source-tag">📧 Email</span>
+          <span>Re: FSU partnership agreement · flagged with URGENT ADD TO DASHBOARD</span>
+        </div>
+        <div class="urgent-actions">
+          <button class="urgent-btn">View source ↗</button>
+          <button class="urgent-btn primary" onclick="markAttended(this)">Mark as attended</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABS -->
+  <nav class="tabs" id="tabsNav">
+    <button class="tab active" draggable="true" data-tab-id="attention" onclick="switchTab('attention', this)">Needs Attention <span class="tab-count">7</span></button>
+    <button class="tab" draggable="true" data-tab-id="email" onclick="switchTab('email', this)">Email Follow-ups <span class="tab-count">5</span></button>
+    <button class="tab" draggable="true" data-tab-id="nacma" onclick="switchTab('nacma', this)">NACMA Strategy <span class="tab-count amber">!</span></button>
+    <button class="tab" draggable="true" data-tab-id="projects" onclick="switchTab('projects', this)">Projects <span class="tab-count neutral">16</span></button>
+    <button class="tab" draggable="true" data-tab-id="ontrack" onclick="switchTab('ontrack', this)">On Track <span class="tab-count moss">8</span></button>
+    <button class="tab" draggable="true" data-tab-id="weekly" onclick="switchTab('weekly', this)">Weekly Brief <span class="tab-count neutral">9</span></button>
+  </nav>
+
+  <!-- NEEDS ATTENTION -->
+  <div id="panel-attention" class="panel active">
+    <div class="stats">
+      <div class="stat-card"><div class="stat-label">Critical</div><div class="stat-value rust">4</div></div>
+      <div class="stat-card"><div class="stat-label">Bottlenecks</div><div class="stat-value gold">3</div></div>
+      <div class="stat-card"><div class="stat-label">Moving well</div><div class="stat-value moss">8</div></div>
+      <div class="stat-card"><div class="stat-label">Auto-scheduled</div><div class="stat-value">14</div><div class="stat-sub">live in Matt's calendar</div></div>
+    </div>
+
+    <div class="focus-bar">
+      <span class="focus-bar-note" id="focusNote">7 items need attention</span>
+      <button class="focus-btn" id="focusBtn" onclick="toggleFocusMode()">⊙ Focus mode</button>
+    </div>
+
+    <div class="sub-label"><span class="sub-label-bullet bullet-rust"></span>Critical — needs attention now</div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-rust"></div>
+        <div class="alert-body">
+          <div class="alert-title">Jackson Macedone — SPV no response</div>
+          <div class="alert-desc">Email unanswered + Motion task in "Review" for 3 weeks. No mention in any Slack channel.</div>
+          <div class="chips"><span class="chip rust">25 days stalled</span><span class="chip">Investment Raise</span><span class="chip">Email + Motion + Slack</span></div>
+          <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion task</button><button class="src">💬 Slack</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Suggested reply — Email</div>
+            <div class="reply-draft">"Hi Jackson, wanted to reconnect on the SPV conversation — we've made good progress on our end and I'd love to sync this week. Would Tuesday or Wednesday work for a quick call?"</div>
+            <div class="reply-btns"><button class="rbtn primary">Open in Gmail</button><button class="rbtn">Edit draft</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-rust"></div>
+        <div class="alert-body">
+          <div class="alert-title">Big 12 / CFO Playbook — 24 days in icebox</div>
+          <div class="alert-desc">Task created 24 days ago, 0 minutes logged. Big 12 meeting already happened.</div>
+          <div class="chips"><span class="chip rust">24 days</span><span class="chip">B12 Product</span><span class="chip">Motion</span></div>
+          <div class="src-row"><button class="src">✅ Motion task</button><button class="src">💬 Slack thread</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Suggested message — Slack to Scott</div>
+            <div class="reply-draft">"Hey Scott — the Big 12 / CFO Playbook has been sitting for 3 weeks. Should we scope it down or reassign? Happy to help move it forward."</div>
+            <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-rust"></div>
+        <div class="alert-body">
+          <div class="alert-title">West Virginia Amendment — Paul still waiting</div>
+          <div class="alert-desc">Terms not sent for 18 days. Potential legal blocker for the WV deal.</div>
+          <div class="chips"><span class="chip rust">18 days</span><span class="chip">Governance</span><span class="chip">Motion + Email</span></div>
+          <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Suggested reply — Email to Paul</div>
+            <div class="reply-draft">"Paul — sorry for the delay on the WV amendment terms. Sending them over now. Let me know if you have any questions or need anything else from our end."</div>
+            <div class="reply-btns"><button class="rbtn primary">Open in Gmail</button><button class="rbtn">Edit</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert">
+      <div class="alert-row">
+        <div class="alert-dot dot-rust"></div>
+        <div class="alert-body">
+          <div class="alert-title">March invoice — not found</div>
+          <div class="alert-desc">Daniel's invoice from March still unresolved. Sent Apr 11, followed up Apr 25.</div>
+          <div class="chips"><span class="chip rust">Unresolved</span><span class="chip">Admin</span><span class="chip">Slack thread</span></div>
+          <div class="src-row"><button class="src">💬 View Slack thread</button><button class="src">📧 Resend invoice</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label"><span class="sub-label-bullet bullet-gold"></span>Active bottlenecks</div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-gold"></div>
+        <div class="alert-body">
+          <div class="alert-title">Priceline vs Xeni — decision needed today</div>
+          <div class="alert-desc">Scott and Spencer actively debating this morning. 1pm call. Xeni offering startup pricing: $1K setup vs $7.5K standard.</div>
+          <div class="chips"><span class="chip gold">Today</span><span class="chip">Waypoint Tech</span><span class="chip">Slack — active now</span></div>
+          <div class="src-row"><button class="src">💬 #waypoint-product-technology</button><button class="src">✅ Motion</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Context</div>
+            <div class="reply-draft">Priceline: better reputation, 50/50 rev share, 2.1M inventory. Xeni: $1K setup + $6K annual, more flexibility. Scott leans Priceline as exit route. Spencer still evaluating API access.</div>
+            <div class="reply-btns"><button class="rbtn primary">See full comparison</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-gold"></div>
+        <div class="alert-body">
+          <div class="alert-title">FSU onboarding — this week</div>
+          <div class="alert-desc">Matt said "nail FSU next week." seminoles.travel needs tools + booking system activated. Counts toward NACMA goal.</div>
+          <div class="chips"><span class="chip gold">This week</span><span class="chip">Business Dev</span><span class="chip">NACMA pipeline</span></div>
+          <div class="src-row"><button class="src">💬 #general</button><button class="src">✅ Motion</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Suggested message — Slack to Scott & Spencer</div>
+            <div class="reply-draft">"Team — FSU is our priority this week. Let's align on the seminoles.travel launch checklist before Matt is back. Who owns the booking system activation?"</div>
+            <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-gold"></div>
+        <div class="alert-body">
+          <div class="alert-title">Julia (influencer) — brand non-compliance</div>
+          <div class="alert-desc">Video posted without logo and without WV branded gear. Scott needs to follow up formally before her next post.</div>
+          <div class="chips"><span class="chip gold">Today</span><span class="chip">Marketing</span><span class="chip">Slack</span></div>
+          <div class="src-row"><button class="src">💬 #waypoint-marketing</button><button class="src">📱 View post</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Suggested message — DM to Julia</div>
+            <div class="reply-draft">"Hey Julia — love the energy in your latest post! Just a reminder for next time: please include the Waypoint logo with transparency and wear the WV branded gear. Happy to resend the brand kit if you need it."</div>
+            <div class="reply-btns"><button class="rbtn primary">Open DM</button><button class="rbtn">Edit</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="snooze-footer" id="snoozeFooter" onclick="restoreSnoozed()"></div>
+  </div>
+
+  <!-- NACMA -->
+  <div id="panel-nacma" class="panel">
+    <div class="nacma-banner">
+      <div class="nacma-eyebrow">🏟  NACMA Convention · June 8, 2026</div>
+      <div class="nacma-headline">Show up with logos, not leads. 3–5 schools closed, ready to celebrate.</div>
+      <div class="nacma-stats">
+        <div class="nacma-stat"><div class="nacma-stat-label">Days remaining</div><div class="nacma-stat-val warn">35</div></div>
+        <div class="nacma-stat"><div class="nacma-stat-label">Schools toward goal</div><div class="nacma-stat-val">2 / 5</div></div>
+        <div class="nacma-stat"><div class="nacma-stat-label">Early-bird reg.</div><div class="nacma-stat-val small">Expired May 1</div></div>
+      </div>
+    </div>
+
+    <div class="sub-label"><span class="sub-label-bullet bullet-gold"></span>Open decisions</div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-gold"></div>
+        <div class="alert-body">
+          <div class="alert-title">Extra Points sponsorship — $5K decision pending</div>
+          <div class="alert-desc">Sponsored post to position Waypoint in front of athletic department decision-makers before NACDA in June.</div>
+          <div class="chips"><span class="chip gold">Urgent</span><span class="chip">$5,000</span><span class="chip">15 leads guaranteed</span></div>
+          <div class="src-row"><button class="src">💬 View Slack thread</button><button class="src">📧 View proposal</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Suggested reply — Slack to Scott</div>
+            <div class="reply-draft">"Scott — let's pull the trigger on Extra Points. $5K is worth it if it gets us in front of 5+ ADs before NACDA. Can you confirm the 15-lead guarantee is still on the table?"</div>
+            <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-gold"></div>
+        <div class="alert-body">
+          <div class="alert-title">NACMA speaking opportunity — confirm with Dan</div>
+          <div class="alert-desc">Possible group pitch or speaking slot. Alex Cramer (Arkansas, NACMA board) is the inside contact.</div>
+          <div class="chips"><span class="chip gold">Unconfirmed</span><span class="chip">Inside contact: Alex Cramer</span></div>
+          <div class="src-row"><button class="src">💬 #waypoint-bizdev</button><button class="src">📧 Email Alex Cramer</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Suggested email — to Alex Cramer</div>
+            <div class="reply-draft">"Hi Alex — hope all is well. We're planning to attend NACMA in June and wanted to check if there's any opportunity to present or do a group pitch. Given your role on the board, thought you'd be the right person to ask. Would love 10 minutes if you have time."</div>
+            <div class="reply-btns"><button class="rbtn primary">Open in Gmail</button><button class="rbtn">Edit</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-gold"></div>
+        <div class="alert-body">
+          <div class="alert-title">Small School Mixer — Monday June 8, 8–9pm</div>
+          <div class="alert-desc">Best networking moment of NACDA. Inquiry sent to Zach and Alex. Sponsoring contact: Erik Christianson (EVP, Sponsorships).</div>
+          <div class="chips"><span class="chip">June 8 · 8pm</span><span class="chip">$1,750 corporate reg</span></div>
+          <div class="src-row"><button class="src">📧 Email Erik Christianson</button><button class="src">🔗 nacda.com/convention</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Key NACDA contacts</div>
+            <div class="reply-draft">Nick Strah (VP, NACMA): nstrah@nacda.com · 440-788-7473 — agenda. Erik Christianson (EVP, Sponsorships): echristianson@nacda.com · 317-600-6676 — sponsoring the mixer. Meredith Scerba (SVP, Exhibit Hall): mscerba@nacda.com · 216-659-1781 — booths.</div>
+            <div class="reply-btns"><button class="rbtn primary">Copy contacts</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label"><span class="sub-label-bullet bullet-moss"></span>Pipeline — schools counting toward goal</div>
+
+    <div class="alert">
+      <div class="alert-row">
+        <div class="alert-dot dot-moss"></div>
+        <div class="alert-body">
+          <div class="alert-title">BYU — signed and active</div>
+          <div class="alert-desc">First school. Eric is new primary contact, more responsive than Jared.</div>
+          <div class="chips"><span class="chip moss">Closed</span><span class="chip">School 1 of 3</span></div>
+          <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 #waypoint-client-success</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert">
+      <div class="alert-row">
+        <div class="alert-dot dot-moss"></div>
+        <div class="alert-body">
+          <div class="alert-title">West Virginia — signed</div>
+          <div class="alert-desc">Second school. Active client. WV Amendment with Paul still pending (see Critical).</div>
+          <div class="chips"><span class="chip moss">Closed</span><span class="chip">School 2 of 3</span></div>
+          <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 #waypoint-client-success</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert">
+      <div class="alert-row">
+        <div class="alert-dot dot-gold"></div>
+        <div class="alert-body">
+          <div class="alert-title">Florida State (FSU) — onboarding this week</div>
+          <div class="alert-desc">seminoles.travel setup in progress. Will count as third school once live.</div>
+          <div class="chips"><span class="chip gold">In progress</span><span class="chip">School 3 of 3</span></div>
+          <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 #general</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert">
+      <div class="alert-row">
+        <div class="alert-dot dot-rust"></div>
+        <div class="alert-body">
+          <div class="alert-title">Stretch goal: 4th and 5th school</div>
+          <div class="alert-desc">To hit the high end of 3–5, identify 2 more candidates from the P4 / Big 12 list and fast-track. 35 days left.</div>
+          <div class="chips"><span class="chip rust">Gap: 2 schools</span><span class="chip">Stretch</span></div>
+          <div class="src-row"><button class="src">💬 Ask Scott for P4 list</button><button class="src">✅ Create pipeline</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ON TRACK -->
+  <div id="panel-ontrack" class="panel">
+    <div class="sub-label"><span class="sub-label-bullet bullet-moss"></span>Moving well — no action needed</div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">BYU — Eric is new primary contact, more responsive than Jared</div><span class="ontrack-badge">Active client</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">IAPA research database — live, auto-updating in Google Sheets</div><span class="ontrack-badge">Done</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Longitude B2B2C model — Erik & Cameron advancing agent-based approach</div><span class="ontrack-badge">In progress</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Motion + AI Notetaker — configured across both RootsVS and Waypoint accounts</div><span class="ontrack-badge">Active</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Crowd Commerce email outreach — AI-powered, Nathan managing quality</div><span class="ontrack-badge">Running</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">GoCougs.Travel LinkedIn page — live and active</div><span class="ontrack-badge">Active</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Investor pitch narrative — B2B + fan network angle confirmed with Todd</div><span class="ontrack-badge">Aligned</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">WVU Fan Graph screencast — recorded and shared</div><span class="ontrack-badge">Done</span></div>
+  </div>
+
+  <!-- PROJECTS — health view, not Kanban -->
+  <div id="panel-projects" class="panel">
+    <div class="projects-intro">
+      <div class="projects-eyebrow">— Source of truth: Motion —</div>
+      <div class="projects-title">Project health, at a glance</div>
+      <div class="projects-sub">Live mirror of Motion workspaces. For task-level detail, open Motion.</div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterProjects('all', this)">All companies <span class="filter-count">16</span></button>
+      <button class="filter-btn" onclick="filterProjects('waypoint', this)">Waypoint <span class="filter-count">8</span></button>
+      <button class="filter-btn" onclick="filterProjects('longitude', this)">Longitude <span class="filter-count">4</span></button>
+      <button class="filter-btn" onclick="filterProjects('eco', this)">EcoSolutions <span class="filter-count">4</span></button>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- WAYPOINT — 8 projects -->
+      <div class="project-card" data-company="waypoint">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Waypoint</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Governance + Strategy</div>
+          <div class="shared-tag">↔ Also in Longitude · EcoSolutions</div>
+        </div>
+        <div class="project-progress">
+          <div class="progress-label-row">
+            <span class="progress-label">Operating cadence holding</span>
+            <span class="progress-pct">8 tasks</span>
+          </div>
+          <div class="progress"><div class="progress-fill fill-moss" style="width: 60%"></div></div>
+        </div>
+        <div class="task-breakdown">
+          <span class="tb-stat"><span class="tb-num">1</span><span class="tb-label">Icebox</span></span>
+          <span class="tb-stat"><span class="tb-num">2</span><span class="tb-label">To-do</span></span>
+          <span class="tb-stat amber"><span class="tb-num">3</span><span class="tb-label">Doing</span></span>
+          <span class="tb-stat"><span class="tb-num">1</span><span class="tb-label">Review</span></span>
+          <span class="tb-stat moss"><span class="tb-num">1</span><span class="tb-label">Done</span></span>
+        </div>
+        <div class="project-foot">
+          <div class="next-key">Next: <span>Weekly review with Scott</span></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card" data-company="waypoint">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Waypoint</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Crowd Commerce</div>
+          <div class="shared-tag">↔ Also in Longitude · EcoSolutions</div>
+        </div>
+        <div class="project-progress">
+          <div class="progress-label-row">
+            <span class="progress-label">AI outreach running, Nathan managing</span>
+            <span class="progress-pct">1 task</span>
+          </div>
+          <div class="progress"><div class="progress-fill fill-moss" style="width: 70%"></div></div>
+        </div>
+        <div class="task-breakdown">
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Icebox</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">To-do</span></span>
+          <span class="tb-stat amber"><span class="tb-num">1</span><span class="tb-label">Doing</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Review</span></span>
+          <span class="tb-stat moss"><span class="tb-num">3</span><span class="tb-label">Done</span></span>
+        </div>
+        <div class="project-foot">
+          <div class="next-key">Next: <span>Open rate analysis</span></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card" data-company="waypoint">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Waypoint</span>
+            <span class="health-dot health-warn"></span>
+          </div>
+          <div class="project-name">Waypoint Investment Raise</div>
+        </div>
+        <div class="project-progress">
+          <div class="progress-label-row">
+            <span class="progress-label">SPV in motion, lead stalled 25d</span>
+            <span class="progress-pct">1 task</span>
+          </div>
+          <div class="progress"><div class="progress-fill fill-amber" style="width: 35%"></div></div>
+        </div>
+        <div class="task-breakdown">
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Icebox</span></span>
+          <span class="tb-stat rust"><span class="tb-num">1</span><span class="tb-label">To-do</span></span>
+          <span class="tb-stat amber"><span class="tb-num">0</span><span class="tb-label">Doing</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Review</span></span>
+          <span class="tb-stat moss"><span class="tb-num">0</span><span class="tb-label">Done</span></span>
+        </div>
+        <div class="project-foot">
+          <div class="next-key">Blocker: <span class="rust-text">Jackson Macedone — 25d no reply</span></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card" data-company="waypoint">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Waypoint</span>
+            <span class="health-dot health-warn"></span>
+          </div>
+          <div class="project-name">B12 Product Development & Launch</div>
+        </div>
+        <div class="project-progress">
+          <div class="progress-label-row">
+            <span class="progress-label">CFO Playbook stalled in icebox</span>
+            <span class="progress-pct">1 task</span>
+          </div>
+          <div class="progress"><div class="progress-fill fill-amber" style="width: 25%"></div></div>
+        </div>
+        <div class="task-breakdown">
+          <span class="tb-stat rust"><span class="tb-num">1</span><span class="tb-label">Icebox</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">To-do</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Doing</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Review</span></span>
+          <span class="tb-stat moss"><span class="tb-num">0</span><span class="tb-label">Done</span></span>
+        </div>
+        <div class="project-foot">
+          <div class="next-key">Blocker: <span class="rust-text">CFO Playbook — 24d untouched</span></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card" data-company="waypoint">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Waypoint</span>
+            <span class="health-dot health-warn"></span>
+          </div>
+          <div class="project-name">NIL Portal / Athlete Ambassador</div>
+        </div>
+        <div class="project-progress">
+          <div class="progress-label-row">
+            <span class="progress-label">Landon Ainge funding push slow</span>
+            <span class="progress-pct">1 task</span>
+          </div>
+          <div class="progress"><div class="progress-fill fill-amber" style="width: 30%"></div></div>
+        </div>
+        <div class="task-breakdown">
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Icebox</span></span>
+          <span class="tb-stat amber"><span class="tb-num">1</span><span class="tb-label">To-do</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Doing</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Review</span></span>
+          <span class="tb-stat moss"><span class="tb-num">0</span><span class="tb-label">Done</span></span>
+        </div>
+        <div class="project-foot">
+          <div class="next-key">Next: <span>Advance Landon funding (17d)</span></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card" data-company="waypoint">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Waypoint</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Marketing Leadership Upskilling</div>
+          <div class="shared-tag">↔ Also in Longitude · EcoSolutions</div>
+        </div>
+        <div class="project-progress">
+          <div class="progress-label-row">
+            <span class="progress-label">Brand alignment with influencers</span>
+            <span class="progress-pct">1 task</span>
+          </div>
+          <div class="progress"><div class="progress-fill fill-moss" style="width: 50%"></div></div>
+        </div>
+        <div class="task-breakdown">
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Icebox</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">To-do</span></span>
+          <span class="tb-stat amber"><span class="tb-num">1</span><span class="tb-label">Doing</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Review</span></span>
+          <span class="tb-stat moss"><span class="tb-num">0</span><span class="tb-label">Done</span></span>
+        </div>
+        <div class="project-foot">
+          <div class="next-key">Next: <span>Julia compliance follow-up</span></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card" data-company="waypoint">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Waypoint</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Business Development</div>
+          <div class="shared-tag">↔ Also in Longitude · EcoSolutions</div>
+        </div>
+        <div class="project-progress">
+          <div class="progress-label-row">
+            <span class="progress-label">FSU closing, NACMA push active</span>
+            <span class="progress-pct">4 tasks</span>
+          </div>
+          <div class="progress"><div class="progress-fill fill-gold" style="width: 60%"></div></div>
+        </div>
+        <div class="task-breakdown">
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Icebox</span></span>
+          <span class="tb-stat"><span class="tb-num">1</span><span class="tb-label">To-do</span></span>
+          <span class="tb-stat amber"><span class="tb-num">2</span><span class="tb-label">Doing</span></span>
+          <span class="tb-stat"><span class="tb-num">1</span><span class="tb-label">Review</span></span>
+          <span class="tb-stat moss"><span class="tb-num">2</span><span class="tb-label">Done</span></span>
+        </div>
+        <div class="project-foot">
+          <div class="next-key">Next: <span>FSU launch this week</span></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card" data-company="waypoint">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Waypoint</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">IAPA / Media Partnerships</div>
+        </div>
+        <div class="project-progress">
+          <div class="progress-label-row">
+            <span class="progress-label">Carlos leading · dashboard live</span>
+            <span class="progress-pct">1 task</span>
+          </div>
+          <div class="progress"><div class="progress-fill fill-moss" style="width: 80%"></div></div>
+        </div>
+        <div class="task-breakdown">
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Icebox</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">To-do</span></span>
+          <span class="tb-stat amber"><span class="tb-num">1</span><span class="tb-label">Doing</span></span>
+          <span class="tb-stat"><span class="tb-num">0</span><span class="tb-label">Review</span></span>
+          <span class="tb-stat moss"><span class="tb-num">2</span><span class="tb-label">Done</span></span>
+        </div>
+        <div class="project-foot">
+          <div class="next-key">Next: <span>Crowd Commerce kickoff via DB</span></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <!-- LONGITUDE — 4 shared operational projects -->
+      <div class="project-card placeholder-card" data-company="longitude">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Longitude</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Governance + Strategy</div>
+          <div class="shared-tag">↔ Also in Waypoint · EcoSolutions</div>
+        </div>
+        <div class="placeholder-body">
+          <div class="placeholder-icon">⤓</div>
+          <div class="placeholder-text">Will populate once connected to Longitude workspace in Motion</div>
+        </div>
+        <div class="project-foot">
+          <div class="next-key placeholder-text-sm"><em>Awaiting connection</em></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card placeholder-card" data-company="longitude">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Longitude</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Crowd Commerce</div>
+          <div class="shared-tag">↔ Also in Waypoint · EcoSolutions</div>
+        </div>
+        <div class="placeholder-body">
+          <div class="placeholder-icon">⤓</div>
+          <div class="placeholder-text">Will populate once connected to Longitude workspace in Motion</div>
+        </div>
+        <div class="project-foot">
+          <div class="next-key placeholder-text-sm"><em>Awaiting connection</em></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card placeholder-card" data-company="longitude">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Longitude</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Marketing Leadership Upskilling</div>
+          <div class="shared-tag">↔ Also in Waypoint · EcoSolutions</div>
+        </div>
+        <div class="placeholder-body">
+          <div class="placeholder-icon">⤓</div>
+          <div class="placeholder-text">Will populate once connected to Longitude workspace in Motion</div>
+        </div>
+        <div class="project-foot">
+          <div class="next-key placeholder-text-sm"><em>Awaiting connection</em></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card placeholder-card" data-company="longitude">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">Longitude</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Business Development</div>
+          <div class="shared-tag">↔ Also in Waypoint · EcoSolutions</div>
+        </div>
+        <div class="placeholder-body">
+          <div class="placeholder-icon">⤓</div>
+          <div class="placeholder-text">Will populate once connected to Longitude workspace in Motion</div>
+        </div>
+        <div class="project-foot">
+          <div class="next-key placeholder-text-sm"><em>Awaiting connection</em></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <!-- ECOSOLUTIONS — 4 shared operational projects -->
+      <div class="project-card placeholder-card" data-company="eco">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">EcoSolutions</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Governance + Strategy</div>
+          <div class="shared-tag">↔ Also in Waypoint · Longitude</div>
+        </div>
+        <div class="placeholder-body">
+          <div class="placeholder-icon">⤓</div>
+          <div class="placeholder-text">Will populate once connected to EcoSolutions workspace in Motion</div>
+        </div>
+        <div class="project-foot">
+          <div class="next-key placeholder-text-sm"><em>Awaiting connection</em></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card placeholder-card" data-company="eco">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">EcoSolutions</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Crowd Commerce</div>
+          <div class="shared-tag">↔ Also in Waypoint · Longitude</div>
+        </div>
+        <div class="placeholder-body">
+          <div class="placeholder-icon">⤓</div>
+          <div class="placeholder-text">Will populate once connected to EcoSolutions workspace in Motion</div>
+        </div>
+        <div class="project-foot">
+          <div class="next-key placeholder-text-sm"><em>Awaiting connection</em></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card placeholder-card" data-company="eco">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">EcoSolutions</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Marketing Leadership Upskilling</div>
+          <div class="shared-tag">↔ Also in Waypoint · Longitude</div>
+        </div>
+        <div class="placeholder-body">
+          <div class="placeholder-icon">⤓</div>
+          <div class="placeholder-text">Will populate once connected to EcoSolutions workspace in Motion</div>
+        </div>
+        <div class="project-foot">
+          <div class="next-key placeholder-text-sm"><em>Awaiting connection</em></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+      <div class="project-card placeholder-card" data-company="eco">
+        <div class="project-head">
+          <div class="project-meta-row">
+            <span class="project-company">EcoSolutions</span>
+            <span class="health-dot health-good"></span>
+          </div>
+          <div class="project-name">Business Development</div>
+          <div class="shared-tag">↔ Also in Waypoint · Longitude</div>
+        </div>
+        <div class="placeholder-body">
+          <div class="placeholder-icon">⤓</div>
+          <div class="placeholder-text">Will populate once connected to EcoSolutions workspace in Motion</div>
+        </div>
+        <div class="project-foot">
+          <div class="next-key placeholder-text-sm"><em>Awaiting connection</em></div>
+          <button class="motion-btn">Open in Motion ↗</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- EMAIL -->
+  <div id="panel-email" class="panel">
+
+    <!-- Email intelligence header -->
+    <div class="email-intro">
+      <div class="email-eyebrow">— Inbox intelligence —</div>
+      <div class="email-headline">Only what matters. The rest stays out of sight.</div>
+      <div class="email-meta-line">
+        <span class="email-tally">12 emails surfaced</span>
+        <span class="email-divider">·</span>
+        <span class="email-filtered">47 newsletters &amp; notifications filtered out</span>
+      </div>
+    </div>
+
+    <!-- Filter controls -->
+    <div class="email-filters">
+      <div class="email-filter-group">
+        <button class="email-filter-btn active" data-filter="all">All</button>
+        <button class="email-filter-btn" data-filter="leadership">From leadership</button>
+        <button class="email-filter-btn" data-filter="external">External</button>
+        <button class="email-filter-btn" data-filter="clients">Clients</button>
+      </div>
+      <div class="email-search">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="20" y1="20" x2="16.5" y2="16.5"/>
+        </svg>
+        <input type="text" placeholder="Search senders, subjects, or content..." />
+      </div>
+    </div>
+
+    <!-- 1. CRITICAL — awaiting reply 3+ days from important sender -->
+    <div class="email-section">
+      <div class="email-section-head">
+        <div class="email-section-title">
+          <span class="email-section-dot dot-rust"></span>
+          Awaiting your reply — critical
+        </div>
+        <div class="email-section-sub">3 emails · important senders, 3+ days</div>
+      </div>
+
+      <div class="email-row">
+        <div class="email-avatar">JM</div>
+        <div class="email-info">
+          <div class="email-row-head">
+            <div class="email-from">Jackson Macedone</div>
+            <span class="email-tag-mini">Investor</span>
+          </div>
+          <div class="email-subject">Re: SPV — quick check-in</div>
+          <div class="email-snippet">"Just wanted to follow up on our last conversation about the SPV. Have you had a chance to review?"</div>
+          <div class="email-ai-note">⚡ Mentioned in 2 Motion tasks · No response detected · Sender priority: high</div>
+          <div class="email-actions">
+            <button class="email-action-btn primary">📧 Open in Gmail ↗</button>
+            <button class="email-action-btn">✍️ Suggested reply</button>
+          </div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age urgent">25 days</div>
+          <span class="email-status status-critical">Critical</span>
+        </div>
+      </div>
+
+      <div class="email-row">
+        <div class="email-avatar">PC</div>
+        <div class="email-info">
+          <div class="email-row-head">
+            <div class="email-from">Paul Coelho</div>
+            <span class="email-tag-mini">Legal · Partner</span>
+          </div>
+          <div class="email-subject">WV Amendment Terms</div>
+          <div class="email-snippet">"Following up — still waiting on the amendment terms from your team. Could potentially block signature this week."</div>
+          <div class="email-ai-note">⚡ Direct ask · Mentions blocker · Linked to Motion task</div>
+          <div class="email-actions">
+            <button class="email-action-btn primary">📧 Open in Gmail ↗</button>
+            <button class="email-action-btn">✍️ Suggested reply</button>
+          </div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age urgent">18 days</div>
+          <span class="email-status status-critical">Critical</span>
+        </div>
+      </div>
+
+      <div class="email-row">
+        <div class="email-avatar">MB</div>
+        <div class="email-info">
+          <div class="email-row-head">
+            <div class="email-from">Matt Brown</div>
+            <span class="email-tag-mini">Client</span>
+          </div>
+          <div class="email-subject">Waypoint Product Materials request</div>
+          <div class="email-snippet">"Whenever you get a chance, would love the product materials we discussed at the conference."</div>
+          <div class="email-ai-note">⚡ Pending Motion task "Send Waypoint Product Materials" · Active client</div>
+          <div class="email-actions">
+            <button class="email-action-btn primary">📧 Open in Gmail ↗</button>
+            <button class="email-action-btn">✍️ Suggested reply</button>
+          </div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age urgent">11 days</div>
+          <span class="email-status status-critical">Critical</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. THIS WEEK — awaiting reply, recent -->
+    <div class="email-section">
+      <div class="email-section-head">
+        <div class="email-section-title">
+          <span class="email-section-dot dot-gold"></span>
+          Awaiting your reply — this week
+        </div>
+        <div class="email-section-sub">3 emails · recent, will become critical soon</div>
+      </div>
+
+      <div class="email-row">
+        <div class="email-avatar">EM</div>
+        <div class="email-info">
+          <div class="email-row-head">
+            <div class="email-from">Erik Mikkelsen</div>
+            <span class="email-tag-mini">Co-founder · Longitude</span>
+          </div>
+          <div class="email-subject">B2B2C agent referral structure — your input</div>
+          <div class="email-snippet">"Cameron and I sketched out the referral attribution model. Want your eyes before we share with the team."</div>
+          <div class="email-ai-note">⚡ Direct decision request · Co-founder · Tied to active project</div>
+          <div class="email-actions">
+            <button class="email-action-btn primary">📧 Open in Gmail ↗</button>
+            <button class="email-action-btn">✍️ Suggested reply</button>
+          </div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age warn">2 days</div>
+          <span class="email-status status-week">This week</span>
+        </div>
+      </div>
+
+      <div class="email-row">
+        <div class="email-avatar">EM</div>
+        <div class="email-info">
+          <div class="email-row-head">
+            <div class="email-from">Eric (BYU)</div>
+            <span class="email-tag-mini">Active client</span>
+          </div>
+          <div class="email-subject">VIP travel pilot — Q2 results &amp; next steps</div>
+          <div class="email-snippet">"Pilot exceeded our targets — let's talk about expanding for the fall season."</div>
+          <div class="email-ai-note">⚡ Active client · Positive momentum · Expansion opportunity</div>
+          <div class="email-actions">
+            <button class="email-action-btn primary">📧 Open in Gmail ↗</button>
+            <button class="email-action-btn">✍️ Suggested reply</button>
+          </div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age warn">3 days</div>
+          <span class="email-status status-week">This week</span>
+        </div>
+      </div>
+
+      <div class="email-row">
+        <div class="email-avatar">LA</div>
+        <div class="email-info">
+          <div class="email-row-head">
+            <div class="email-from">Landon Ainge</div>
+            <span class="email-tag-mini">Athlete funding</span>
+          </div>
+          <div class="email-subject">NIL athlete ambassador — sample candidates</div>
+          <div class="email-snippet">"Sending over the first batch of athlete profiles for review. Need your sign-off to proceed."</div>
+          <div class="email-ai-note">⚡ Sign-off requested · NIL Portal project · Decision required</div>
+          <div class="email-actions">
+            <button class="email-action-btn primary">📧 Open in Gmail ↗</button>
+            <button class="email-action-btn">✍️ Suggested reply</button>
+          </div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age warn">4 days</div>
+          <span class="email-status status-week">This week</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. SENT — waiting on them -->
+    <div class="email-section">
+      <div class="email-section-head">
+        <div class="email-section-title">
+          <span class="email-section-dot dot-blue"></span>
+          Sent — waiting on them
+        </div>
+        <div class="email-section-sub">3 emails · open loops Matt initiated</div>
+      </div>
+
+      <div class="email-row">
+        <div class="email-avatar">SM</div>
+        <div class="email-info">
+          <div class="email-row-head">
+            <div class="email-from">Sean (Priceline)</div>
+            <span class="email-tag-mini">Vendor</span>
+          </div>
+          <div class="email-subject">Priceline launch meeting · proposed times</div>
+          <div class="email-snippet">Sent: "Looking to schedule a launch meeting next week. Tuesday 2pm or Wednesday morning?"</div>
+          <div class="email-ai-note">⚡ No response in 8 days · Suggest follow-up nudge</div>
+          <div class="email-actions">
+            <button class="email-action-btn primary">📧 Open in Gmail ↗</button>
+            <button class="email-action-btn">✍️ Suggested reply</button>
+          </div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age warn">8 days</div>
+          <span class="email-status status-sent">Sent · waiting</span>
+        </div>
+      </div>
+
+      <div class="email-row">
+        <div class="email-avatar">GP</div>
+        <div class="email-info">
+          <div class="email-row-head">
+            <div class="email-from">Grupo Panorama</div>
+            <span class="email-tag-mini">Prospect</span>
+          </div>
+          <div class="email-subject">Re: Brief intro</div>
+          <div class="email-snippet">Sent: "Thanks for the connection — happy to set up a call to discuss synergies."</div>
+          <div class="email-ai-note">⚡ Initial outreach · Cold lead · Auto-suggest nudge in 2 days</div>
+          <div class="email-actions">
+            <button class="email-action-btn primary">📧 Open in Gmail ↗</button>
+            <button class="email-action-btn">✍️ Suggested reply</button>
+          </div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age">5 days</div>
+          <span class="email-status status-sent">Sent · waiting</span>
+        </div>
+      </div>
+
+      <div class="email-row">
+        <div class="email-avatar">AC</div>
+        <div class="email-info">
+          <div class="email-row-head">
+            <div class="email-from">Alex Cramer</div>
+            <span class="email-tag-mini">NACMA board</span>
+          </div>
+          <div class="email-subject">NACMA convention speaking opportunity</div>
+          <div class="email-snippet">Sent: "Wanted to check if there's any opportunity to present at NACMA in June..."</div>
+          <div class="email-ai-note">⚡ NACMA goal-relevant · 35 days until convention · High-value contact</div>
+          <div class="email-actions">
+            <button class="email-action-btn primary">📧 Open in Gmail ↗</button>
+            <button class="email-action-btn">✍️ Suggested reply</button>
+          </div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age">3 days</div>
+          <span class="email-status status-sent">Sent · waiting</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. SCHEDULING -->
+    <div class="email-section">
+      <div class="email-section-head">
+        <div class="email-section-title">
+          <span class="email-section-dot dot-mute"></span>
+          Scheduling requests
+        </div>
+        <div class="email-section-sub">3 emails · routing to calendar coordination</div>
+      </div>
+
+      <div class="email-row email-row-compact">
+        <div class="email-avatar">CK</div>
+        <div class="email-info">
+          <div class="email-from">Coley Krieg</div>
+          <div class="email-subject">Quick 30 min next week?</div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age">2 days</div>
+          <span class="email-status status-schedule">Schedule</span>
+        </div>
+      </div>
+
+      <div class="email-row email-row-compact">
+        <div class="email-avatar">BR</div>
+        <div class="email-info">
+          <div class="email-from">Brandon (Big 12)</div>
+          <div class="email-subject">Follow-up call · Big 12 product</div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age">4 days</div>
+          <span class="email-status status-schedule">Schedule</span>
+        </div>
+      </div>
+
+      <div class="email-row email-row-compact">
+        <div class="email-avatar">DR</div>
+        <div class="email-info">
+          <div class="email-from">Dan Robinson</div>
+          <div class="email-subject">Catch-up rescheduling</div>
+        </div>
+        <div class="email-meta">
+          <div class="email-age">1 day</div>
+          <span class="email-status status-schedule">Schedule</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer note -->
+    <div class="email-footer-note">
+      Powered by Claude · re-evaluated every 15 min · cross-referenced with Motion + Slack
+    </div>
+
+  </div>
+
+  <!-- WEEKLY BRIEF -->
+  <div id="panel-weekly" class="panel">
+    <div class="brief-intro">
+      <div class="brief-week-label">Weekly Brief</div>
+      <div class="brief-headline">Week of May 5–9, 2026</div>
+      <div class="brief-sub">Synthesized from Motion · Slack · Email — updated each Monday morning.</div>
+    </div>
+
+    <div class="brief-stats">
+      <div class="stat-card"><div class="stat-label">Wins</div><div class="stat-value moss">6</div><div class="stat-sub">things that moved forward</div></div>
+      <div class="stat-card"><div class="stat-label">Risks</div><div class="stat-value gold">2</div><div class="stat-sub">need watching</div></div>
+      <div class="stat-card"><div class="stat-label">Blockers</div><div class="stat-value rust">4</div><div class="stat-sub">actively stalled</div></div>
+      <div class="stat-card"><div class="stat-label">Decisions</div><div class="stat-value gold">3</div><div class="stat-sub">awaiting Matt</div></div>
+      <div class="stat-card"><div class="stat-label">Next Steps</div><div class="stat-value">6</div><div class="stat-sub">coming week priorities</div></div>
+    </div>
+
+    <!-- WINS -->
+    <div class="brief-section">
+      <div class="brief-section-head">
+        <div class="brief-section-title">
+          <span class="sub-label-bullet bullet-moss"></span>
+          Wins — what moved forward this week
+        </div>
+        <div class="brief-section-controls">
+          <span class="brief-section-meta">6 items</span>
+          <button class="brief-top5-btn">Top 5 only</button>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-moss"></div>
+          <div class="alert-body">
+            <div class="alert-title">BYU VIP travel pilot exceeded Q2 targets</div>
+            <div class="alert-desc">Eric reports results exceeded expectations and is ready to discuss expansion for the fall season — major client win.</div>
+            <div class="chips"><span class="chip moss">Client win</span><span class="chip">Waypoint</span></div>
+            <div class="src-row"><button class="src">📧 View email</button><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-moss"></div>
+          <div class="alert-body">
+            <div class="alert-title">Crowd Commerce AI outreach running autonomously</div>
+            <div class="alert-desc">Nathan is managing quality. Outreach pipeline active and hitting volume targets without manual intervention.</div>
+            <div class="chips"><span class="chip moss">Autonomous</span><span class="chip">Longitude</span></div>
+            <div class="src-row"><button class="src">💬 Slack</button><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-moss"></div>
+          <div class="alert-body">
+            <div class="alert-title">Investor pitch narrative confirmed with Todd</div>
+            <div class="alert-desc">B2B + fan network angle locked in. Investor story is coherent and ready for SPV conversations.</div>
+            <div class="chips"><span class="chip moss">Aligned</span><span class="chip">Investment Raise</span></div>
+            <div class="src-row"><button class="src">💬 Slack</button><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-moss"></div>
+          <div class="alert-body">
+            <div class="alert-title">GoCougs.Travel LinkedIn page live</div>
+            <div class="alert-desc">Page published and generating organic reach. Brand presence established on a key platform for athletic program buyers.</div>
+            <div class="chips"><span class="chip moss">Live</span><span class="chip">Marketing</span></div>
+            <div class="src-row"><button class="src">💬 Slack</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-moss"></div>
+          <div class="alert-body">
+            <div class="alert-title">IAPA research database live and auto-updating</div>
+            <div class="alert-desc">Media partnerships database is live in Google Sheets, refreshing automatically. Built and shipped by Daniel.</div>
+            <div class="chips"><span class="chip moss">Done</span><span class="chip">IAPA / Media</span></div>
+            <div class="src-row"><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-moss"></div>
+          <div class="alert-body">
+            <div class="alert-title">WVU Fan Graph screencast recorded and shared</div>
+            <div class="alert-desc">Deliverable completed and sent. Client now has the visual asset for their internal presentation.</div>
+            <div class="chips"><span class="chip moss">Delivered</span><span class="chip">West Virginia</span></div>
+            <div class="src-row"><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RISKS -->
+    <div class="brief-section">
+      <div class="brief-section-head">
+        <div class="brief-section-title">
+          <span class="sub-label-bullet bullet-gold"></span>
+          Risks — things that could become problems
+        </div>
+        <div class="brief-section-controls">
+          <span class="brief-section-meta">2 items</span>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">Jackson Macedone (SPV) — investor window narrowing</div>
+            <div class="alert-desc">25 days without response. SPV investors tend to go cold after 30 days — risk of losing this lead entirely if not reengaged this week.</div>
+            <div class="chips"><span class="chip gold">25 days</span><span class="chip">Investment Raise</span></div>
+            <div class="src-row"><button class="src">📧 View thread</button><button class="src">✅ Motion</button><button class="src">💬 Slack</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">NACMA pace — 2 of 5 schools closed, 35 days left</div>
+            <div class="alert-desc">Need 3 more schools in 35 days to hit the high end of the goal. At current pace, goal is at risk without meaningful acceleration this week.</div>
+            <div class="chips"><span class="chip gold">35 days</span><span class="chip">NACMA · June 8</span></div>
+            <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 Slack</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCKERS -->
+    <div class="brief-section">
+      <div class="brief-section-head">
+        <div class="brief-section-title">
+          <span class="sub-label-bullet bullet-rust"></span>
+          Blockers — what's actively stalling progress
+        </div>
+        <div class="brief-section-controls">
+          <span class="brief-section-meta">4 items</span>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-rust"></div>
+          <div class="alert-body">
+            <div class="alert-title">WV Amendment Terms — Paul waiting 18 days</div>
+            <div class="alert-desc">Legal partner can't finalize the West Virginia contract without the amendment terms. Potential block on signature this week.</div>
+            <div class="chips"><span class="chip rust">18 days</span><span class="chip">Legal · Governance</span></div>
+            <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-rust"></div>
+          <div class="alert-body">
+            <div class="alert-title">Big 12 / CFO Playbook — 24 days in icebox</div>
+            <div class="alert-desc">Task created 24 days ago, 0 minutes logged. Meeting with Big 12 already happened — needs a decision this week: revive or close it out.</div>
+            <div class="chips"><span class="chip rust">24 days</span><span class="chip">B12 Product</span></div>
+            <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 Slack</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-rust"></div>
+          <div class="alert-body">
+            <div class="alert-title">FSU booking system not activated</div>
+            <div class="alert-desc">seminoles.travel tools not live. FSU cannot count toward the NACMA school goal until the booking system is active.</div>
+            <div class="chips"><span class="chip rust">Blocking</span><span class="chip">Business Dev</span><span class="chip">NACMA</span></div>
+            <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 #general</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-rust"></div>
+          <div class="alert-body">
+            <div class="alert-title">March invoice — unresolved after two follow-ups</div>
+            <div class="alert-desc">Daniel's March invoice sent Apr 11, followed up Apr 25. No resolution. Relationship item that needs to close this week.</div>
+            <div class="chips"><span class="chip rust">Unresolved</span><span class="chip">Admin</span></div>
+            <div class="src-row"><button class="src">💬 Slack thread</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DECISIONS NEEDED -->
+    <div class="brief-section">
+      <div class="brief-section-head">
+        <div class="brief-section-title">
+          <span class="sub-label-bullet bullet-gold"></span>
+          Decisions needed — waiting on Matt
+        </div>
+        <div class="brief-section-controls">
+          <span class="brief-section-meta">3 items</span>
+        </div>
+      </div>
+
+      <div class="alert" onclick="toggleReply(this)">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">Priceline vs Xeni — pricing window closes Thursday</div>
+            <div class="alert-desc">Scott leans Priceline (exit route, 2.1M inventory). Spencer still evaluating Xeni ($1K setup vs $7.5K standard). Decision needed before EOD Wednesday.</div>
+            <div class="chips"><span class="chip gold">Deadline: Wednesday</span><span class="chip">Waypoint Tech</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button><button class="src">✅ Motion</button></div>
+            <div class="reply-box">
+              <div class="reply-label">Context</div>
+              <div class="reply-draft">Priceline: better brand, 50/50 rev share, 2.1M inventory. Xeni: $1K setup + $6K annual, more flexibility. Scott leans Priceline as exit route. Spencer still evaluating API access.</div>
+              <div class="reply-btns"><button class="rbtn primary">See full comparison</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert" onclick="toggleReply(this)">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">Extra Points sponsorship — $5K decision pending</div>
+            <div class="alert-desc">Sponsored post in front of athletic department decision-makers before NACDA. 15 leads guaranteed. Window closing — needs a yes or no this week.</div>
+            <div class="chips"><span class="chip gold">$5,000</span><span class="chip">15 leads</span><span class="chip">NACMA</span></div>
+            <div class="src-row"><button class="src">💬 Slack thread</button><button class="src">📧 View proposal</button></div>
+            <div class="reply-box">
+              <div class="reply-label">Suggested reply — Slack to Scott</div>
+              <div class="reply-draft">"Scott — let's pull the trigger on Extra Points. $5K is worth it if it gets us in front of 5+ ADs before NACDA. Can you confirm the 15-lead guarantee is still on the table?"</div>
+              <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert" onclick="toggleReply(this)">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">BYU fall season expansion — Eric waiting for green light</div>
+            <div class="alert-desc">Pilot exceeded targets. Eric is ready to scope and price the fall season. Decision to expand or hold affects Waypoint H2 revenue targets.</div>
+            <div class="chips"><span class="chip gold">Client ready</span><span class="chip">BYU · Waypoint</span></div>
+            <div class="src-row"><button class="src">📧 View email</button><button class="src">✅ Motion</button></div>
+            <div class="reply-box">
+              <div class="reply-label">Suggested reply — Email to Eric</div>
+              <div class="reply-draft">"Eric — great news on the pilot results. Let's move forward for fall. Can we set up a call this week to scope it out? I'm flexible Tuesday or Thursday."</div>
+              <div class="reply-btns"><button class="rbtn primary">Open in Gmail</button><button class="rbtn">Edit</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEXT STEPS -->
+    <div class="brief-section">
+      <div class="brief-section-head">
+        <div class="brief-section-title">
+          <span class="sub-label-bullet" style="background: var(--charcoal-mute)"></span>
+          Next steps — coming week priorities
+        </div>
+        <div class="brief-section-controls">
+          <span class="brief-section-meta">6 items</span>
+          <button class="brief-top5-btn">Top 5 only</button>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Activate FSU booking system on seminoles.travel</div>
+            <div class="alert-desc">Priority 1 this week. FSU counts as school 3 toward the NACMA goal only once the booking system is live.</div>
+            <div class="chips"><span class="chip">This week</span><span class="chip">Business Dev</span><span class="chip">NACMA</span></div>
+            <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 #general</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Reply to Jackson Macedone — reopen SPV conversation</div>
+            <div class="alert-desc">25 days stalled. A short outreach this week keeps the investor relationship alive before it goes cold at the 30-day mark.</div>
+            <div class="chips"><span class="chip">Urgent</span><span class="chip">Investment Raise</span></div>
+            <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Send WV amendment terms to Paul Coelho</div>
+            <div class="alert-desc">18 days pending. Sending this week removes the legal blocker and unblocks the West Virginia contract signature.</div>
+            <div class="chips"><span class="chip">Legal</span><span class="chip">Governance</span></div>
+            <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Decide Priceline vs Xeni before Thursday pricing window</div>
+            <div class="alert-desc">Call with Scott and Spencer to align and make the final call. Have both summaries ready — pricing window closes Thursday.</div>
+            <div class="chips"><span class="chip">Deadline: Wednesday</span><span class="chip">Waypoint Tech</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Identify 4th and 5th school candidates (P4 / Big 12)</div>
+            <div class="alert-desc">To hit the NACMA stretch goal of 5 schools, need 2 more in pipeline. Ask Scott for P4 list and fast-track outreach. 35 days left.</div>
+            <div class="chips"><span class="chip">35 days</span><span class="chip">Business Dev</span><span class="chip">NACMA</span></div>
+            <div class="src-row"><button class="src">💬 Ask Scott</button><button class="src">✅ Create pipeline</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Extra Points sponsorship — confirm decision with Scott</div>
+            <div class="alert-desc">$5K · 15 leads guaranteed. If approved, coordinate timing with Scott before the NACDA window closes.</div>
+            <div class="chips"><span class="chip">$5K</span><span class="chip">NACMA</span></div>
+            <div class="src-row"><button class="src">💬 Slack thread</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORE VALUES — THE ROOTS -->
+  <section class="values-section">
+    <div class="values-head">
+      <div class="values-eyebrow">— The roots —</div>
+      <div class="values-title">What grows below the surface</div>
+      <div class="values-sub">The values that hold the system together.</div>
+    </div>
+    <div class="values-grid">
+      <div class="value">
+        <svg class="value-leaf" width="14" height="16" viewBox="0 0 14 16" fill="none">
+          <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="currentColor" opacity="0.7"/>
+          <line x1="7" y1="1" x2="7" y2="15.5" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
+        </svg>
+        <div class="value-text">
+          <div class="value-title">Neglect not the gift that is in you</div>
+          <div class="value-meaning">Everyone has native talent. Each person discovers it; leaders help develop it.</div>
+        </div>
+      </div>
+
+      <div class="value">
+        <svg class="value-leaf" width="14" height="16" viewBox="0 0 14 16" fill="none">
+          <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="currentColor" opacity="0.7"/>
+          <line x1="7" y1="1" x2="7" y2="15.5" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
+        </svg>
+        <div class="value-text">
+          <div class="value-title">Humility accelerates learning</div>
+          <div class="value-meaning">Learn from mistakes, from change, from others. Humility creates learning assets.</div>
+        </div>
+      </div>
+
+      <div class="value">
+        <svg class="value-leaf" width="14" height="16" viewBox="0 0 14 16" fill="none">
+          <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="currentColor" opacity="0.7"/>
+          <line x1="7" y1="1" x2="7" y2="15.5" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
+        </svg>
+        <div class="value-text">
+          <div class="value-title">Primacy of getting it right</div>
+          <div class="value-meaning">Focus on WHAT is right, not WHO is right. Outcomes over positioning.</div>
+        </div>
+      </div>
+
+      <div class="value">
+        <svg class="value-leaf" width="14" height="16" viewBox="0 0 14 16" fill="none">
+          <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="currentColor" opacity="0.7"/>
+          <line x1="7" y1="1" x2="7" y2="15.5" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
+        </svg>
+        <div class="value-text">
+          <div class="value-title">Gratitude unlocks everything</div>
+          <div class="value-meaning">Real gratitude makes people feel seen. Loyalty and motivation grow naturally.</div>
+        </div>
+      </div>
+
+      <div class="value">
+        <svg class="value-leaf" width="14" height="16" viewBox="0 0 14 16" fill="none">
+          <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="currentColor" opacity="0.7"/>
+          <line x1="7" y1="1" x2="7" y2="15.5" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
+        </svg>
+        <div class="value-text">
+          <div class="value-title">Failure creates learning assets</div>
+          <div class="value-meaning">Move at market speed. Fail. Learn aggressively. Outpace the competition.</div>
+        </div>
+      </div>
+
+      <div class="value">
+        <svg class="value-leaf" width="14" height="16" viewBox="0 0 14 16" fill="none">
+          <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="currentColor" opacity="0.7"/>
+          <line x1="7" y1="1" x2="7" y2="15.5" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
+        </svg>
+        <div class="value-text">
+          <div class="value-title">I believe in you</div>
+          <div class="value-meaning">Belief unlocks the human spirit. The more we believe in others, the more they believe in themselves.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer-roots">
+    <div class="footer-quote">"Aspen groves are not many trees. They are one organism, connected underground."</div>
+    <div class="footer-meta">Pando — fed by Motion · Slack · Email</div>
+  </div>
+
+</div>
+
+<script>
+// INTRO SCREEN
+const dailyQuotes = [
+  { text: "The forest grows because the trees share roots.", attr: "— Aspen wisdom" },
+  { text: "Believe in the gift before you can give it.", attr: "— On leadership" },
+  { text: "Move at the speed of learning.", attr: "— On failure" },
+  { text: "What you tend, grows.", attr: "— On focus" },
+  { text: "The tallest tree shares the deepest root.", attr: "— On humility" },
+  { text: "Right WHAT, not right WHO.", attr: "— Primacy of getting it right" },
+  { text: "Gratitude — in detail — unlocks loyalty.", attr: "— On gratitude" },
+  { text: "Quiet roots. Loud canopy.", attr: "— Aspen wisdom" },
+  { text: "Failure, met aggressively, becomes asset.", attr: "— On learning" },
+  { text: "Notice. Name it. Then nurture.", attr: "— On gifts" },
+  { text: "The strongest groves are the ones that share underground.", attr: "— Aspen wisdom" },
+  { text: "Belief is the soil that makes others grow.", attr: "— I believe in you" },
+  { text: "Outcomes over positioning. Always.", attr: "— On clarity" },
+  { text: "Pando is not many trees. Pando is one organism.", attr: "— On systems" },
+];
+
+function setIntroContent() {
+  const today = new Date();
+  // Pick quote based on date for daily consistency
+  const dayIndex = (today.getDate() + today.getMonth() + today.getFullYear()) % dailyQuotes.length;
+  const q = dailyQuotes[dayIndex];
+
+  const dayName = today.toLocaleDateString('en-US', { weekday: 'long' });
+  const monthDay = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+
+  document.getElementById('introDate').textContent = `${dayName} · ${monthDay}`;
+  document.getElementById('introQuote').textContent = `"${q.text}"`;
+  document.getElementById('introAttr').textContent = q.attr;
+}
+
+function dismissIntro() {
+  const intro = document.getElementById('intro');
+  intro.classList.add('fading');
+  setTimeout(() => { intro.style.display = 'none'; }, 950);
+}
+
+document.addEventListener('keydown', (e) => {
+  const intro = document.getElementById('intro');
+  if (intro && !intro.classList.contains('fading') && intro.style.display !== 'none') {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+      dismissIntro();
+    }
+  }
+});
+
+setIntroContent();
+
+function setSyncTime() {
+  const now = new Date();
+  const day = now.toLocaleDateString('en-US', { weekday: 'short' });
+  const date = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  document.getElementById('syncTime').textContent = `${day}, ${date} · Synced ${time} MT`;
+}
+setSyncTime();
+
+// EXISTING DASHBOARD JS
+function switchTab(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+function toggleReply(card) {
+  const box = card.querySelector('.reply-box');
+  if (box) {
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+  }
+}
+
+// PROJECTS FILTER
+function filterProjects(company, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.project-card').forEach(card => {
+    if (company === 'all' || card.dataset.company === company) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+// EMAIL FILTERS — sender type + search
+function setupEmailFilters() {
+  const filterBtns = document.querySelectorAll('.email-filter-btn');
+  const searchInput = document.querySelector('.email-search input');
+  
+  // Map filter type to which email tags should match
+  const filterMap = {
+    'leadership': ['Co-founder', 'Co-founder · Waypoint', 'Co-founder · Longitude'],
+    'external': ['Vendor', 'Prospect', 'Investor', 'NACMA board', 'Legal · Partner'],
+    'clients': ['Client', 'Active client', 'Athlete funding']
+  };
+  
+  function applyFilters() {
+    const activeFilter = document.querySelector('.email-filter-btn.active')?.dataset.filter || 'all';
+    const searchTerm = (searchInput?.value || '').toLowerCase().trim();
+    
+    document.querySelectorAll('#panel-email .email-row').forEach(row => {
+      let visible = true;
+      
+      // Filter by sender type
+      if (activeFilter !== 'all') {
+        const tag = row.querySelector('.email-tag-mini')?.textContent.trim() || '';
+        const validTags = filterMap[activeFilter] || [];
+        visible = validTags.some(t => tag.includes(t));
+      }
+      
+      // Filter by search term
+      if (visible && searchTerm) {
+        const text = row.textContent.toLowerCase();
+        visible = text.includes(searchTerm);
+      }
+      
+      row.style.display = visible ? '' : 'none';
+    });
+    
+    // Hide empty sections
+    document.querySelectorAll('#panel-email .email-section').forEach(section => {
+      const visibleRows = [...section.querySelectorAll('.email-row')]
+        .filter(r => r.style.display !== 'none');
+      section.style.display = visibleRows.length === 0 ? 'none' : '';
+    });
+  }
+  
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    });
+  });
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', applyFilters);
+  }
+}
+
+setupEmailFilters();
+
+// EMAIL SHOW MORE
+const EMAIL_SECTION_CAP = 3;
+
+function setupEmailShowMore() {
+  document.querySelectorAll('#panel-email .email-section').forEach(section => {
+    const rows = [...section.querySelectorAll('.email-row')];
+    if (rows.length <= EMAIL_SECTION_CAP) return;
+    rows.slice(EMAIL_SECTION_CAP).forEach(r => r.style.display = 'none');
+    const hidden = rows.length - EMAIL_SECTION_CAP;
+    const btn = document.createElement('div');
+    btn.className = 'email-show-more';
+    btn.textContent = `Show ${hidden} more`;
+    btn.onclick = () => { rows.forEach(r => r.style.display = ''); btn.remove(); };
+    section.appendChild(btn);
+  });
+}
+
+setupEmailShowMore();
+
+// TAB DRAG & DROP REORDERING
+let draggedTab = null;
+
+function setupTabDragDrop() {
+  const tabsNav = document.getElementById('tabsNav');
+  if (!tabsNav) return;
+
+  // Restore saved order on load
+  try {
+    const savedOrder = localStorage.getItem('tabOrder');
+    if (savedOrder) {
+      const order = JSON.parse(savedOrder);
+      const tabsById = {};
+      tabsNav.querySelectorAll('.tab').forEach(t => {
+        tabsById[t.dataset.tabId] = t;
+      });
+      order.forEach(id => {
+        if (tabsById[id]) tabsNav.appendChild(tabsById[id]);
+      });
+    }
+  } catch (e) { /* ignore */ }
+
+  tabsNav.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('dragstart', (e) => {
+      draggedTab = tab;
+      tab.classList.add('tab-dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      try { e.dataTransfer.setData('text/plain', tab.dataset.tabId); } catch (err) {}
+    });
+
+    tab.addEventListener('dragend', () => {
+      tab.classList.remove('tab-dragging');
+      tabsNav.querySelectorAll('.tab').forEach(t => t.classList.remove('tab-drop-target'));
+      draggedTab = null;
+      saveTabOrder();
+    });
+
+    tab.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      if (draggedTab && draggedTab !== tab) {
+        tabsNav.querySelectorAll('.tab').forEach(t => t.classList.remove('tab-drop-target'));
+        tab.classList.add('tab-drop-target');
+      }
+    });
+
+    tab.addEventListener('dragleave', (e) => {
+      if (!tab.contains(e.relatedTarget)) {
+        tab.classList.remove('tab-drop-target');
+      }
+    });
+
+    tab.addEventListener('drop', (e) => {
+      e.preventDefault();
+      tab.classList.remove('tab-drop-target');
+      if (draggedTab && draggedTab !== tab) {
+        const rect = tab.getBoundingClientRect();
+        const insertBefore = (e.clientX - rect.left) < rect.width / 2;
+        if (insertBefore) {
+          tabsNav.insertBefore(draggedTab, tab);
+        } else {
+          tabsNav.insertBefore(draggedTab, tab.nextSibling);
+        }
+      }
+    });
+  });
+}
+
+function saveTabOrder() {
+  try {
+    const order = [...document.querySelectorAll('#tabsNav .tab')].map(t => t.dataset.tabId);
+    localStorage.setItem('tabOrder', JSON.stringify(order));
+  } catch (e) { /* ignore */ }
+}
+
+setupTabDragDrop();
+
+// URGENT MESSAGES
+function markAttended(btn) {
+  const card = btn.closest('.urgent-card');
+  card.classList.add('attended');
+  setTimeout(() => {
+    card.remove();
+    updateUrgentCount();
+  }, 500);
+}
+
+function updateUrgentCount() {
+  const remaining = document.querySelectorAll('.urgent-card:not(.attended)').length;
+  const countEl = document.getElementById('urgentCount');
+  const section = document.getElementById('urgentSection');
+  
+  if (remaining === 0) {
+    section.classList.add('empty');
+    section.innerHTML = `
+      <div class="urgent-header">
+        <div class="urgent-title calm">
+          <span class="urgent-pulse calm"></span>
+          All clear — no urgent flags
+        </div>
+      </div>
+      <div class="urgent-empty">"The grove is calm. Nothing requires your immediate attention."</div>
+    `;
+  } else {
+    countEl.textContent = remaining + (remaining === 1 ? ' active' : ' active');
+  }
+}
+
+// FOCUS MODE
+let focusActive = false;
+
+function applyFocusMode() {
+  const visibleAlerts = [...document.querySelectorAll('#panel-attention .alert:not(.snoozed)')];
+  visibleAlerts.forEach((a, i) => { a.style.display = i < 3 ? '' : 'none'; });
+  document.querySelectorAll('#panel-attention .sub-label').forEach(label => {
+    label.style.display = label.textContent.includes('bottleneck') ? 'none' : '';
+  });
+  const hidden = Math.max(0, visibleAlerts.length - 3);
+  const note = document.getElementById('focusNote');
+  if (note) note.textContent = hidden > 0 ? `Showing top 3 · ${hidden} hidden` : 'Showing top 3';
+}
+
+function toggleFocusMode() {
+  focusActive = !focusActive;
+  const btn = document.getElementById('focusBtn');
+  if (focusActive) {
+    btn.classList.add('active');
+    btn.textContent = '× Exit focus';
+    applyFocusMode();
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '⊙ Focus mode';
+    document.querySelectorAll('#panel-attention .alert:not(.snoozed)').forEach(a => a.style.display = '');
+    document.querySelectorAll('#panel-attention .sub-label').forEach(l => l.style.display = '');
+    updateAttentionNote();
+  }
+}
+
+function updateAttentionNote() {
+  const visible = document.querySelectorAll('#panel-attention .alert:not(.snoozed)').length;
+  const note = document.getElementById('focusNote');
+  if (note) note.textContent = `${visible} item${visible !== 1 ? 's' : ''} need${visible === 1 ? 's' : ''} attention`;
+}
+
+// SNOOZE
+let snoozedCount = 0;
+
+function setupSnooze() {
+  document.querySelectorAll('#panel-attention .alert').forEach(card => {
+    const srcRow = card.querySelector('.src-row');
+    if (!srcRow) return;
+    const btn = document.createElement('button');
+    btn.className = 'src snooze-btn';
+    btn.textContent = '⏸ Snooze';
+    btn.onclick = (e) => { e.stopPropagation(); snoozeAlert(card); };
+    srcRow.appendChild(btn);
+  });
+}
+
+function snoozeAlert(card) {
+  card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+  card.style.opacity = '0';
+  card.style.transform = 'translateX(12px)';
+  setTimeout(() => {
+    card.classList.add('snoozed');
+    card.style.transition = card.style.opacity = card.style.transform = '';
+    snoozedCount++;
+    updateAttentionNote();
+    const footer = document.getElementById('snoozeFooter');
+    footer.style.display = 'block';
+    footer.textContent = `↩ ${snoozedCount} snoozed — tap to restore`;
+    if (focusActive) applyFocusMode();
+  }, 320);
+}
+
+function restoreSnoozed() {
+  document.querySelectorAll('#panel-attention .alert.snoozed').forEach(a => a.classList.remove('snoozed'));
+  snoozedCount = 0;
+  document.getElementById('snoozeFooter').style.display = 'none';
+  updateAttentionNote();
+  if (focusActive) applyFocusMode();
+}
+
+setupSnooze();
+updateAttentionNote();
+
+// WEEKLY BRIEF — Top 5 toggle per section
+function setupBriefTop5() {
+  document.querySelectorAll('#panel-weekly .brief-section').forEach(section => {
+    const items = [...section.querySelectorAll('.alert')];
+    const btn = section.querySelector('.brief-top5-btn');
+    if (!btn) return;
+    if (items.length <= 5) { btn.style.display = 'none'; return; }
+    let top5Active = false;
+    btn.addEventListener('click', () => {
+      top5Active = !top5Active;
+      items.forEach((item, i) => {
+        item.style.display = top5Active && i >= 5 ? 'none' : '';
+      });
+      btn.textContent = top5Active ? `Show all ${items.length}` : 'Top 5 only';
+      btn.classList.toggle('active', top5Active);
+    });
+  });
+}
+setupBriefTop5();
+</script>
+</body>
+
+</html>
