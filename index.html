@@ -2384,7 +2384,7 @@
         <span class="urgent-pulse"></span>
         Urgent — flagged by leadership
       </div>
-      <div class="urgent-count" id="urgentCount">2 active</div>
+      <div class="urgent-count" id="urgentCount">4 active</div>
     </div>
     <div class="urgent-cards" id="urgentCards">
       <div class="urgent-card">
@@ -2394,12 +2394,32 @@
             <div class="urgent-sender">Scott Stevens</div>
             <div class="urgent-role">Co-founder · Waypoint</div>
           </div>
-          <div class="urgent-time">2 hrs ago</div>
+          <div class="urgent-time">May 7</div>
         </div>
-        <div class="urgent-message">"Priceline pricing window closes Thursday. We need a final decision by EOD Wednesday or we lose the startup rate. This affects FSU launch timing too."</div>
+        <div class="urgent-message">"That agreement you had with him was for 3 months, which technically runs out next week or so" — Need to decide whether to renew Dan's contract and whether he goes to NACDA. Deadline: this week.</div>
         <div class="urgent-source">
           <span class="urgent-source-tag">💬 Slack</span>
-          <span>#waypoint-product-technology · flagged with URGENT ADD TO DASHBOARD</span>
+          <span>#waypoint-bizdev · May 7</span>
+        </div>
+        <div class="urgent-actions">
+          <button class="urgent-btn">View source ↗</button>
+          <button class="urgent-btn primary" onclick="markAttended(this)">Mark as attended</button>
+        </div>
+      </div>
+
+      <div class="urgent-card">
+        <div class="urgent-card-top">
+          <div class="urgent-avatar">DA</div>
+          <div class="urgent-info">
+            <div class="urgent-sender">Daniel Arellano</div>
+            <div class="urgent-role">Operating System · Waypoint</div>
+          </div>
+          <div class="urgent-time">May 7</div>
+        </div>
+        <div class="urgent-message">"Since that should be next week, would you like me to try to schedule something?" — Matt confirmed: "Yes let's do" — send loyalty index data to Greg before the meeting.</div>
+        <div class="urgent-source">
+          <span class="urgent-source-tag">💬 Slack</span>
+          <span>#vs-operating-system · May 7</span>
         </div>
         <div class="urgent-actions">
           <button class="urgent-btn">View source ↗</button>
@@ -2414,12 +2434,32 @@
             <div class="urgent-sender">Spencer Lee</div>
             <div class="urgent-role">Co-founder · Waypoint</div>
           </div>
-          <div class="urgent-time">5 hrs ago</div>
+          <div class="urgent-time">May 10</div>
         </div>
-        <div class="urgent-message">"FSU contract has a 48-hour response clause embedded in section 4.2. Need legal review before Friday or we default. Forwarded to Paul but copying you."</div>
+        <div class="urgent-message">"needs some bug smashing" — Fan graph preview sent with credentials. Scott tested on May 9. No confirmation that all bugs are closed before Monday's meeting.</div>
         <div class="urgent-source">
-          <span class="urgent-source-tag">📧 Email</span>
-          <span>Re: FSU partnership agreement · flagged with URGENT ADD TO DASHBOARD</span>
+          <span class="urgent-source-tag">💬 Slack</span>
+          <span>#waypoint-product-technology · May 10</span>
+        </div>
+        <div class="urgent-actions">
+          <button class="urgent-btn">View source ↗</button>
+          <button class="urgent-btn primary" onclick="markAttended(this)">Mark as attended</button>
+        </div>
+      </div>
+
+      <div class="urgent-card">
+        <div class="urgent-card-top">
+          <div class="urgent-avatar">MS</div>
+          <div class="urgent-info">
+            <div class="urgent-sender">Matt Sanders</div>
+            <div class="urgent-role">CEO · Waypoint</div>
+          </div>
+          <div class="urgent-time">May 7</div>
+        </div>
+        <div class="urgent-message">"Sorry I haven't sent payment yet!!!" — 3 days unresolved. Daniel Arellano has not yet received pending payment.</div>
+        <div class="urgent-source">
+          <span class="urgent-source-tag">💬 Slack</span>
+          <span>#vs-operating-system · May 7</span>
         </div>
         <div class="urgent-actions">
           <button class="urgent-btn">View source ↗</button>
@@ -2444,13 +2484,13 @@
   <div id="panel-attention" class="panel active">
     <div class="stats">
       <div class="stat-card"><div class="stat-label">Critical</div><div class="stat-value rust">4</div></div>
-      <div class="stat-card"><div class="stat-label">Bottlenecks</div><div class="stat-value gold">3</div></div>
+      <div class="stat-card"><div class="stat-label">Bottlenecks</div><div class="stat-value gold">5</div></div>
       <div class="stat-card"><div class="stat-label">Moving well</div><div class="stat-value moss">8</div></div>
       <div class="stat-card"><div class="stat-label">Auto-scheduled</div><div class="stat-value">14</div><div class="stat-sub">live in Matt's calendar</div></div>
     </div>
 
     <div class="focus-bar">
-      <span class="focus-bar-note" id="focusNote">7 items need attention</span>
+      <span class="focus-bar-note" id="focusNote">9 items need attention</span>
       <button class="focus-btn" id="focusBtn" onclick="toggleFocusMode()">⊙ Focus mode</button>
     </div>
 
@@ -2460,30 +2500,13 @@
       <div class="alert-row">
         <div class="alert-dot dot-rust"></div>
         <div class="alert-body">
-          <div class="alert-title">Jackson Macedone — SPV no response</div>
-          <div class="alert-desc">Email unanswered + Motion task in "Review" for 3 weeks. No mention in any Slack channel.</div>
-          <div class="chips"><span class="chip rust">25 days stalled</span><span class="chip">Investment Raise</span><span class="chip">Email + Motion + Slack</span></div>
-          <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion task</button><button class="src">💬 Slack</button></div>
-          <div class="reply-box">
-            <div class="reply-label">Suggested reply — Email</div>
-            <div class="reply-draft">"Hi Jackson, wanted to reconnect on the SPV conversation — we've made good progress on our end and I'd love to sync this week. Would Tuesday or Wednesday work for a quick call?"</div>
-            <div class="reply-btns"><button class="rbtn primary">Open in Gmail</button><button class="rbtn">Edit draft</button></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="alert" onclick="toggleReply(this)">
-      <div class="alert-row">
-        <div class="alert-dot dot-rust"></div>
-        <div class="alert-body">
-          <div class="alert-title">Big 12 / CFO Playbook — 24 days in icebox</div>
-          <div class="alert-desc">Task created 24 days ago, 0 minutes logged. Big 12 meeting already happened.</div>
-          <div class="chips"><span class="chip rust">24 days</span><span class="chip">B12 Product</span><span class="chip">Motion</span></div>
-          <div class="src-row"><button class="src">✅ Motion task</button><button class="src">💬 Slack thread</button></div>
+          <div class="alert-title">Dan (consultant) — contract expires this week</div>
+          <div class="alert-desc">Scott Stevens flagged on May 7: "that agreement you had with him was for 3 months, which technically runs out next week or so." Need to decide whether to renew and whether Dan goes to NACDA. Deadline: this week.</div>
+          <div class="chips"><span class="chip rust">This week</span><span class="chip">BD / NACDA</span><span class="chip">Slack · #waypoint-bizdev</span></div>
+          <div class="src-row"><button class="src">💬 #waypoint-bizdev</button><button class="src">✅ Motion</button></div>
           <div class="reply-box">
             <div class="reply-label">Suggested message — Slack to Scott</div>
-            <div class="reply-draft">"Hey Scott — the Big 12 / CFO Playbook has been sitting for 3 weeks. Should we scope it down or reassign? Happy to help move it forward."</div>
+            <div class="reply-draft">"Scott — I need to decide on Dan this week before the contract runs out. Do we renew and bring him to NACDA? Give me your honest take."</div>
             <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
           </div>
         </div>
@@ -2494,14 +2517,31 @@
       <div class="alert-row">
         <div class="alert-dot dot-rust"></div>
         <div class="alert-body">
-          <div class="alert-title">West Virginia Amendment — Paul still waiting</div>
-          <div class="alert-desc">Terms not sent for 18 days. Potential legal blocker for the WV deal.</div>
-          <div class="chips"><span class="chip rust">18 days</span><span class="chip">Governance</span><span class="chip">Motion + Email</span></div>
-          <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion</button></div>
+          <div class="alert-title">Fan graph — bugs not resolved before Monday's meeting</div>
+          <div class="alert-desc">Spencer Lee (May 10): "needs some bug smashing." Functional preview sent with credentials. Scott tested on May 9. No confirmation that all bugs are closed. In-person meeting is Monday.</div>
+          <div class="chips"><span class="chip rust">Before Monday</span><span class="chip">Waypoint Tech</span><span class="chip">Slack · #waypoint-product-technology</span></div>
+          <div class="src-row"><button class="src">💬 #waypoint-product-technology</button><button class="src">🔗 Preview link</button></div>
           <div class="reply-box">
-            <div class="reply-label">Suggested reply — Email to Paul</div>
-            <div class="reply-draft">"Paul — sorry for the delay on the WV amendment terms. Sending them over now. Let me know if you have any questions or need anything else from our end."</div>
-            <div class="reply-btns"><button class="rbtn primary">Open in Gmail</button><button class="rbtn">Edit</button></div>
+            <div class="reply-label">Suggested message — Slack to Spencer</div>
+            <div class="reply-draft">"Spencer — what's the status on fan graph bug smashing? Need to know what's resolved before Monday. Can you send a list of open bugs?"</div>
+            <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-rust"></div>
+        <div class="alert-body">
+          <div class="alert-title">Greg (NILnomics) — send loyalty index data before the meeting</div>
+          <div class="alert-desc">Daniel Arellano scheduled a meeting with Greg for this week. Matt confirmed: "Yes let's do thanks I need to get him data." The first cut of the loyalty index is pending Matt.</div>
+          <div class="chips"><span class="chip rust">This week</span><span class="chip">NILnomics</span><span class="chip">Pending Matt</span></div>
+          <div class="src-row"><button class="src">💬 #vs-operating-system</button><button class="src">✅ Motion</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Suggested message — Slack to Daniel</div>
+            <div class="reply-draft">"Daniel — I'll build the first cut of the loyalty index today and send it before the meeting with Greg. When exactly is it scheduled?"</div>
+            <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
           </div>
         </div>
       </div>
@@ -2511,10 +2551,10 @@
       <div class="alert-row">
         <div class="alert-dot dot-rust"></div>
         <div class="alert-body">
-          <div class="alert-title">March invoice — not found</div>
-          <div class="alert-desc">Daniel's invoice from March still unresolved. Sent Apr 11, followed up Apr 25.</div>
-          <div class="chips"><span class="chip rust">Unresolved</span><span class="chip">Admin</span><span class="chip">Slack thread</span></div>
-          <div class="src-row"><button class="src">💬 View Slack thread</button><button class="src">📧 Resend invoice</button></div>
+          <div class="alert-title">Pending payment to Daniel Arellano — 3 days unresolved</div>
+          <div class="alert-desc">Matt Sanders (May 7): "Sorry I haven't sent payment yet!!!" — 3 days with no visible resolution in the #vs-operating-system thread.</div>
+          <div class="chips"><span class="chip rust">3 days</span><span class="chip">Admin</span><span class="chip">Slack · #vs-operating-system</span></div>
+          <div class="src-row"><button class="src">💬 #vs-operating-system</button><button class="src">📧 Send payment</button></div>
         </div>
       </div>
     </div>
@@ -2525,31 +2565,14 @@
       <div class="alert-row">
         <div class="alert-dot dot-gold"></div>
         <div class="alert-body">
-          <div class="alert-title">Priceline vs Xeni — decision needed today</div>
-          <div class="alert-desc">Scott and Spencer actively debating this morning. 1pm call. Xeni offering startup pricing: $1K setup vs $7.5K standard.</div>
-          <div class="chips"><span class="chip gold">Today</span><span class="chip">Waypoint Tech</span><span class="chip">Slack — active now</span></div>
-          <div class="src-row"><button class="src">💬 #waypoint-product-technology</button><button class="src">✅ Motion</button></div>
-          <div class="reply-box">
-            <div class="reply-label">Context</div>
-            <div class="reply-draft">Priceline: better reputation, 50/50 rev share, 2.1M inventory. Xeni: $1K setup + $6K annual, more flexibility. Scott leans Priceline as exit route. Spencer still evaluating API access.</div>
-            <div class="reply-btns"><button class="rbtn primary">See full comparison</button></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="alert" onclick="toggleReply(this)">
-      <div class="alert-row">
-        <div class="alert-dot dot-gold"></div>
-        <div class="alert-body">
-          <div class="alert-title">FSU onboarding — this week</div>
-          <div class="alert-desc">Matt said "nail FSU next week." seminoles.travel needs tools + booking system activated. Counts toward NACMA goal.</div>
-          <div class="chips"><span class="chip gold">This week</span><span class="chip">Business Dev</span><span class="chip">NACMA pipeline</span></div>
+          <div class="alert-title">FSU onboarding — stuck in "the Mordor of their legal agreement review"</div>
+          <div class="alert-desc">Matt Sanders (Apr 30): FSU legal still has no close date. Booking tools and basketball program are live but no signature yet. Every week without a close is one less week to count FSU as school 3 before NACDA.</div>
+          <div class="chips"><span class="chip gold">No close date</span><span class="chip">NACDA pipeline</span><span class="chip">Legal blocker</span></div>
           <div class="src-row"><button class="src">💬 #general</button><button class="src">✅ Motion</button></div>
           <div class="reply-box">
-            <div class="reply-label">Suggested message — Slack to Scott & Spencer</div>
-            <div class="reply-draft">"Team — FSU is our priority this week. Let's align on the seminoles.travel launch checklist before Matt is back. Who owns the booking system activation?"</div>
-            <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
+            <div class="reply-label">Context</div>
+            <div class="reply-draft">Booking tools live, basketball program active. Only missing the legal signature. Goal: count FSU as school 3 of 5 before June 8. Options: push FSU's legal team harder or accept arriving at NACDA with 2 signed schools.</div>
+            <div class="reply-btns"><button class="rbtn primary">View status in Motion</button></div>
           </div>
         </div>
       </div>
@@ -2559,14 +2582,60 @@
       <div class="alert-row">
         <div class="alert-dot dot-gold"></div>
         <div class="alert-body">
-          <div class="alert-title">Julia (influencer) — brand non-compliance</div>
-          <div class="alert-desc">Video posted without logo and without WV branded gear. Scott needs to follow up formally before her next post.</div>
-          <div class="chips"><span class="chip gold">Today</span><span class="chip">Marketing</span><span class="chip">Slack</span></div>
-          <div class="src-row"><button class="src">💬 #waypoint-marketing</button><button class="src">📱 View post</button></div>
+          <div class="alert-title">Priceline vs Xeni — no decision, blocking attribution and architecture</div>
+          <div class="alert-desc">Over a week without a decision. Scott recommends Xeni: faster, higher revenue potential, flights included (key for FSU). Priceline is restructuring, Sean may change. The decision unlocks: individual athlete attribution (Don from WVU requested it), planning meeting with Sean, and technical architecture.</div>
+          <div class="chips"><span class="chip gold">Monday meeting</span><span class="chip">Xeni recommended</span><span class="chip">Blocks attribution</span></div>
+          <div class="src-row"><button class="src">💬 #waypoint-product-technology</button><button class="src">✅ Motion</button></div>
           <div class="reply-box">
-            <div class="reply-label">Suggested message — DM to Julia</div>
-            <div class="reply-draft">"Hey Julia — love the energy in your latest post! Just a reminder for next time: please include the Waypoint logo with transparency and wear the WV branded gear. Happy to resend the brand kit if you need it."</div>
-            <div class="reply-btns"><button class="rbtn primary">Open DM</button><button class="rbtn">Edit</button></div>
+            <div class="reply-label">Context — comparativa</div>
+            <div class="reply-draft">Xeni: startup package, flights included, multitenant product coming soon, Roberto active. Priceline: restructuring, Sean contact at risk, 2.1M inventory, 50/50 rev share. Scott leaned toward Xeni on May 7. Matt asked "What's your current lean?" but didn't close.</div>
+            <div class="reply-btns"><button class="rbtn primary">View full thread</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert">
+      <div class="alert-row">
+        <div class="alert-dot dot-gold"></div>
+        <div class="alert-body">
+          <div class="alert-title">WVU email reply-to — bug potentially still active post-Apr 29</div>
+          <div class="alert-desc">Scott Stevens (Apr 29): "i tested it earlier this morning and it still didn't go through." Spencer: "table flip." DNS was transferred from GoDaddy to Cloudflare. No confirmation of resolution after that. If WVU guests reply to emails, messages may not arrive without the team knowing.</div>
+          <div class="chips"><span class="chip gold">Unknown status</span><span class="chip">WVU · Email delivery</span><span class="chip">#waypoint-product-technology</span></div>
+          <div class="src-row"><button class="src">💬 #waypoint-product-technology</button><button class="src">🔧 Check DNS</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-gold"></div>
+        <div class="alert-body">
+          <div class="alert-title">West Virginia Amendment Terms — Paul still waiting, 18 days</div>
+          <div class="alert-desc">Task marked 18 days without progress. Paul Coelho is still waiting for the amendment terms. No visible resolution in the last 14 days. Blocker for finalizing the WVU contract.</div>
+          <div class="chips"><span class="chip gold">18 days</span><span class="chip">Legal · Governance</span><span class="chip">Motion</span></div>
+          <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Suggested reply — Email a Paul</div>
+            <div class="reply-draft">"Paul — sorry for the delay on the WV amendment terms. Sending them over this week. Is there a deadline on your end I should know about?"</div>
+            <div class="reply-btns"><button class="rbtn primary">Open in Gmail</button><button class="rbtn">Edit</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert" onclick="toggleReply(this)">
+      <div class="alert-row">
+        <div class="alert-dot dot-gold"></div>
+        <div class="alert-body">
+          <div class="alert-title">Big 12 / CFO Playbook + Executive Summary — 24-25 days in icebox</div>
+          <div class="alert-desc">Two Big 12-related tasks have had no movement for over 3 weeks. No one mentioned them in any channel in the last 14 days. Need to decide: revive or formally close them out.</div>
+          <div class="chips"><span class="chip gold">24-25 days</span><span class="chip">B12 Product</span><span class="chip">Motion</span></div>
+          <div class="src-row"><button class="src">✅ Motion task</button><button class="src">💬 Ask Scott</button></div>
+          <div class="reply-box">
+            <div class="reply-label">Suggested message — Slack to Scott</div>
+            <div class="reply-draft">"Scott — the Big 12 CFO Playbook and Executive Summary have had no movement for 25 days. Do we close these out or is there something to move before NACDA?"</div>
+            <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
           </div>
         </div>
       </div>
@@ -2693,14 +2762,14 @@
   <!-- ON TRACK -->
   <div id="panel-ontrack" class="panel">
     <div class="sub-label"><span class="sub-label-bullet bullet-moss"></span>Moving well — no action needed</div>
-    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">BYU — Eric is new primary contact, more responsive than Jared</div><span class="ontrack-badge">Active client</span></div>
-    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">IAPA research database — live, auto-updating in Google Sheets</div><span class="ontrack-badge">Done</span></div>
-    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Longitude B2B2C model — Erik & Cameron advancing agent-based approach</div><span class="ontrack-badge">In progress</span></div>
-    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Motion + AI Notetaker — configured across both RootsVS and Waypoint accounts</div><span class="ontrack-badge">Active</span></div>
-    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Crowd Commerce email outreach — AI-powered, Nathan managing quality</div><span class="ontrack-badge">Running</span></div>
-    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">GoCougs.Travel LinkedIn page — live and active</div><span class="ontrack-badge">Active</span></div>
-    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Investor pitch narrative — B2B + fan network angle confirmed with Todd</div><span class="ontrack-badge">Aligned</span></div>
-    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">WVU Fan Graph screencast — recorded and shared</div><span class="ontrack-badge">Done</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">WVU — Taylor and Corie "awesome and super supportive." Bi-weekly meetings established. NIL, social, and internships aligned.</div><span class="ontrack-badge">Active client</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Fan graph (technical) — Spencer advancing consistently: clean data, graph DB structure, frontend in production with functional preview.</div><span class="ontrack-badge">In production</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Athlete admin tools — athlete dashboard with booking stats in production and available to clients.</div><span class="ontrack-badge">Live</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Xeni as partner — Roberto active, wants the business, flights included, multitenant product coming soon. Relationship in a good place.</div><span class="ontrack-badge">Active</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">School decks (Marshall, Cincinnati, Kansas) — Scott delivers fast and with quality. Pitch generation process working well.</div><span class="ontrack-badge">Running</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Longitude differentiators — Jake H active in sales, documenting real cases for Cameron vs. Moose Management.</div><span class="ontrack-badge">In progress</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">CrowdCommerce contacts — 3,500 university contacts compiled by Nathan, ready for outreach once the site is ready.</div><span class="ontrack-badge">Ready</span></div>
+    <div class="ontrack"><div class="alert-dot dot-moss"></div><div class="ontrack-text">Jim Cava — active connection. Can cross-reference WVU ecosystem SMB data with Waypoint + potential WVU donor connected.</div><span class="ontrack-badge">Active</span></div>
   </div>
 
   <!-- PROJECTS — health view, not Kanban -->
@@ -3418,16 +3487,16 @@
   <div id="panel-weekly" class="panel">
     <div class="brief-intro">
       <div class="brief-week-label">Weekly Brief</div>
-      <div class="brief-headline">Week of May 5–9, 2026</div>
-      <div class="brief-sub">Synthesized from Motion · Slack · Email — updated each Monday morning.</div>
+      <div class="brief-headline">Week of May 11–16, 2026</div>
+      <div class="brief-sub">Synthesized from Motion · Slack · Email — 14 days of context · updated each Monday.</div>
     </div>
 
     <div class="brief-stats">
-      <div class="stat-card"><div class="stat-label">Wins</div><div class="stat-value moss">6</div><div class="stat-sub">things that moved forward</div></div>
-      <div class="stat-card"><div class="stat-label">Risks</div><div class="stat-value gold">2</div><div class="stat-sub">need watching</div></div>
+      <div class="stat-card"><div class="stat-label">Wins</div><div class="stat-value moss">8</div><div class="stat-sub">things that moved forward</div></div>
+      <div class="stat-card"><div class="stat-label">Risks</div><div class="stat-value gold">8</div><div class="stat-sub">need watching</div></div>
       <div class="stat-card"><div class="stat-label">Blockers</div><div class="stat-value rust">4</div><div class="stat-sub">actively stalled</div></div>
-      <div class="stat-card"><div class="stat-label">Decisions</div><div class="stat-value gold">3</div><div class="stat-sub">awaiting Matt</div></div>
-      <div class="stat-card"><div class="stat-label">Next Steps</div><div class="stat-value">6</div><div class="stat-sub">coming week priorities</div></div>
+      <div class="stat-card"><div class="stat-label">Decisions</div><div class="stat-value gold">5</div><div class="stat-sub">awaiting Matt</div></div>
+      <div class="stat-card"><div class="stat-label">Next Steps</div><div class="stat-value">8</div><div class="stat-sub">coming week priorities</div></div>
     </div>
 
     <!-- WINS -->
@@ -3438,7 +3507,7 @@
           Wins — what moved forward this week
         </div>
         <div class="brief-section-controls">
-          <span class="brief-section-meta">6 items</span>
+          <span class="brief-section-meta">8 items</span>
           <button class="brief-top5-btn">Top 5 only</button>
         </div>
       </div>
@@ -3447,10 +3516,10 @@
         <div class="alert-row">
           <div class="alert-dot dot-moss"></div>
           <div class="alert-body">
-            <div class="alert-title">BYU VIP travel pilot exceeded Q2 targets</div>
-            <div class="alert-desc">Eric reports results exceeded expectations and is ready to discuss expansion for the fall season — major client win.</div>
-            <div class="chips"><span class="chip moss">Client win</span><span class="chip">Waypoint</span></div>
-            <div class="src-row"><button class="src">📧 View email</button><button class="src">✅ Motion</button></div>
+            <div class="alert-title">NCSU call — "I think you guys are on to something here"</div>
+            <div class="alert-desc">Outgoing director, new director, and NCSU NIL manager all attended. Strong signal of interest. Pipeline advanced.</div>
+            <div class="chips"><span class="chip moss">Pipeline advanced</span><span class="chip">Waypoint · Bizdev</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-bizdev</button></div>
           </div>
         </div>
       </div>
@@ -3459,10 +3528,10 @@
         <div class="alert-row">
           <div class="alert-dot dot-moss"></div>
           <div class="alert-body">
-            <div class="alert-title">Crowd Commerce AI outreach running autonomously</div>
-            <div class="alert-desc">Nathan is managing quality. Outreach pipeline active and hitting volume targets without manual intervention.</div>
-            <div class="chips"><span class="chip moss">Autonomous</span><span class="chip">Longitude</span></div>
-            <div class="src-row"><button class="src">💬 Slack</button><button class="src">✅ Motion</button></div>
+            <div class="alert-title">First regular check-in meeting with BYU and WVU established</div>
+            <div class="alert-desc">Scott confirmed first session with Eric (BYU) and first formal meeting with Taylor and Corie (WVU). Bi-weekly meetings established with WVU. NIL, social and internships aligned.</div>
+            <div class="chips"><span class="chip moss">Active cadence</span><span class="chip">Client Success</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-client-success</button><button class="src">✅ Motion</button></div>
           </div>
         </div>
       </div>
@@ -3471,10 +3540,10 @@
         <div class="alert-row">
           <div class="alert-dot dot-moss"></div>
           <div class="alert-body">
-            <div class="alert-title">Investor pitch narrative confirmed with Todd</div>
-            <div class="alert-desc">B2B + fan network angle locked in. Investor story is coherent and ready for SPV conversations.</div>
-            <div class="chips"><span class="chip moss">Aligned</span><span class="chip">Investment Raise</span></div>
-            <div class="src-row"><button class="src">💬 Slack</button><button class="src">✅ Motion</button></div>
+            <div class="alert-title">Fan graph WVU — functional preview with 78,000+ nodes live</div>
+            <div class="alert-desc">Spencer launched functional preview of the fan graph. Matt built the first data cut. 78,000+ nodes rendered. Scott and Matt tested it on May 9.</div>
+            <div class="chips"><span class="chip moss">In production</span><span class="chip">Waypoint Tech</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button><button class="src">🔗 Preview link</button></div>
           </div>
         </div>
       </div>
@@ -3483,10 +3552,10 @@
         <div class="alert-row">
           <div class="alert-dot dot-moss"></div>
           <div class="alert-body">
-            <div class="alert-title">GoCougs.Travel LinkedIn page live</div>
-            <div class="alert-desc">Page published and generating organic reach. Brand presence established on a key platform for athletic program buyers.</div>
-            <div class="chips"><span class="chip moss">Live</span><span class="chip">Marketing</span></div>
-            <div class="src-row"><button class="src">💬 Slack</button></div>
+            <div class="alert-title">Decks for Marshall and Cincinnati — delivered the same day with animated GIFs</div>
+            <div class="alert-desc">Scott Stevens delivered both pitches the same day they were requested, with animated GIFs. Deck generation process running at high speed.</div>
+            <div class="chips"><span class="chip moss">Delivered</span><span class="chip">Bizdev</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-bizdev</button></div>
           </div>
         </div>
       </div>
@@ -3495,10 +3564,10 @@
         <div class="alert-row">
           <div class="alert-dot dot-moss"></div>
           <div class="alert-body">
-            <div class="alert-title">IAPA research database live and auto-updating</div>
-            <div class="alert-desc">Media partnerships database is live in Google Sheets, refreshing automatically. Built and shipped by Daniel.</div>
-            <div class="chips"><span class="chip moss">Done</span><span class="chip">IAPA / Media</span></div>
-            <div class="src-row"><button class="src">✅ Motion</button></div>
+            <div class="alert-title">Athlete admin tools in production — dashboard with booking stats</div>
+            <div class="alert-desc">Spencer Lee delivered the athlete dashboard with booking stats. Athlete admin tools in production and available to clients.</div>
+            <div class="chips"><span class="chip moss">Live</span><span class="chip">Waypoint Tech</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button></div>
           </div>
         </div>
       </div>
@@ -3507,10 +3576,34 @@
         <div class="alert-row">
           <div class="alert-dot dot-moss"></div>
           <div class="alert-body">
-            <div class="alert-title">WVU Fan Graph screencast recorded and shared</div>
-            <div class="alert-desc">Deliverable completed and sent. Client now has the visual asset for their internal presentation.</div>
-            <div class="chips"><span class="chip moss">Delivered</span><span class="chip">West Virginia</span></div>
-            <div class="src-row"><button class="src">✅ Motion</button></div>
+            <div class="alert-title">Xeni confirmed flights included in startup package + multitenant product coming soon</div>
+            <div class="alert-desc">Roberto from Xeni confirmed that flights are included in the startup package — key for FSU. Also announced a multitenant product for universities coming soon.</div>
+            <div class="chips"><span class="chip moss">Confirmed</span><span class="chip">Waypoint Tech</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-moss"></div>
+          <div class="alert-body">
+            <div class="alert-title">3,500 university contacts compiled for CrowdCommerce</div>
+            <div class="alert-desc">Nathan Lee compiled a list of 3,500 university contacts ready for outreach once the site is ready for NACDA.</div>
+            <div class="chips"><span class="chip moss">Ready</span><span class="chip">CrowdCommerce</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-crowdcommerce</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-moss"></div>
+          <div class="alert-body">
+            <div class="alert-title">Jim Cava — connection with WVU donor and cross-reference of ecosystem SMB data</div>
+            <div class="alert-desc">Matt met with Jim Cava on May 5. Jim can cross-reference WVU ecosystem SMB data with Waypoint and connected Matt with a potential WVU donor.</div>
+            <div class="chips"><span class="chip moss">Active connection</span><span class="chip">WVU · Partnership</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button></div>
           </div>
         </div>
       </div>
@@ -3524,7 +3617,7 @@
           Risks — things that could become problems
         </div>
         <div class="brief-section-controls">
-          <span class="brief-section-meta">2 items</span>
+          <span class="brief-section-meta">8 items</span>
         </div>
       </div>
 
@@ -3532,10 +3625,10 @@
         <div class="alert-row">
           <div class="alert-dot dot-gold"></div>
           <div class="alert-body">
-            <div class="alert-title">Jackson Macedone (SPV) — investor window narrowing</div>
-            <div class="alert-desc">25 days without response. SPV investors tend to go cold after 30 days — risk of losing this lead entirely if not reengaged this week.</div>
-            <div class="chips"><span class="chip gold">25 days</span><span class="chip">Investment Raise</span></div>
-            <div class="src-row"><button class="src">📧 View thread</button><button class="src">✅ Motion</button><button class="src">💬 Slack</button></div>
+            <div class="alert-title">NACDA pace — 35 days left, only 2/5 schools closed</div>
+            <div class="alert-desc">FSU in legal limbo with no close date. NCSU just started the conversation. No clear candidate for 4th and 5th school. At current pace, arriving at NACDA with 3 signed is the realistic scenario.</div>
+            <div class="chips"><span class="chip gold">35 days</span><span class="chip">NACDA · Jun 8</span></div>
+            <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 Slack</button></div>
           </div>
         </div>
       </div>
@@ -3544,9 +3637,81 @@
         <div class="alert-row">
           <div class="alert-dot dot-gold"></div>
           <div class="alert-body">
-            <div class="alert-title">NACMA pace — 2 of 5 schools closed, 35 days left</div>
-            <div class="alert-desc">Need 3 more schools in 35 days to hit the high end of the goal. At current pace, goal is at risk without meaningful acceleration this week.</div>
-            <div class="chips"><span class="chip gold">35 days</span><span class="chip">NACMA · June 8</span></div>
+            <div class="alert-title">Priceline vs Xeni — no decision and time is running out</div>
+            <div class="alert-desc">Priceline is restructuring, Sean may no longer be the contact. Every week without a decision is one less week of integration before NACDA. Blocks athlete attribution and technical architecture.</div>
+            <div class="chips"><span class="chip gold">Time running out</span><span class="chip">Waypoint Tech</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">Dan (consultant) — ambiguous relationship with contract expiring this week</div>
+            <div class="alert-desc">If Dan leaves without a clear agreement, a key BD ally is lost right before NACDA. Need to define role and compensation this week or assume he's not going.</div>
+            <div class="chips"><span class="chip gold">This week</span><span class="chip">BD · NACDA</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-bizdev</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">Fan graph — only on Matt's laptop, risk of failed demo</div>
+            <div class="alert-desc">Matt (May 5): "Currently only on my laptop" — if Matt can't connect on the cruise or there's a technical failure, no one else can run fan graph demos. High-value asset at risk from a single point of failure.</div>
+            <div class="chips"><span class="chip gold">Single dependency</span><span class="chip">Waypoint Tech · Demo</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">CrowdCommerce — site not ready for NACDA in 35 days</div>
+            <div class="alert-desc">Scott Stevens (May 5): to use it as a sponsor at NACDA they need articles and a functional site. The fan graph took priority this week. 3,500 contacts ready but no site to convert them.</div>
+            <div class="chips"><span class="chip gold">35 days</span><span class="chip">CrowdCommerce · NACDA</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-crowdcommerce</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">WVU email reply-to bug — potentially still active</div>
+            <div class="alert-desc">No confirmation of resolution after Apr 29. If WVU guests reply to emails and they don't arrive, it creates a bad experience without the team knowing. Silent risk.</div>
+            <div class="chips"><span class="chip gold">Unknown status</span><span class="chip">WVU · Email delivery</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">WVU Amendment to Paul — 18 days without movement</div>
+            <div class="alert-desc">Paul Coelho cannot advance the WVU legal without the amendment terms. Risk of delay in formalizing the WVU contract.</div>
+            <div class="chips"><span class="chip gold">18 days</span><span class="chip">Legal · WVU</span></div>
+            <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">SPV / Build Fund — no concrete closing mentions in 14 days</div>
+            <div class="alert-desc">Jackson Macedone and Todd only appear in the follow-up list. The only mention from Matt was from Alaska: "Hopefully build fund funds." No closing thread or visible momentum in the channels.</div>
+            <div class="chips"><span class="chip gold">No momentum</span><span class="chip">Investment Raise</span></div>
             <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 Slack</button></div>
           </div>
         </div>
@@ -3569,8 +3734,32 @@
         <div class="alert-row">
           <div class="alert-dot dot-rust"></div>
           <div class="alert-body">
-            <div class="alert-title">WV Amendment Terms — Paul waiting 18 days</div>
-            <div class="alert-desc">Legal partner can't finalize the West Virginia contract without the amendment terms. Potential block on signature this week.</div>
+            <div class="alert-title">FSU — "the Mordor of their legal agreement review," no close date</div>
+            <div class="alert-desc">Matt Sanders (Apr 30). Booking tools live and basketball program active, but no legal signature. FSU can't count as school 3 until the contract closes.</div>
+            <div class="chips"><span class="chip rust">No date</span><span class="chip">Legal · FSU · NACDA</span></div>
+            <div class="src-row"><button class="src">💬 #general</button><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-rust"></div>
+          <div class="alert-body">
+            <div class="alert-title">Priceline vs Xeni — blocking athlete attribution, architecture, and planning meeting with Sean</div>
+            <div class="alert-desc">Don (WVU) requested individual booking attribution for athletes. Spencer: only possible with Priceline. Until a decision is made, technical architecture and the planning meeting with Sean are blocked.</div>
+            <div class="chips"><span class="chip rust">Blocks 3 things</span><span class="chip">Waypoint Tech</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button><button class="src">✅ Motion</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot dot-rust"></div>
+          <div class="alert-body">
+            <div class="alert-title">West Virginia Amendment Terms — Paul waiting 18 days</div>
+            <div class="alert-desc">Legal partner cannot finalize the WVU contract without the amendment terms. Active signature blocker.</div>
             <div class="chips"><span class="chip rust">18 days</span><span class="chip">Legal · Governance</span></div>
             <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion</button></div>
           </div>
@@ -3581,34 +3770,10 @@
         <div class="alert-row">
           <div class="alert-dot dot-rust"></div>
           <div class="alert-body">
-            <div class="alert-title">Big 12 / CFO Playbook — 24 days in icebox</div>
-            <div class="alert-desc">Task created 24 days ago, 0 minutes logged. Meeting with Big 12 already happened — needs a decision this week: revive or close it out.</div>
-            <div class="chips"><span class="chip rust">24 days</span><span class="chip">B12 Product</span></div>
-            <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 Slack</button></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="alert">
-        <div class="alert-row">
-          <div class="alert-dot dot-rust"></div>
-          <div class="alert-body">
-            <div class="alert-title">FSU booking system not activated</div>
-            <div class="alert-desc">seminoles.travel tools not live. FSU cannot count toward the NACMA school goal until the booking system is active.</div>
-            <div class="chips"><span class="chip rust">Blocking</span><span class="chip">Business Dev</span><span class="chip">NACMA</span></div>
-            <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 #general</button></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="alert">
-        <div class="alert-row">
-          <div class="alert-dot dot-rust"></div>
-          <div class="alert-body">
-            <div class="alert-title">March invoice — unresolved after two follow-ups</div>
-            <div class="alert-desc">Daniel's March invoice sent Apr 11, followed up Apr 25. No resolution. Relationship item that needs to close this week.</div>
-            <div class="chips"><span class="chip rust">Unresolved</span><span class="chip">Admin</span></div>
-            <div class="src-row"><button class="src">💬 Slack thread</button></div>
+            <div class="alert-title">Johnson Mill / Dan — tenants not evicted, stalled 3+ weeks</div>
+            <div class="alert-desc">Cameron Brockbank (Apr 21): "They are stuck in the same spot. Still working to evict the current tenants." Over 3 weeks without progress. Longitude property blocked.</div>
+            <div class="chips"><span class="chip rust">3+ weeks</span><span class="chip">Longitude · Real estate</span></div>
+            <div class="src-row"><button class="src">💬 #long-sales</button><button class="src">✅ Motion</button></div>
           </div>
         </div>
       </div>
@@ -3622,7 +3787,7 @@
           Decisions needed — waiting on Matt
         </div>
         <div class="brief-section-controls">
-          <span class="brief-section-meta">3 items</span>
+          <span class="brief-section-meta">5 items</span>
         </div>
       </div>
 
@@ -3630,14 +3795,14 @@
         <div class="alert-row">
           <div class="alert-dot dot-gold"></div>
           <div class="alert-body">
-            <div class="alert-title">Priceline vs Xeni — pricing window closes Thursday</div>
-            <div class="alert-desc">Scott leans Priceline (exit route, 2.1M inventory). Spencer still evaluating Xeni ($1K setup vs $7.5K standard). Decision needed before EOD Wednesday.</div>
-            <div class="chips"><span class="chip gold">Deadline: Wednesday</span><span class="chip">Waypoint Tech</span></div>
+            <div class="alert-title">Priceline vs Xeni — go/no-go before Monday's in-person meeting</div>
+            <div class="alert-desc">Scott recommends Xeni: faster, higher revenue, flights included for FSU. Priceline: 2.1M inventory, 50/50 rev share but in restructuring. Matt asked but didn't close. The team is waiting for his decision by Monday.</div>
+            <div class="chips"><span class="chip gold">Before Monday</span><span class="chip">Waypoint Tech</span></div>
             <div class="src-row"><button class="src">💬 #waypoint-product-technology</button><button class="src">✅ Motion</button></div>
             <div class="reply-box">
-              <div class="reply-label">Context</div>
-              <div class="reply-draft">Priceline: better brand, 50/50 rev share, 2.1M inventory. Xeni: $1K setup + $6K annual, more flexibility. Scott leans Priceline as exit route. Spencer still evaluating API access.</div>
-              <div class="reply-btns"><button class="rbtn primary">See full comparison</button></div>
+              <div class="reply-label">Context — comparativa</div>
+              <div class="reply-draft">Xeni: startup package, flights included, multitenant coming soon, Roberto active. Priceline: restructuring, 2.1M inventory, 50/50 rev share, athlete attribution possible. Scott leaned Xeni on May 7.</div>
+              <div class="reply-btns"><button class="rbtn primary">View full comparison</button></div>
             </div>
           </div>
         </div>
@@ -3647,13 +3812,13 @@
         <div class="alert-row">
           <div class="alert-dot dot-gold"></div>
           <div class="alert-body">
-            <div class="alert-title">Extra Points sponsorship — $5K decision pending</div>
-            <div class="alert-desc">Sponsored post in front of athletic department decision-makers before NACDA. 15 leads guaranteed. Window closing — needs a yes or no this week.</div>
-            <div class="chips"><span class="chip gold">$5,000</span><span class="chip">15 leads</span><span class="chip">NACMA</span></div>
-            <div class="src-row"><button class="src">💬 Slack thread</button><button class="src">📧 View proposal</button></div>
+            <div class="alert-title">Dan (consultant) — renew contract and bring him to NACDA or not</div>
+            <div class="alert-desc">Scott Stevens (May 7): "He wants to know if we want him there with us obviously." Contract expires this week. If he leaves without an agreement, a key BD ally is lost right before NACDA.</div>
+            <div class="chips"><span class="chip gold">This week</span><span class="chip">BD · NACDA</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-bizdev</button></div>
             <div class="reply-box">
-              <div class="reply-label">Suggested reply — Slack to Scott</div>
-              <div class="reply-draft">"Scott — let's pull the trigger on Extra Points. $5K is worth it if it gets us in front of 5+ ADs before NACDA. Can you confirm the 15-lead guarantee is still on the table?"</div>
+              <div class="reply-label">Suggested message — Slack to Scott</div>
+              <div class="reply-draft">"Scott — I need to decide on Dan today. Based on what you know about his work these 3 months, do you recommend renewing and bringing him to NACDA? Give me your honest read."</div>
               <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
             </div>
           </div>
@@ -3664,14 +3829,48 @@
         <div class="alert-row">
           <div class="alert-dot dot-gold"></div>
           <div class="alert-body">
-            <div class="alert-title">BYU fall season expansion — Eric waiting for green light</div>
-            <div class="alert-desc">Pilot exceeded targets. Eric is ready to scope and price the fall season. Decision to expand or hold affects Waypoint H2 revenue targets.</div>
-            <div class="chips"><span class="chip gold">Client ready</span><span class="chip">BYU · Waypoint</span></div>
-            <div class="src-row"><button class="src">📧 View email</button><button class="src">✅ Motion</button></div>
+            <div class="alert-title">Extra Points / newsletter — invest $5K for pre-NACDA contact access</div>
+            <div class="alert-desc">Matt asked about the proposal. Scott expressed doubts about whether the audience includes P4. Matt wanted to ask about distribution and % P4. No decision made. 15 leads guaranteed if the audience is right.</div>
+            <div class="chips"><span class="chip gold">$5,000</span><span class="chip">NACDA · Marketing</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-bizdev</button><button class="src">📧 Ver propuesta</button></div>
             <div class="reply-box">
-              <div class="reply-label">Suggested reply — Email to Eric</div>
-              <div class="reply-draft">"Eric — great news on the pilot results. Let's move forward for fall. Can we set up a call this week to scope it out? I'm flexible Tuesday or Thursday."</div>
-              <div class="reply-btns"><button class="rbtn primary">Open in Gmail</button><button class="rbtn">Edit</button></div>
+              <div class="reply-label">Suggested message — Slack to Scott</div>
+              <div class="reply-draft">"Scott — what's the P4 audience percentage in Extra Points? If it's over 40% P4/G5, I'm in. If not, I'll pass. Can you find out and close this out this week?"</div>
+              <div class="reply-btns"><button class="rbtn primary">Send in Slack</button><button class="rbtn">Edit</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert" onclick="toggleReply(this)">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">NACMA Small School Mixer — is there a pitch slot or sponsorship available?</div>
+            <div class="alert-desc">Matt: "I thought they said we had an opportunity to get in front of the group?" Scott isn't sure if a pitch slot is available. Matt suggested asking Dan. Unresolved.</div>
+            <div class="chips"><span class="chip gold">Jun 8 · 8pm</span><span class="chip">NACDA · Mixer</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-bizdev</button><button class="src">📧 Preguntar a Dan</button></div>
+            <div class="reply-box">
+              <div class="reply-label">Contacto clave</div>
+              <div class="reply-draft">Erik Christianson (EVP Sponsorships): echristianson@nacda.com · 317-600-6676. Nick Strah (VP NACMA): nstrah@nacda.com · 440-788-7473. Ask Dan if he has a direct contact.</div>
+              <div class="reply-btns"><button class="rbtn primary">Email Erik</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert" onclick="toggleReply(this)">
+        <div class="alert-row">
+          <div class="alert-dot dot-gold"></div>
+          <div class="alert-body">
+            <div class="alert-title">Loyalty Index — first cut for Greg (NILnomics) pending Matt</div>
+            <div class="alert-desc">Matt confirmed: "Yes let's do thanks I need to get him data." Daniel is scheduling the meeting with Greg for this week. The loyalty index is pending Matt building and sending it.</div>
+            <div class="chips"><span class="chip gold">This week</span><span class="chip">NILnomics · Partnership</span></div>
+            <div class="src-row"><button class="src">💬 #vs-operating-system</button></div>
+            <div class="reply-box">
+              <div class="reply-label">Context</div>
+              <div class="reply-draft">Greg is a PhD in fan behavior and founder of NILnomics. The post-PhD meeting is an opportunity to cross-reference loyalty index methodology with Waypoint data. Matt has the data, just needs to build the cut.</div>
+              <div class="reply-btns"><button class="rbtn primary">Open data</button></div>
             </div>
           </div>
         </div>
@@ -3686,7 +3885,7 @@
           Next steps — coming week priorities
         </div>
         <div class="brief-section-controls">
-          <span class="brief-section-meta">6 items</span>
+          <span class="brief-section-meta">8 items</span>
           <button class="brief-top5-btn">Top 5 only</button>
         </div>
       </div>
@@ -3695,45 +3894,9 @@
         <div class="alert-row">
           <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
           <div class="alert-body">
-            <div class="alert-title">Activate FSU booking system on seminoles.travel</div>
-            <div class="alert-desc">Priority 1 this week. FSU counts as school 3 toward the NACMA goal only once the booking system is live.</div>
-            <div class="chips"><span class="chip">This week</span><span class="chip">Business Dev</span><span class="chip">NACMA</span></div>
-            <div class="src-row"><button class="src">✅ Motion</button><button class="src">💬 #general</button></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="alert">
-        <div class="alert-row">
-          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
-          <div class="alert-body">
-            <div class="alert-title">Reply to Jackson Macedone — reopen SPV conversation</div>
-            <div class="alert-desc">25 days stalled. A short outreach this week keeps the investor relationship alive before it goes cold at the 30-day mark.</div>
-            <div class="chips"><span class="chip">Urgent</span><span class="chip">Investment Raise</span></div>
-            <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion</button></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="alert">
-        <div class="alert-row">
-          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
-          <div class="alert-body">
-            <div class="alert-title">Send WV amendment terms to Paul Coelho</div>
-            <div class="alert-desc">18 days pending. Sending this week removes the legal blocker and unblocks the West Virginia contract signature.</div>
-            <div class="chips"><span class="chip">Legal</span><span class="chip">Governance</span></div>
-            <div class="src-row"><button class="src">📧 Open email</button><button class="src">✅ Motion</button></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="alert">
-        <div class="alert-row">
-          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
-          <div class="alert-body">
-            <div class="alert-title">Decide Priceline vs Xeni before Thursday pricing window</div>
-            <div class="alert-desc">Call with Scott and Spencer to align and make the final call. Have both summaries ready — pricing window closes Thursday.</div>
-            <div class="chips"><span class="chip">Deadline: Wednesday</span><span class="chip">Waypoint Tech</span></div>
+            <div class="alert-title">Spencer Lee: finish fan graph bug smashing + clusters for WVU outreach</div>
+            <div class="alert-desc">Close all bugs before Monday. Deliver recommended clusters and nodes for WVU outreach (requested by Matt on May 7).</div>
+            <div class="chips"><span class="chip">Before Monday</span><span class="chip">Spencer · Tech</span></div>
             <div class="src-row"><button class="src">💬 #waypoint-product-technology</button></div>
           </div>
         </div>
@@ -3743,10 +3906,10 @@
         <div class="alert-row">
           <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
           <div class="alert-body">
-            <div class="alert-title">Identify 4th and 5th school candidates (P4 / Big 12)</div>
-            <div class="alert-desc">To hit the NACMA stretch goal of 5 schools, need 2 more in pipeline. Ask Scott for P4 list and fast-track outreach. 35 days left.</div>
-            <div class="chips"><span class="chip">35 days</span><span class="chip">Business Dev</span><span class="chip">NACMA</span></div>
-            <div class="src-row"><button class="src">💬 Ask Scott</button><button class="src">✅ Create pipeline</button></div>
+            <div class="alert-title">Matt: decide Priceline vs Xeni + Dan before Monday's meeting</div>
+            <div class="alert-desc">Two decisions the team is waiting on. Xeni recommended by Scott. Dan: renew and bring to NACDA? Both decisions should be made before the in-person meeting.</div>
+            <div class="chips"><span class="chip">Before Monday</span><span class="chip">Matt · Decision</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-product-technology</button><button class="src">💬 #waypoint-bizdev</button></div>
           </div>
         </div>
       </div>
@@ -3755,10 +3918,70 @@
         <div class="alert-row">
           <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
           <div class="alert-body">
-            <div class="alert-title">Extra Points sponsorship — confirm decision with Scott</div>
-            <div class="alert-desc">$5K · 15 leads guaranteed. If approved, coordinate timing with Scott before the NACDA window closes.</div>
-            <div class="chips"><span class="chip">$5K</span><span class="chip">NACMA</span></div>
-            <div class="src-row"><button class="src">💬 Slack thread</button></div>
+            <div class="alert-title">Matt: build first cut of the loyalty index and send to Greg</div>
+            <div class="alert-desc">Daniel is scheduling the meeting with Greg (NILnomics) for this week. Matt needs to send the data first. "I need to get him data."</div>
+            <div class="chips"><span class="chip">This week</span><span class="chip">Matt · NILnomics</span></div>
+            <div class="src-row"><button class="src">💬 #vs-operating-system</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Nathan Lee: search WVU business networks on LinkedIn + prep CrowdCommerce for Monday</div>
+            <div class="alert-desc">Requested by Matt on May 5. Prepare CrowdCommerce status for Monday's conversation on NACDA strategy.</div>
+            <div class="chips"><span class="chip">This week</span><span class="chip">Nathan · CrowdCommerce</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-crowdcommerce</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Daniel Arellano: schedule meeting with Greg (NILnomics) for this week or next</div>
+            <div class="alert-desc">Matt confirmed on May 7. Daniel has the contact and the initiative. The meeting is contingent on Matt sending the loyalty index data first.</div>
+            <div class="chips"><span class="chip">This week</span><span class="chip">Daniel · NILnomics</span></div>
+            <div class="src-row"><button class="src">💬 #vs-operating-system</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Scott Stevens: send updated Kansas deck to Drew</div>
+            <div class="alert-desc">Pending since #waypoint-bizdev, Apr 26. Updated Kansas deck for Drew.</div>
+            <div class="chips"><span class="chip">Pending</span><span class="chip">Scott · Bizdev</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-bizdev</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Spencer Lee: fan graph video for Scott's investor deck</div>
+            <div class="alert-desc">Requested May 5-6 in #waypoint-bizdev. Spencer delivers fan graph video for use in the investor deck.</div>
+            <div class="chips"><span class="chip">This week</span><span class="chip">Spencer · Investor deck</span></div>
+            <div class="src-row"><button class="src">💬 #waypoint-bizdev</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert">
+        <div class="alert-row">
+          <div class="alert-dot" style="background: var(--charcoal-mute)"></div>
+          <div class="alert-body">
+            <div class="alert-title">Matt: block Wednesday 6:30am–11:30am — temple work</div>
+            <div class="alert-desc">Announced May 10. Temple work. Motion and the team can schedule meetings in that window if not explicitly blocked. Block it today.</div>
+            <div class="chips"><span class="chip">Wednesday</span><span class="chip">Matt · Calendar</span></div>
+            <div class="src-row"><button class="src">📅 Block in Motion</button></div>
           </div>
         </div>
       </div>
@@ -3780,17 +4003,17 @@
       <div class="stat-card">
         <div class="stat-label">Priorities today</div>
         <div class="stat-value rust">5</div>
-        <div class="stat-sub">2 critical · 3 important</div>
+        <div class="stat-sub">3 critical · 2 important</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Meetings today</div>
+        <div class="stat-label">Meetings this week</div>
         <div class="stat-value">4</div>
-        <div class="stat-sub">2h 45m blocked</div>
+        <div class="stat-sub">1 in-person · 3 TBD</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Decisions needed</div>
-        <div class="stat-value gold">2</div>
-        <div class="stat-sub">awaiting Matt today</div>
+        <div class="stat-value gold">3</div>
+        <div class="stat-sub">Xeni · Dan · Extra Points</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Heads-ups</div>
@@ -3808,10 +4031,10 @@
       <div class="timeline-track-wrap">
         <div class="timeline-track" id="timelineTrack">
           <!-- Meeting blocks — timeline: 8 AM to 6 PM = 10 hrs · 1 hr = 10% -->
-          <div class="timeline-block tblock-rust"  style="left:10%;  width:5%"   title="9:00–9:30 AM">Priceline call</div>
-          <div class="timeline-block tblock-gold"  style="left:30%;  width:7.5%" title="11:00–11:45 AM">FSU check-in</div>
-          <div class="timeline-block tblock-moss"  style="left:50%;  width:10%"  title="1:00–2:00 PM">Investor prep</div>
-          <div class="timeline-block tblock-blue"  style="left:75%;  width:5%"   title="3:30–4:00 PM">NACMA review</div>
+          <div class="timeline-block tblock-rust"  style="left:10%;  width:22%" title="In-person meeting — Priceline/Xeni, NACDA, Dan">In-person meeting (morning)</div>
+          <div class="timeline-block tblock-gold"  style="left:37%;  width:10%" title="WVU Bi-weekly Check-in">WVU check-in</div>
+          <div class="timeline-block tblock-moss"  style="left:52%;  width:10%" title="BYU Check-in regular">BYU check-in</div>
+          <div class="timeline-block tblock-blue"  style="left:67%;  width:12%" title="Greg NILnomics — TBD this week">Greg · NILnomics</div>
           <!-- "Now" line — positioned by JS -->
           <div class="timeline-now" id="timelineNow" style="display:none;"></div>
         </div>
@@ -3835,64 +4058,64 @@
 
         <div class="meeting-card">
           <div class="meeting-time-badge">
-            <div class="meeting-time-start">9:00</div>
-            <div class="meeting-time-dur">30 min</div>
+            <div class="meeting-time-start">AM</div>
+            <div class="meeting-time-dur">Monday</div>
           </div>
           <div class="meeting-body">
-            <div class="meeting-title">Priceline vs Xeni Decision Call</div>
+            <div class="meeting-title">In-person meeting — Priceline/Xeni, NACDA, Dan</div>
             <div class="meeting-attendees">Scott Stevens · Spencer Lee</div>
             <div class="meeting-foot">
-              <span class="meeting-type mtype-decision">Decision</span>
-              <span class="chip rust">Window closes Thu</span>
-              <button class="meeting-join-btn">Join Zoom ↗</button>
+              <span class="meeting-type mtype-decision">3 decisions</span>
+              <span class="chip rust">Prep required</span>
+              <button class="meeting-join-btn">View agenda ↗</button>
             </div>
           </div>
         </div>
 
         <div class="meeting-card">
           <div class="meeting-time-badge">
-            <div class="meeting-time-start">11:00</div>
-            <div class="meeting-time-dur">45 min</div>
+            <div class="meeting-time-start">TBD</div>
+            <div class="meeting-time-dur">This wk</div>
           </div>
           <div class="meeting-body">
-            <div class="meeting-title">FSU Onboarding Check-in</div>
-            <div class="meeting-attendees">Scott Stevens</div>
+            <div class="meeting-title">Meeting with Greg — NILnomics post-PhD</div>
+            <div class="meeting-attendees">Greg (NILnomics) · Daniel Arellano</div>
             <div class="meeting-foot">
-              <span class="meeting-type mtype-client">Client</span>
-              <span class="chip gold">NACMA goal</span>
-              <button class="meeting-join-btn">Join Zoom ↗</button>
+              <span class="meeting-type mtype-investor">Partnership</span>
+              <span class="chip gold">Loyalty index pending</span>
+              <button class="meeting-join-btn">Confirm time ↗</button>
             </div>
           </div>
         </div>
 
         <div class="meeting-card">
           <div class="meeting-time-badge">
-            <div class="meeting-time-start">1:00</div>
-            <div class="meeting-time-dur">60 min</div>
+            <div class="meeting-time-start">Q2</div>
+            <div class="meeting-time-dur">Bi-wk</div>
           </div>
           <div class="meeting-body">
-            <div class="meeting-title">Investor Pitch Prep</div>
-            <div class="meeting-attendees">Todd (Investor)</div>
+            <div class="meeting-title">WVU Bi-weekly Check-in — Taylor & Corie</div>
+            <div class="meeting-attendees">Taylor · Corie (WVU) · Scott Stevens</div>
             <div class="meeting-foot">
-              <span class="meeting-type mtype-investor">Investor</span>
-              <span class="chip">SPV round</span>
-              <button class="meeting-join-btn">Join Zoom ↗</button>
+              <span class="meeting-type mtype-client">Active client</span>
+              <span class="chip">NIL · Social · Product</span>
+              <button class="meeting-join-btn">View agenda ↗</button>
             </div>
           </div>
         </div>
 
         <div class="meeting-card">
           <div class="meeting-time-badge">
-            <div class="meeting-time-start">3:30</div>
-            <div class="meeting-time-dur">30 min</div>
+            <div class="meeting-time-start">Q2</div>
+            <div class="meeting-time-dur">BYU</div>
           </div>
           <div class="meeting-body">
-            <div class="meeting-title">NACMA Strategy Review</div>
-            <div class="meeting-attendees">Scott Stevens · Spencer Lee</div>
+            <div class="meeting-title">BYU Regular Check-in — Eric</div>
+            <div class="meeting-attendees">Eric (BYU) · Scott Stevens</div>
             <div class="meeting-foot">
-              <span class="meeting-type mtype-internal">Internal</span>
-              <span class="chip">35 days left</span>
-              <button class="meeting-join-btn">Join Zoom ↗</button>
+              <span class="meeting-type mtype-client">Active client</span>
+              <span class="chip moss">First session</span>
+              <button class="meeting-join-btn">View agenda ↗</button>
             </div>
           </div>
         </div>
@@ -3914,13 +4137,12 @@
       <div class="priority-item">
         <div class="priority-rank p1">1</div>
         <div class="priority-body">
-          <div class="priority-title">Decide Priceline vs Xeni — pricing window closes Thursday</div>
-          <div class="priority-why">Call at 9:00 AM with Scott + Spencer. Window closes EOD Wednesday or you lose the startup rate — this also affects FSU launch timing. Scott leans Priceline; Spencer still evaluating API access.</div>
+          <div class="priority-title">Decide Priceline vs Xeni before Monday's meeting</div>
+          <div class="priority-why">The team is waiting on your go/no-go. Scott recommends Xeni: faster, flights included for FSU, higher revenue. Priceline is restructuring. The decision unlocks athlete attribution, planning with Sean, and technical architecture. In-person meeting Monday.</div>
           <div class="priority-meta">
-            <span class="priority-source">💬 Slack · #waypoint-product-technology</span>
+            <span class="priority-source">💬 #waypoint-product-technology · May 7</span>
             <span class="priority-source">✅ Motion</span>
-            <span class="priority-source">📧 Email</span>
-            <span class="priority-link">9:00 AM call today →</span>
+            <span class="priority-link">Monday meeting →</span>
           </div>
         </div>
       </div>
@@ -3928,13 +4150,12 @@
       <div class="priority-item">
         <div class="priority-rank p2">2</div>
         <div class="priority-body">
-          <div class="priority-title">Reply to Jackson Macedone — SPV investor at 25-day silence</div>
-          <div class="priority-why">Investors go cold around 30 days. Five days left before this lead likely disappears. Cross-referenced in email (unanswered), Motion task (stuck in Review), and Slack (zero mentions in any channel).</div>
+          <div class="priority-title">Send loyalty index data to Greg (NILnomics) before the meeting</div>
+          <div class="priority-why">Daniel scheduled the meeting for this week. Matt confirmed: "Yes let's do thanks I need to get him data." The first cut is pending Matt. If not sent beforehand, the meeting loses its value.</div>
           <div class="priority-meta">
-            <span class="priority-source">📧 Email · 25 days</span>
+            <span class="priority-source">💬 #vs-operating-system · May 7</span>
             <span class="priority-source">✅ Motion</span>
-            <span class="priority-source">💬 Slack</span>
-            <span class="priority-link">Open draft reply →</span>
+            <span class="priority-link">Build cut →</span>
           </div>
         </div>
       </div>
@@ -3942,12 +4163,12 @@
       <div class="priority-item">
         <div class="priority-rank p3">3</div>
         <div class="priority-body">
-          <div class="priority-title">Nail FSU this week — activate seminoles.travel booking system</div>
-          <div class="priority-why">Matt said "nail FSU next week" in #general. Check-in at 11:00 AM. FSU only counts as School 3 toward the NACMA goal once the booking system is live — tools need to be activated first.</div>
+          <div class="priority-title">Decide on Dan — renew contract and NACDA this week or not</div>
+          <div class="priority-why">Scott flagged on May 7 that the 3-month contract expires "next week or so." Dan wants to know if he's going to NACDA. Without a decision this week, the agreement expires by default and a key BD ally is lost for the most important event of the year.</div>
           <div class="priority-meta">
-            <span class="priority-source">💬 Slack · #general</span>
+            <span class="priority-source">💬 #waypoint-bizdev · May 7</span>
             <span class="priority-source">✅ Motion</span>
-            <span class="priority-link">11:00 AM check-in →</span>
+            <span class="priority-link">View thread →</span>
           </div>
         </div>
       </div>
@@ -3955,12 +4176,11 @@
       <div class="priority-item">
         <div class="priority-rank p4">4</div>
         <div class="priority-body">
-          <div class="priority-title">Send WV amendment terms to Paul Coelho</div>
-          <div class="priority-why">18 days stalled. Paul's last email says it could block the West Virginia signature this week. Sending today removes the legal blocker and frees up contract finalization.</div>
+          <div class="priority-title">Pay Daniel Arellano — 3 days pending</div>
+          <div class="priority-why">Matt Sanders (May 7): "Sorry I haven't sent payment yet!!!" — 3 days with no visible resolution. Pending payment to an active and key member of the operating team.</div>
           <div class="priority-meta">
-            <span class="priority-source">📧 Email · 18 days</span>
-            <span class="priority-source">✅ Motion</span>
-            <span class="priority-link">Open in Gmail →</span>
+            <span class="priority-source">💬 #vs-operating-system · May 7</span>
+            <span class="priority-link">Send payment →</span>
           </div>
         </div>
       </div>
@@ -3968,12 +4188,12 @@
       <div class="priority-item">
         <div class="priority-rank p5">5</div>
         <div class="priority-body">
-          <div class="priority-title">Sign off on NIL athlete profiles — Landon waiting on approval</div>
-          <div class="priority-why">Landon sent sample candidates 4 days ago and needs your sign-off to proceed with the NIL ambassador program. No follow-up yet — will become critical by end of week.</div>
+          <div class="priority-title">Confirm fan graph bug closure with Spencer before Monday</div>
+          <div class="priority-why">Spencer (May 10): "needs some bug smashing." Preview sent, Scott tested on May 9. No confirmation that all bugs are closed. Monday's meeting includes a fan graph demo — it needs to be clean.</div>
           <div class="priority-meta">
-            <span class="priority-source">📧 Email · 4 days</span>
-            <span class="priority-source">✅ Motion · NIL Portal</span>
-            <span class="priority-link">Review profiles →</span>
+            <span class="priority-source">💬 #waypoint-product-technology · May 10</span>
+            <span class="priority-source">🔗 Preview link</span>
+            <span class="priority-link">Check with Spencer →</span>
           </div>
         </div>
       </div>
@@ -3988,28 +4208,28 @@
     <div class="headsup-grid">
 
       <div class="headsup-card">
-        <div class="headsup-icon">⏱</div>
+        <div class="headsup-icon">⛺</div>
         <div class="headsup-body">
-          <div class="headsup-title">FSU contract has a 48-hour response clause (§4.2)</div>
-          <div class="headsup-desc">Spencer flagged this 5 hours ago via email. Legal review needed before Friday or the clause defaults automatically. Paul Coelho has been copied — confirm he's on it.</div>
+          <div class="headsup-title">Fan graph only on Matt's laptop — risk of failed demo</div>
+          <div class="headsup-desc">Matt (May 5): "Currently only on my laptop." If Matt can't connect or there's a technical failure, no one else can run demos. Before Monday's meeting, make sure Spencer also has access.</div>
         </div>
-        <span class="headsup-tag htag-urgent">Urgent</span>
+        <span class="headsup-tag htag-urgent">High risk</span>
       </div>
 
       <div class="headsup-card">
-        <div class="headsup-icon">📣</div>
+        <div class="headsup-icon">📅</div>
         <div class="headsup-body">
-          <div class="headsup-title">Julia's influencer post missed brand guidelines</div>
-          <div class="headsup-desc">Video posted without Waypoint logo and WV branded gear. Scott still needs to follow up formally before her next post — letting it slide sets a bad precedent for the ambassador program.</div>
+          <div class="headsup-title">Block Wednesday 6:30am–11:30am on the calendar</div>
+          <div class="headsup-desc">Announced May 10. Temple work. Motion and the team can schedule meetings in that window if not explicitly blocked. Do it today.</div>
         </div>
         <span class="headsup-tag htag-warn">Today</span>
       </div>
 
       <div class="headsup-card">
-        <div class="headsup-icon">📬</div>
+        <div class="headsup-icon">🔇</div>
         <div class="headsup-body">
-          <div class="headsup-title">Three scheduling requests sitting in your inbox</div>
-          <div class="headsup-desc">Coley Krieg (30 min catch-up), Brandon from Big 12 (product follow-up), and Dan Robinson (reschedule) are all waiting. Motion has auto-blocked candidate slots — review before end of day.</div>
+          <div class="headsup-title">Silent projects: EcoSolutions, B12 Playbook, and SPV with no mentions in 14 days</div>
+          <div class="headsup-desc">EcoSolutions: zero mentions in any channel. Big 12 / CFO Playbook: 24+ days without movement. SPV / Build Fund: only appears in task list, no visible momentum in channels. Close, pause, or reassign?</div>
         </div>
         <span class="headsup-tag htag-info">FYI</span>
       </div>
