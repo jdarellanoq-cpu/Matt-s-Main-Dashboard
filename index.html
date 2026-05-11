@@ -4006,9 +4006,9 @@
         <div class="stat-sub">3 critical · 2 important</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Meetings this week</div>
-        <div class="stat-value">4</div>
-        <div class="stat-sub">1 in-person · 3 TBD</div>
+        <div class="stat-label">Meetings today</div>
+        <div class="stat-value">3</div>
+        <div class="stat-sub">5h total blocked</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Decisions needed</div>
@@ -4031,10 +4031,9 @@
       <div class="timeline-track-wrap">
         <div class="timeline-track" id="timelineTrack">
           <!-- Meeting blocks — timeline: 8 AM to 6 PM = 10 hrs · 1 hr = 10% -->
-          <div class="timeline-block tblock-rust"  style="left:10%;  width:22%" title="In-person meeting — Priceline/Xeni, NACDA, Dan">In-person meeting (morning)</div>
-          <div class="timeline-block tblock-gold"  style="left:37%;  width:10%" title="WVU Bi-weekly Check-in">WVU check-in</div>
-          <div class="timeline-block tblock-moss"  style="left:52%;  width:10%" title="BYU Check-in regular">BYU check-in</div>
-          <div class="timeline-block tblock-blue"  style="left:67%;  width:12%" title="Greg NILnomics — TBD this week">Greg · NILnomics</div>
+          <div class="timeline-block tblock-moss"  style="left:20%;  width:10%" title="10:00–11:00 AM · Meeting with Daniel">Daniel</div>
+          <div class="timeline-block tblock-rust"  style="left:50%;  width:30%" title="1:00–4:00 PM · Waypoint Team Meeting (in-person)">Waypoint team meeting</div>
+          <div class="timeline-block tblock-gold"  style="left:80%;  width:10%" title="4:00–5:00 PM · Financing Discussion — Longitude">Financing</div>
           <!-- "Now" line — positioned by JS -->
           <div class="timeline-now" id="timelineNow" style="display:none;"></div>
         </div>
@@ -4058,64 +4057,46 @@
 
         <div class="meeting-card">
           <div class="meeting-time-badge">
-            <div class="meeting-time-start">AM</div>
-            <div class="meeting-time-dur">Monday</div>
+            <div class="meeting-time-start">10:00</div>
+            <div class="meeting-time-dur">60 min</div>
           </div>
           <div class="meeting-body">
-            <div class="meeting-title">In-person meeting — Priceline/Xeni, NACDA, Dan</div>
-            <div class="meeting-attendees">Scott Stevens · Spencer Lee</div>
+            <div class="meeting-title">Meeting with Daniel</div>
+            <div class="meeting-attendees">Daniel Arellano</div>
             <div class="meeting-foot">
-              <span class="meeting-type mtype-decision">3 decisions</span>
-              <span class="chip rust">Prep required</span>
-              <button class="meeting-join-btn">View agenda ↗</button>
+              <span class="meeting-type mtype-internal">Internal</span>
+              <button class="meeting-join-btn">View in Calendar ↗</button>
             </div>
           </div>
         </div>
 
         <div class="meeting-card">
           <div class="meeting-time-badge">
-            <div class="meeting-time-start">TBD</div>
-            <div class="meeting-time-dur">This wk</div>
+            <div class="meeting-time-start">1:00</div>
+            <div class="meeting-time-dur">3 hrs</div>
           </div>
           <div class="meeting-body">
-            <div class="meeting-title">Meeting with Greg — NILnomics post-PhD</div>
-            <div class="meeting-attendees">Greg (NILnomics) · Daniel Arellano</div>
+            <div class="meeting-title">Waypoint Team Meeting</div>
+            <div class="meeting-attendees">Scott Stevens · Spencer Lee · Full team</div>
             <div class="meeting-foot">
-              <span class="meeting-type mtype-investor">Partnership</span>
-              <span class="chip gold">Loyalty index pending</span>
-              <button class="meeting-join-btn">Confirm time ↗</button>
+              <span class="meeting-type mtype-decision">In-person</span>
+              <span class="chip rust">3h block</span>
+              <button class="meeting-join-btn">View in Calendar ↗</button>
             </div>
           </div>
         </div>
 
         <div class="meeting-card">
           <div class="meeting-time-badge">
-            <div class="meeting-time-start">Q2</div>
-            <div class="meeting-time-dur">Bi-wk</div>
+            <div class="meeting-time-start">4:00</div>
+            <div class="meeting-time-dur">60 min</div>
           </div>
           <div class="meeting-body">
-            <div class="meeting-title">WVU Bi-weekly Check-in — Taylor & Corie</div>
-            <div class="meeting-attendees">Taylor · Corie (WVU) · Scott Stevens</div>
+            <div class="meeting-title">Financing Discussion</div>
+            <div class="meeting-attendees">Longitude team</div>
             <div class="meeting-foot">
-              <span class="meeting-type mtype-client">Active client</span>
-              <span class="chip">NIL · Social · Product</span>
-              <button class="meeting-join-btn">View agenda ↗</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="meeting-card">
-          <div class="meeting-time-badge">
-            <div class="meeting-time-start">Q2</div>
-            <div class="meeting-time-dur">BYU</div>
-          </div>
-          <div class="meeting-body">
-            <div class="meeting-title">BYU Regular Check-in — Eric</div>
-            <div class="meeting-attendees">Eric (BYU) · Scott Stevens</div>
-            <div class="meeting-foot">
-              <span class="meeting-type mtype-client">Active client</span>
-              <span class="chip moss">First session</span>
-              <button class="meeting-join-btn">View agenda ↗</button>
+              <span class="meeting-type mtype-investor">Financing</span>
+              <button class="meeting-join-btn">View in Calendar ↗</button>
             </div>
           </div>
         </div>
