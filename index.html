@@ -1928,6 +1928,348 @@
     height: 1px;
     background: var(--line);
   }
+
+  /* DAILY BREATH */
+  .daily-header { margin-bottom: 24px; }
+  .daily-eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    margin-bottom: 4px;
+  }
+  .daily-date {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--charcoal);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .daily-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--charcoal-mute);
+    line-height: 1.5;
+  }
+  .ai-synth-note {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    margin: -6px 0 14px;
+  }
+
+  /* TIMELINE */
+  .timeline-outer { margin-bottom: 28px; }
+  .timeline-track-wrap {
+    position: relative;
+    padding-top: 22px;
+    margin-bottom: 6px;
+  }
+  .timeline-track {
+    position: relative;
+    height: 52px;
+    background: var(--bark-deep);
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    overflow: visible;
+  }
+  .timeline-block {
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: 'Manrope', sans-serif;
+    letter-spacing: 0.02em;
+    cursor: default;
+    transition: opacity 0.15s;
+  }
+  .timeline-block:hover { opacity: 0.75; }
+  .tblock-moss { background: rgba(61, 90, 56, 0.22); color: var(--moss); }
+  .tblock-gold { background: rgba(184, 132, 42, 0.22); color: var(--gold); }
+  .tblock-rust { background: rgba(160, 74, 42, 0.22); color: var(--rust); }
+  .tblock-blue { background: rgba(90, 120, 152, 0.2); color: #4A6580; }
+  .timeline-now {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--rust);
+    opacity: 0.65;
+    z-index: 2;
+  }
+  .timeline-now::before {
+    content: 'now';
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: var(--rust);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: 'Manrope', sans-serif;
+    white-space: nowrap;
+  }
+  .timeline-hours {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1px;
+    margin-top: 6px;
+  }
+  .timeline-hour-label {
+    font-size: 10px;
+    color: var(--charcoal-mute);
+    font-weight: 500;
+    font-family: 'Manrope', sans-serif;
+  }
+
+  /* MEETING CARDS */
+  .meeting-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  @media (max-width: 880px) {
+    .meeting-cards { grid-template-columns: 1fr; }
+  }
+  .meeting-card {
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: all 0.15s;
+  }
+  .meeting-card:hover { border-color: var(--charcoal-mute); transform: translateY(-1px); }
+  .meeting-time-badge {
+    flex-shrink: 0;
+    background: var(--bark-deep);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 6px 10px;
+    text-align: center;
+    min-width: 54px;
+  }
+  .meeting-time-start {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1;
+  }
+  .meeting-time-dur {
+    font-size: 9px;
+    color: var(--charcoal-mute);
+    margin-top: 3px;
+    font-weight: 500;
+    font-family: 'Manrope', sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .meeting-body { flex: 1; min-width: 0; }
+  .meeting-title {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+  }
+  .meeting-attendees {
+    font-size: 12px;
+    color: var(--charcoal-soft);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .meeting-foot {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .meeting-type {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: 'Manrope', sans-serif;
+  }
+  .mtype-internal { background: var(--bark-deep); color: var(--charcoal-mute); border: 1px solid var(--line-soft); }
+  .mtype-client { background: var(--moss-light); color: var(--moss); }
+  .mtype-investor { background: var(--gold-faint); color: var(--gold); border: 1px solid rgba(184,132,42,0.2); }
+  .mtype-decision { background: var(--rust-faint); color: var(--rust); border: 1px solid rgba(160,74,42,0.2); }
+  .meeting-join-btn {
+    font-family: 'Manrope', sans-serif;
+    font-size: 10.5px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--bark-deep);
+    color: var(--charcoal-soft);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .meeting-join-btn:hover { background: var(--charcoal); color: var(--bark); border-color: var(--charcoal); }
+
+  /* PRIORITY LIST */
+  .priority-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .priority-item {
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: all 0.15s;
+  }
+  .priority-item:hover { border-color: var(--charcoal-mute); }
+  .priority-rank {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bark-deep);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--charcoal-mute);
+    margin-top: 1px;
+  }
+  .priority-rank.p1, .priority-rank.p2 { background: var(--rust-faint); border-color: rgba(160,74,42,0.25); color: var(--rust); }
+  .priority-rank.p3, .priority-rank.p4 { background: var(--gold-faint); border-color: rgba(184,132,42,0.25); color: var(--gold); }
+  .priority-body { flex: 1; min-width: 0; }
+  .priority-title {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+  }
+  .priority-why {
+    font-size: 12.5px;
+    color: var(--charcoal-soft);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .priority-meta {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .priority-source {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    background: var(--bark-deep);
+    color: var(--charcoal-mute);
+    border: 1px solid var(--line-soft);
+    font-weight: 500;
+    font-family: 'Manrope', sans-serif;
+  }
+  .priority-link {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .priority-link:hover { color: var(--charcoal); }
+
+  /* HEADS-UPS */
+  .headsup-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .headsup-card {
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 13px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .headsup-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+  .headsup-body { flex: 1; min-width: 0; }
+  .headsup-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 3px;
+    font-family: 'Manrope', sans-serif;
+    line-height: 1.3;
+  }
+  .headsup-desc { font-size: 12px; color: var(--charcoal-soft); line-height: 1.5; }
+  .headsup-tag {
+    flex-shrink: 0;
+    font-size: 10px;
+    padding: 3px 9px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'Manrope', sans-serif;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+  .htag-urgent { background: var(--rust-faint); color: var(--rust); }
+  .htag-warn { background: var(--gold-faint); color: var(--gold); }
+  .htag-info { background: var(--bark-deep); color: var(--charcoal-soft); border: 1px solid var(--line-soft); }
+
+  /* DAILY FOOTER */
+  .daily-footer {
+    margin-top: 8px;
+    padding: 14px 18px;
+    background: var(--bark-deep);
+    border-radius: 8px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    text-align: center;
+    border: 1px solid var(--line-soft);
+  }
 </style>
 </head>
 <body>
@@ -2095,6 +2437,7 @@
     <button class="tab" draggable="true" data-tab-id="projects" onclick="switchTab('projects', this)">Projects <span class="tab-count neutral">16</span></button>
     <button class="tab" draggable="true" data-tab-id="ontrack" onclick="switchTab('ontrack', this)">On Track <span class="tab-count moss">8</span></button>
     <button class="tab" draggable="true" data-tab-id="weekly" onclick="switchTab('weekly', this)">Weekly Brief <span class="tab-count neutral">9</span></button>
+    <button class="tab" draggable="true" data-tab-id="daily" onclick="switchTab('daily', this)">Daily Brief <span class="tab-count amber">5</span></button>
   </nav>
 
   <!-- NEEDS ATTENTION -->
@@ -3422,6 +3765,264 @@
     </div>
   </div>
 
+  <!-- DAILY BREATH -->
+  <div id="panel-daily" class="panel">
+
+    <!-- Header -->
+    <div class="daily-header">
+      <div class="daily-eyebrow">— DailyBreath —</div>
+      <div class="daily-date" id="dailyDate">Monday, May 11</div>
+      <div class="daily-sub">Synthesized by Claude from Motion · Slack · Email · Calendar — refreshes at 6 AM daily</div>
+    </div>
+
+    <!-- Quick stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Priorities today</div>
+        <div class="stat-value rust">5</div>
+        <div class="stat-sub">2 critical · 3 important</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Meetings today</div>
+        <div class="stat-value">4</div>
+        <div class="stat-sub">2h 45m blocked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Decisions needed</div>
+        <div class="stat-value gold">2</div>
+        <div class="stat-sub">awaiting Matt today</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Heads-ups</div>
+        <div class="stat-value gold">3</div>
+        <div class="stat-sub">know before you start</div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="sub-label">
+      <span class="sub-label-bullet" style="background: #5A7898;"></span>
+      Today's schedule
+    </div>
+    <div class="timeline-outer">
+      <div class="timeline-track-wrap">
+        <div class="timeline-track" id="timelineTrack">
+          <!-- Meeting blocks — timeline: 8 AM to 6 PM = 10 hrs · 1 hr = 10% -->
+          <div class="timeline-block tblock-rust"  style="left:10%;  width:5%"   title="9:00–9:30 AM">Priceline call</div>
+          <div class="timeline-block tblock-gold"  style="left:30%;  width:7.5%" title="11:00–11:45 AM">FSU check-in</div>
+          <div class="timeline-block tblock-moss"  style="left:50%;  width:10%"  title="1:00–2:00 PM">Investor prep</div>
+          <div class="timeline-block tblock-blue"  style="left:75%;  width:5%"   title="3:30–4:00 PM">NACMA review</div>
+          <!-- "Now" line — positioned by JS -->
+          <div class="timeline-now" id="timelineNow" style="display:none;"></div>
+        </div>
+      </div>
+      <div class="timeline-hours">
+        <span class="timeline-hour-label">8 AM</span>
+        <span class="timeline-hour-label">9</span>
+        <span class="timeline-hour-label">10</span>
+        <span class="timeline-hour-label">11</span>
+        <span class="timeline-hour-label">12 PM</span>
+        <span class="timeline-hour-label">1</span>
+        <span class="timeline-hour-label">2</span>
+        <span class="timeline-hour-label">3</span>
+        <span class="timeline-hour-label">4</span>
+        <span class="timeline-hour-label">5</span>
+        <span class="timeline-hour-label">6 PM</span>
+      </div>
+
+      <!-- Meeting detail cards -->
+      <div class="meeting-cards">
+
+        <div class="meeting-card">
+          <div class="meeting-time-badge">
+            <div class="meeting-time-start">9:00</div>
+            <div class="meeting-time-dur">30 min</div>
+          </div>
+          <div class="meeting-body">
+            <div class="meeting-title">Priceline vs Xeni Decision Call</div>
+            <div class="meeting-attendees">Scott Stevens · Spencer Lee</div>
+            <div class="meeting-foot">
+              <span class="meeting-type mtype-decision">Decision</span>
+              <span class="chip rust">Window closes Thu</span>
+              <button class="meeting-join-btn">Join Zoom ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="meeting-card">
+          <div class="meeting-time-badge">
+            <div class="meeting-time-start">11:00</div>
+            <div class="meeting-time-dur">45 min</div>
+          </div>
+          <div class="meeting-body">
+            <div class="meeting-title">FSU Onboarding Check-in</div>
+            <div class="meeting-attendees">Scott Stevens</div>
+            <div class="meeting-foot">
+              <span class="meeting-type mtype-client">Client</span>
+              <span class="chip gold">NACMA goal</span>
+              <button class="meeting-join-btn">Join Zoom ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="meeting-card">
+          <div class="meeting-time-badge">
+            <div class="meeting-time-start">1:00</div>
+            <div class="meeting-time-dur">60 min</div>
+          </div>
+          <div class="meeting-body">
+            <div class="meeting-title">Investor Pitch Prep</div>
+            <div class="meeting-attendees">Todd (Investor)</div>
+            <div class="meeting-foot">
+              <span class="meeting-type mtype-investor">Investor</span>
+              <span class="chip">SPV round</span>
+              <button class="meeting-join-btn">Join Zoom ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="meeting-card">
+          <div class="meeting-time-badge">
+            <div class="meeting-time-start">3:30</div>
+            <div class="meeting-time-dur">30 min</div>
+          </div>
+          <div class="meeting-body">
+            <div class="meeting-title">NACMA Strategy Review</div>
+            <div class="meeting-attendees">Scott Stevens · Spencer Lee</div>
+            <div class="meeting-foot">
+              <span class="meeting-type mtype-internal">Internal</span>
+              <span class="chip">35 days left</span>
+              <button class="meeting-join-btn">Join Zoom ↗</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TODAY'S PRIORITIES -->
+    <div class="sub-label">
+      <span class="sub-label-bullet bullet-rust"></span>
+      Today's top priorities — AI synthesis
+    </div>
+    <div class="ai-synth-note">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3m-4.22-7.78-2.12 2.12M8.34 15.66l-2.12 2.12M15.66 15.66l2.12 2.12M8.34 8.34 6.22 6.22"/></svg>
+      Ranked by urgency, deadline pressure, and cross-source signal from Motion · Slack · Email
+    </div>
+    <div class="priority-list">
+
+      <div class="priority-item">
+        <div class="priority-rank p1">1</div>
+        <div class="priority-body">
+          <div class="priority-title">Decide Priceline vs Xeni — pricing window closes Thursday</div>
+          <div class="priority-why">Call at 9:00 AM with Scott + Spencer. Window closes EOD Wednesday or you lose the startup rate — this also affects FSU launch timing. Scott leans Priceline; Spencer still evaluating API access.</div>
+          <div class="priority-meta">
+            <span class="priority-source">💬 Slack · #waypoint-product-technology</span>
+            <span class="priority-source">✅ Motion</span>
+            <span class="priority-source">📧 Email</span>
+            <span class="priority-link">9:00 AM call today →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="priority-item">
+        <div class="priority-rank p2">2</div>
+        <div class="priority-body">
+          <div class="priority-title">Reply to Jackson Macedone — SPV investor at 25-day silence</div>
+          <div class="priority-why">Investors go cold around 30 days. Five days left before this lead likely disappears. Cross-referenced in email (unanswered), Motion task (stuck in Review), and Slack (zero mentions in any channel).</div>
+          <div class="priority-meta">
+            <span class="priority-source">📧 Email · 25 days</span>
+            <span class="priority-source">✅ Motion</span>
+            <span class="priority-source">💬 Slack</span>
+            <span class="priority-link">Open draft reply →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="priority-item">
+        <div class="priority-rank p3">3</div>
+        <div class="priority-body">
+          <div class="priority-title">Nail FSU this week — activate seminoles.travel booking system</div>
+          <div class="priority-why">Matt said "nail FSU next week" in #general. Check-in at 11:00 AM. FSU only counts as School 3 toward the NACMA goal once the booking system is live — tools need to be activated first.</div>
+          <div class="priority-meta">
+            <span class="priority-source">💬 Slack · #general</span>
+            <span class="priority-source">✅ Motion</span>
+            <span class="priority-link">11:00 AM check-in →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="priority-item">
+        <div class="priority-rank p4">4</div>
+        <div class="priority-body">
+          <div class="priority-title">Send WV amendment terms to Paul Coelho</div>
+          <div class="priority-why">18 days stalled. Paul's last email says it could block the West Virginia signature this week. Sending today removes the legal blocker and frees up contract finalization.</div>
+          <div class="priority-meta">
+            <span class="priority-source">📧 Email · 18 days</span>
+            <span class="priority-source">✅ Motion</span>
+            <span class="priority-link">Open in Gmail →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="priority-item">
+        <div class="priority-rank p5">5</div>
+        <div class="priority-body">
+          <div class="priority-title">Sign off on NIL athlete profiles — Landon waiting on approval</div>
+          <div class="priority-why">Landon sent sample candidates 4 days ago and needs your sign-off to proceed with the NIL ambassador program. No follow-up yet — will become critical by end of week.</div>
+          <div class="priority-meta">
+            <span class="priority-source">📧 Email · 4 days</span>
+            <span class="priority-source">✅ Motion · NIL Portal</span>
+            <span class="priority-link">Review profiles →</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- HEADS-UPS -->
+    <div class="sub-label">
+      <span class="sub-label-bullet bullet-gold"></span>
+      Heads-ups — know before you start
+    </div>
+    <div class="headsup-grid">
+
+      <div class="headsup-card">
+        <div class="headsup-icon">⏱</div>
+        <div class="headsup-body">
+          <div class="headsup-title">FSU contract has a 48-hour response clause (§4.2)</div>
+          <div class="headsup-desc">Spencer flagged this 5 hours ago via email. Legal review needed before Friday or the clause defaults automatically. Paul Coelho has been copied — confirm he's on it.</div>
+        </div>
+        <span class="headsup-tag htag-urgent">Urgent</span>
+      </div>
+
+      <div class="headsup-card">
+        <div class="headsup-icon">📣</div>
+        <div class="headsup-body">
+          <div class="headsup-title">Julia's influencer post missed brand guidelines</div>
+          <div class="headsup-desc">Video posted without Waypoint logo and WV branded gear. Scott still needs to follow up formally before her next post — letting it slide sets a bad precedent for the ambassador program.</div>
+        </div>
+        <span class="headsup-tag htag-warn">Today</span>
+      </div>
+
+      <div class="headsup-card">
+        <div class="headsup-icon">📬</div>
+        <div class="headsup-body">
+          <div class="headsup-title">Three scheduling requests sitting in your inbox</div>
+          <div class="headsup-desc">Coley Krieg (30 min catch-up), Brandon from Big 12 (product follow-up), and Dan Robinson (reschedule) are all waiting. Motion has auto-blocked candidate slots — review before end of day.</div>
+        </div>
+        <span class="headsup-tag htag-info">FYI</span>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="daily-footer">
+      Powered by Claude · Cross-referenced from Motion · Slack · Email · Calendar — refreshes daily at 6 AM MT
+    </div>
+
+  </div>
+
   <!-- CORE VALUES — THE ROOTS -->
   <section class="values-section">
     <div class="values-head">
@@ -3875,6 +4476,26 @@ function setupBriefTop5() {
   });
 }
 setupBriefTop5();
+
+// DAILY BREATH — set today's date and position "now" line on timeline
+function initDailyBreath() {
+  const today = new Date();
+  const dayName  = today.toLocaleDateString('en-US', { weekday: 'long' });
+  const monthDay = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+  const el = document.getElementById('dailyDate');
+  if (el) el.textContent = `${dayName}, ${monthDay}`;
+
+  const nowLine = document.getElementById('timelineNow');
+  if (nowLine) {
+    const h = today.getHours() + today.getMinutes() / 60;
+    const start = 8, end = 18; // 8 AM – 6 PM
+    if (h >= start && h <= end) {
+      nowLine.style.left = ((h - start) / (end - start) * 100) + '%';
+      nowLine.style.display = 'block';
+    }
+  }
+}
+initDailyBreath();
 </script>
 </body>
 
