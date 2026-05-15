@@ -2279,6 +2279,65 @@
     text-align: center;
     border: 1px solid var(--line-soft);
   }
+
+  /* HOVER FLOAT — subtle lift on interactive cards */
+  .urgent-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.15s;
+  }
+  .urgent-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(31, 27, 22, 0.08);
+    border-color: var(--charcoal-mute);
+  }
+  .alert:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(31, 27, 22, 0.08);
+  }
+  .goal {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.15s;
+  }
+  .goal:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(31, 27, 22, 0.08);
+    border-color: var(--charcoal-mute);
+  }
+  .stat-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(31, 27, 22, 0.08);
+  }
+  .project-card:hover {
+    box-shadow: 0 6px 20px rgba(31, 27, 22, 0.08);
+  }
+  .meeting-card:hover {
+    box-shadow: 0 6px 20px rgba(31, 27, 22, 0.08);
+  }
+  .priority-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(31, 27, 22, 0.08);
+  }
+  .headsup-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.15s;
+  }
+  .headsup-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(31, 27, 22, 0.08);
+    border-color: var(--charcoal-mute);
+  }
+  .email-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(31, 27, 22, 0.07);
+  }
+  .ontrack {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.15s;
+  }
+  .ontrack:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(31, 27, 22, 0.07);
+    border-color: var(--charcoal-mute);
+  }
 </style>
 </head>
 <body>
@@ -4710,6 +4769,59 @@ function initDailyBreath() {
   }
 }
 initDailyBreath();
+
+// EXTERNAL LINKS — wire up all action buttons to their respective services
+function setupExternalLinks() {
+  const rules = [
+    // Gmail — email-related actions
+    { test: /gmail|📧 open|open in gmail|send payment|resend invoice|email.*cramer|email.*erik|email.*paul|view email|view proposal|edit draft|✍️|open dm|copy contacts/i,
+      url: 'https://mail.google.com' },
+    // Slack — channel, thread, or message actions
+    { test: /slack|send in slack|#waypoint|#general|#long-|#vs-|view source|view slack|check with spencer|view thread|view full thread|ask scott|view.*thread/i,
+      url: 'https://slack.com' },
+    // Motion — task management
+    { test: /motion|open in motion|view status in motion|block in motion|create pipeline/i,
+      url: 'https://app.usemotion.com' },
+    // Zoom — meetings
+    { test: /zoom/i,
+      url: 'https://zoom.us' },
+    // Google Calendar — calendar actions
+    { test: /calendar|view agenda|confirm time|monday meeting/i,
+      url: 'https://calendar.google.com' },
+    // NACDA website
+    { test: /nacda\.com/i,
+      url: 'https://nacda.com' },
+    // LinkedIn
+    { test: /linkedin/i,
+      url: 'https://linkedin.com' },
+    // Google Sheets — data / spreadsheet references
+    { test: /google sheets|open data|spreadsheet/i,
+      url: 'https://docs.google.com/spreadsheets' },
+  ];
+
+  const selectors = [
+    '.src', '.rbtn', '.urgent-btn',
+    '.email-action-btn', '.email-action-btn-mini',
+    '.motion-btn', '.meeting-join-btn', '.priority-link'
+  ].join(', ');
+
+  document.querySelectorAll(selectors).forEach(btn => {
+    // Skip buttons that already handle internal logic (e.g. markAttended)
+    if (btn.getAttribute('onclick')) return;
+    const text = btn.textContent.trim();
+    for (const { test, url } of rules) {
+      if (test.test(text)) {
+        btn.style.cursor = 'pointer';
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          window.open(url, '_blank');
+        });
+        break;
+      }
+    }
+  });
+}
+setupExternalLinks();
 </script>
 </body>
 
