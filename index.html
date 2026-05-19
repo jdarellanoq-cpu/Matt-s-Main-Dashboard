@@ -2338,6 +2338,449 @@
     box-shadow: 0 4px 14px rgba(31, 27, 22, 0.07);
     border-color: var(--charcoal-mute);
   }
+
+  /* =========================
+     ASK PANDO — AI CHATBOT
+     ========================= */
+  .pando-hero {
+    text-align: center;
+    padding: 26px 0 28px;
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 30px;
+  }
+
+  .pando-eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 11.5px;
+    letter-spacing: 0.22em;
+    color: var(--charcoal-mute);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .pando-headline {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.08;
+    color: var(--charcoal);
+    margin-bottom: 14px;
+  }
+
+  .pando-headline em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .pando-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--charcoal-soft);
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+
+  /* Search card */
+  .pando-search-card {
+    background: var(--bark-deep);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px 16px 12px;
+    margin-bottom: 38px;
+    box-shadow: 0 6px 24px rgba(31, 27, 22, 0.05);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .pando-search-card:focus-within {
+    border-color: var(--charcoal-soft);
+    box-shadow: 0 12px 36px rgba(31, 27, 22, 0.10);
+  }
+
+  .pando-search-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .pando-search-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--charcoal-mute);
+    flex-shrink: 0;
+  }
+
+  .pando-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    color: var(--charcoal);
+    padding: 10px 0;
+    line-height: 1.4;
+    min-width: 0;
+  }
+
+  .pando-search-input::placeholder {
+    color: var(--charcoal-mute);
+    font-style: italic;
+  }
+
+  .pando-search-btn {
+    background: var(--charcoal);
+    color: var(--bark);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s ease, transform 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .pando-search-btn:hover {
+    background: var(--root);
+    transform: translateY(-1px);
+  }
+
+  .pando-search-btn svg { transition: transform 0.15s ease; }
+  .pando-search-btn:hover svg { transform: translateX(2px); }
+
+  .pando-search-foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-top: 12px;
+    margin-top: 10px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .pando-foot-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--charcoal-mute);
+    font-weight: 600;
+  }
+
+  .pando-source {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 11px 4px 9px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    color: var(--charcoal-soft);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .pando-source:hover {
+    border-color: var(--charcoal-mute);
+  }
+
+  .pando-source.on {
+    border-color: var(--charcoal-soft);
+    color: var(--charcoal);
+  }
+
+  .pando-source-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+
+  .pando-foot-range {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    font-style: italic;
+  }
+
+  /* Suggested prompt grid */
+  .pando-prompt-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 38px;
+  }
+
+  .pando-prompt {
+    background: var(--bark-deep);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px 12px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Manrope', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 124px;
+    transition: all 0.2s ease;
+  }
+
+  .pando-prompt:hover {
+    border-color: var(--charcoal-soft);
+    background: var(--bark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(31, 27, 22, 0.08);
+  }
+
+  .pando-prompt-tag {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .pando-prompt-text {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1.35;
+  }
+
+  .pando-prompt-foot {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    margin-top: auto;
+    font-style: italic;
+  }
+
+  /* Recent asks */
+  .pando-recent {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 38px;
+  }
+
+  .pando-recent-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--bark-deep);
+    padding: 13px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--line-soft);
+    transition: background 0.15s ease;
+  }
+
+  .pando-recent-row:last-child { border-bottom: none; }
+  .pando-recent-row:hover { background: var(--bark); }
+
+  .pando-recent-q {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--charcoal);
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .pando-recent-meta {
+    font-size: 11px;
+    color: var(--charcoal-mute);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  /* Example answer */
+  .pando-example {
+    background: var(--bark-deep);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 28px;
+  }
+
+  .pando-example-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--charcoal-mute);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .pando-example-tag .pando-example-leaf {
+    color: var(--moss);
+  }
+
+  .pando-example-q {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .pando-example-q-text {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    color: var(--charcoal);
+    font-style: italic;
+    line-height: 1.35;
+  }
+
+  .pando-example-a-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .pando-example-summary {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    color: var(--charcoal);
+    line-height: 1.55;
+    font-style: italic;
+    padding: 13px 15px;
+    background: var(--bark);
+    border-left: 3px solid var(--moss);
+    border-radius: 4px;
+  }
+
+  .pando-example-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .pando-example-item-num {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding-top: 2px;
+    width: 22px;
+    flex-shrink: 0;
+  }
+
+  .pando-example-item-body { flex: 1; }
+
+  .pando-example-item-title {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+
+  .pando-example-item-text {
+    font-size: 13px;
+    color: var(--charcoal-soft);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .pando-example-item-text strong {
+    color: var(--rust);
+    font-weight: 600;
+  }
+
+  .pando-example-item-meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .pando-chip {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 10.5px;
+    color: var(--charcoal-mute);
+    letter-spacing: 0.02em;
+    font-weight: 500;
+  }
+
+  .pando-example-followup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-top: 14px;
+    margin-top: 4px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .pando-example-followup-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--charcoal-mute);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  .pando-example-followup-btn {
+    background: var(--bark);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    color: var(--charcoal);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .pando-example-followup-btn:hover {
+    border-color: var(--charcoal-soft);
+    background: var(--bark-deep);
+    transform: translateY(-1px);
+  }
+
+  .pando-footer {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--charcoal-mute);
+    padding-top: 22px;
+    border-top: 1px solid var(--line-soft);
+    margin-top: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .pando-prompt-grid { grid-template-columns: repeat(2, 1fr); }
+    .pando-headline { font-size: 32px; }
+  }
+
+  @media (max-width: 600px) {
+    .pando-headline { font-size: 26px; }
+    .pando-prompt-grid { grid-template-columns: 1fr; }
+    .pando-search-row { flex-wrap: wrap; }
+    .pando-search-btn { width: 100%; justify-content: center; }
+    .pando-foot-range { margin-left: 0; width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -2550,6 +2993,7 @@
     <button class="tab" draggable="true" data-tab-id="ontrack" onclick="switchTab('ontrack', this)">On Track <span class="tab-count moss">8</span></button>
     <button class="tab" draggable="true" data-tab-id="weekly" onclick="switchTab('weekly', this)">Weekly Brief <span class="tab-count neutral">9</span></button>
     <button class="tab" draggable="true" data-tab-id="daily" onclick="switchTab('daily', this)">Daily Brief <span class="tab-count amber">5</span></button>
+    <button class="tab" draggable="true" data-tab-id="pando" onclick="switchTab('pando', this)">Ask Pando <span class="tab-count moss">✦</span></button>
   </nav>
 
   <!-- NEEDS ATTENTION -->
@@ -4292,6 +4736,192 @@
     <!-- Footer -->
     <div class="daily-footer">
       Powered by Claude · Cross-referenced from Motion · Slack · Email · Calendar — refreshes daily at 6 AM MT
+    </div>
+
+  </div>
+
+  <!-- ASK PANDO — AI CHATBOT -->
+  <div id="panel-pando" class="panel">
+
+    <!-- Hero -->
+    <div class="pando-hero">
+      <div class="pando-eyebrow">— Ask Pando —</div>
+      <div class="pando-headline">Ask anything, <em>Matt.</em></div>
+      <div class="pando-sub">Pando reads across your operating system — 60 days of Slack, Gmail, Motion tasks, and meetings — and answers in one breath.</div>
+    </div>
+
+    <!-- Search card -->
+    <div class="pando-search-card">
+      <div class="pando-search-row">
+        <svg class="pando-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="21" y1="21" x2="16.5" y2="16.5"/>
+        </svg>
+        <input type="text" class="pando-search-input" placeholder='Try "What are the open follow-ups with Scott?" or "Where did Paul leave the WV amendment?"'>
+        <button class="pando-search-btn" type="button">
+          Ask
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="13 6 19 12 13 18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="pando-search-foot">
+        <span class="pando-foot-label">Searching</span>
+        <button class="pando-source on" type="button">
+          <span class="pando-source-dot" style="background: var(--gold);"></span>
+          Slack
+        </button>
+        <button class="pando-source on" type="button">
+          <span class="pando-source-dot" style="background: var(--rust);"></span>
+          Gmail
+        </button>
+        <button class="pando-source on" type="button">
+          <span class="pando-source-dot" style="background: var(--moss);"></span>
+          Motion
+        </button>
+        <button class="pando-source on" type="button">
+          <span class="pando-source-dot" style="background: var(--root);"></span>
+          Calendar
+        </button>
+        <span class="pando-foot-range">Last 60 days · ~12,400 items indexed</span>
+      </div>
+    </div>
+
+    <!-- Suggested prompts -->
+    <div class="sub-label">
+      <span class="sub-label-bullet" style="background: var(--gold);"></span>
+      Try one of these
+    </div>
+    <div class="pando-prompt-grid">
+      <button class="pando-prompt" type="button">
+        <div class="pando-prompt-tag">Before 1:1</div>
+        <div class="pando-prompt-text">What are my open follow-ups with Scott?</div>
+        <div class="pando-prompt-foot">Slack · Gmail · Motion</div>
+      </button>
+      <button class="pando-prompt" type="button">
+        <div class="pando-prompt-tag">Recall</div>
+        <div class="pando-prompt-text">Summarize my last 3 conversations with Eric (BYU)</div>
+        <div class="pando-prompt-foot">Gmail · Calendar</div>
+      </button>
+      <button class="pando-prompt" type="button">
+        <div class="pando-prompt-tag">Pending decisions</div>
+        <div class="pando-prompt-text">What has Spencer asked me to decide on this month?</div>
+        <div class="pando-prompt-foot">Slack · Email</div>
+      </button>
+      <button class="pando-prompt" type="button">
+        <div class="pando-prompt-tag">Status</div>
+        <div class="pando-prompt-text">Where did Paul leave the WV amendment terms?</div>
+        <div class="pando-prompt-foot">Gmail · Motion</div>
+      </button>
+      <button class="pando-prompt" type="button">
+        <div class="pando-prompt-tag">Commitments</div>
+        <div class="pando-prompt-text">What promises have I made this month that are still open?</div>
+        <div class="pando-prompt-foot">All sources</div>
+      </button>
+      <button class="pando-prompt" type="button">
+        <div class="pando-prompt-tag">Search</div>
+        <div class="pando-prompt-text">Pull every mention of NACMA in the last 30 days</div>
+        <div class="pando-prompt-foot">Slack · Gmail</div>
+      </button>
+    </div>
+
+    <!-- Recent asks -->
+    <div class="sub-label">
+      <span class="sub-label-bullet" style="background: var(--charcoal-mute);"></span>
+      Recent asks
+    </div>
+    <div class="pando-recent">
+      <div class="pando-recent-row">
+        <div class="pando-recent-q">"What did Scott commit to in last Friday's call?"</div>
+        <div class="pando-recent-meta">7 sources · 2 days ago</div>
+      </div>
+      <div class="pando-recent-row">
+        <div class="pando-recent-q">"Show me everything from Jackson Macedone in the last 30 days"</div>
+        <div class="pando-recent-meta">4 sources · 4 days ago</div>
+      </div>
+      <div class="pando-recent-row">
+        <div class="pando-recent-q">"What's the status of the Big 12 / CFO playbook?"</div>
+        <div class="pando-recent-meta">5 sources · 1 week ago</div>
+      </div>
+      <div class="pando-recent-row">
+        <div class="pando-recent-q">"Pull every NACMA contact and their last interaction"</div>
+        <div class="pando-recent-meta">9 sources · 1 week ago</div>
+      </div>
+    </div>
+
+    <!-- Example answer -->
+    <div class="sub-label">
+      <span class="sub-label-bullet" style="background: var(--moss);"></span>
+      What an answer looks like
+    </div>
+    <div class="pando-example">
+      <div class="pando-example-q">
+        <div class="pando-example-tag">You asked</div>
+        <div class="pando-example-q-text">"What are the open follow-ups with Scott?"</div>
+      </div>
+      <div class="pando-example-a">
+        <div class="pando-example-tag">
+          <svg class="pando-example-leaf" width="11" height="13" viewBox="0 0 14 16" fill="none">
+            <path d="M7 1 C4 3, 1.5 5.5, 1.5 9 C1.5 12.5, 4.5 15, 7 15.5 C9.5 15, 12.5 12.5, 12.5 9 C12.5 5.5, 10 3, 7 1 Z" fill="currentColor" opacity="0.85"/>
+            <line x1="7" y1="1" x2="7" y2="15.5" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
+          </svg>
+          Pando · synthesized from 7 items
+        </div>
+        <div class="pando-example-a-body">
+          <div class="pando-example-summary">3 open items with Scott in the last 60 days. None are blocking, but all touch this week's priorities — and one has been sitting unanswered for 4 days.</div>
+
+          <div class="pando-example-item">
+            <div class="pando-example-item-num">01</div>
+            <div class="pando-example-item-body">
+              <div class="pando-example-item-title">Dan's contract decision</div>
+              <div class="pando-example-item-text">Scott flagged on May 7 that Dan's 3-month agreement runs out "next week or so." Asked whether to renew and whether Dan goes to NACDA. <strong>You haven't responded yet — 4 days open.</strong></div>
+              <div class="pando-example-item-meta">
+                <span class="pando-chip">Slack · #waypoint</span>
+                <span class="pando-chip">2 messages</span>
+                <span class="pando-chip">May 7</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pando-example-item">
+            <div class="pando-example-item-num">02</div>
+            <div class="pando-example-item-body">
+              <div class="pando-example-item-title">Priceline vs Xeni</div>
+              <div class="pando-example-item-text">Active debate between Scott and Spencer. Scott pushed for Priceline integration; Spencer flagged technical risk. Last message May 6 — neither asked you to decide yet, but the silence is loud.</div>
+              <div class="pando-example-item-meta">
+                <span class="pando-chip">3 Slack messages</span>
+                <span class="pando-chip">1 email thread</span>
+                <span class="pando-chip">May 6</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pando-example-item">
+            <div class="pando-example-item-num">03</div>
+            <div class="pando-example-item-body">
+              <div class="pando-example-item-title">Fan graph bug review</div>
+              <div class="pando-example-item-text">Scott tested the preview on May 9 and reported "needs some bug smashing." No confirmation that bugs are closed before Monday's team meeting.</div>
+              <div class="pando-example-item-meta">
+                <span class="pando-chip">Slack · DM</span>
+                <span class="pando-chip">1 Motion task</span>
+                <span class="pando-chip">May 9</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pando-example-followup">
+            <span class="pando-example-followup-label">Continue</span>
+            <button class="pando-example-followup-btn" type="button">Draft a reply for Scott</button>
+            <button class="pando-example-followup-btn" type="button">Add to today's priorities</button>
+            <button class="pando-example-followup-btn" type="button">Show full source thread</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pando-footer">
+      Pando — fed by Slack · Gmail · Motion · Calendar — answers refresh hourly · powered by Claude
     </div>
 
   </div>
