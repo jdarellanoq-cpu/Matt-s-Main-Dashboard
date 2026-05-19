@@ -38,6 +38,10 @@ When you hit an error:
 **3. Keep workflows current**
 Workflows should evolve as you learn. When you find better methods, discover constraints, or encounter recurring issues, update the workflow. That said, don't create or overwrite workflows without asking unless I explicitly tell you to. These are your instructions and need to be preserved and refined, not tossed after one use.
 
+**4. Do NOT run git push automatically. Do NOT run git commit automatically either. Only do these when I explicitly say so in chat with phrases like "commit this", "push to GitHub", "deploy this", or "upload to GitHub".
+When you make changes to files, only modify the local files and tell me what you changed. I will review the changes in my local browser before deciding whether to push them or not.
+If you ever think a git operation is needed for any reason, ALWAYS ask me for permission in the chat first before running any git command.
+
 ## The Self-Improvement Loop
 
 Every failure is a chance to make the system stronger:
